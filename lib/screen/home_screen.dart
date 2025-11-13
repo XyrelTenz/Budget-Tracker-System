@@ -16,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            spacing: 20,
+            spacing: 10,
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -54,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     topRight: Radius.circular(25),
                   ),
                 ),
+                child: Column(children: <Widget>[Text("Hello")]),
               ),
             ],
           ),

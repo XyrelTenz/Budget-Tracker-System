@@ -9,7 +9,7 @@ class CardItem extends StatelessWidget {
       width: 250,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(10),
       ),
     );
   }
