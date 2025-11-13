@@ -23,7 +23,6 @@ class _NavigationBarState extends State<NavigationWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.yellow[100],
       body: _homeScreen[_selectedIndex],
       bottomNavigationBar: SalomonBottomBar(
         currentIndex: _selectedIndex,

@@ -12,11 +12,18 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.yellow[100],
+      backgroundColor: Colors.grey[200],
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Padding(padding: EdgeInsetsGeometry.only(top: 50, left: 20)),
+                  Text("Xyrel", style: TextStyle(fontSize: 24)),
+                ],
+              ),
               SizedBox(
                 height: 200,
                 child: ListView.separated(
