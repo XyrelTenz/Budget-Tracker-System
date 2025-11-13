@@ -13,7 +13,7 @@ class NavigationWidget extends StatefulWidget {
 }
 
 class _NavigationBarState extends State<NavigationWidget> {
-  final List<Widget> _homeScreen = [
+  final List<Widget> _homeScreen = <Widget>[
     HomeScreen(),
     TransactionScreen(),
     ReportScreen(),
