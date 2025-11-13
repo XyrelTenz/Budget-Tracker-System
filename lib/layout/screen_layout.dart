@@ -16,9 +16,6 @@ class _WelcomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(child: Center(child: Text("hello"))),
-      bottomNavigationBar: NavigationWidget(),
-    );
+    return Scaffold(bottomNavigationBar: NavigationWidget());
   }
 }

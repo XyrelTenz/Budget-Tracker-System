@@ -16,7 +16,23 @@ class _WelcomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: Center(child: Text("Home"))),
+      body: SafeArea(child: Column(children: [Cards()])),
+    );
+  }
+}
+
+class Cards extends StatelessWidget {
+  const Cards({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 150,
+      width: 200,
+      decoration: BoxDecoration(
+        color: Colors.black,
+        borderRadius: BorderRadius.all(Radius.circular(5)),
+      ),
     );
   }
 }
