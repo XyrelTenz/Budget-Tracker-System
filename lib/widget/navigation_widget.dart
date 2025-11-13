@@ -1,4 +1,6 @@
+import 'package:budget_tracker/screen/account_screen.dart';
 import 'package:budget_tracker/screen/home_screen.dart';
+import 'package:budget_tracker/screen/report_screen.dart';
 import 'package:budget_tracker/screen/transaction_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -11,7 +13,12 @@ class NavigationWidget extends StatefulWidget {
 }
 
 class _NavigationBarState extends State<NavigationWidget> {
-  final List<Widget> _homeScreen = [HomeScreen(), TransactionScreen()];
+  final List<Widget> _homeScreen = [
+    HomeScreen(),
+    TransactionScreen(),
+    ReportScreen(),
+    AccountScreen(),
+  ];
   int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
