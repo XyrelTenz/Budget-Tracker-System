@@ -21,7 +21,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Padding(padding: EdgeInsetsGeometry.only(top: 50, left: 20)),
-                  Text("Xyrel", style: TextStyle(fontSize: 24)),
+                  Text(
+                    "Xyrel",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
                 ],
               ),
               SizedBox(
