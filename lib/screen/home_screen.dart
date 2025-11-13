@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class Cards extends StatelessWidget {
+  const Cards({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -9,14 +9,30 @@ class HomeScreen extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child: SizedBox(
-            height: 150,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemCount: 5,
-              separatorBuilder: (context, index) => const SizedBox(width: 10),
-              itemBuilder: (context, index) => const Cards(),
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              GridView.count(
+                crossAxisCount: 1,
+                scrollDirection: Axis.horizontal,
+                primary: false,
+                mainAxisSpacing: 5,
+                crossAxisSpacing: 5,
+                children: [
+                  SizedBox(
+                    height: 100,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      itemCount: 10,
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(width: 10),
+                      itemBuilder: (context, index) => const Cards(),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
@@ -24,8 +40,8 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class Cards extends StatelessWidget {
-  const Cards({super.key});
+class Card extends StatelessWidget {
+  const Card({super.key});
 
   @override
   Widget build(BuildContext context) {
