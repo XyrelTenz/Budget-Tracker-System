@@ -1,3 +1,4 @@
+import 'package:budget_tracker/screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
@@ -9,12 +10,12 @@ class NavigationWidget extends StatefulWidget {
 }
 
 class _NavigationBarState extends State<NavigationWidget> {
-  final List homeScreen = ["Home", "Home2", "Home3", "Home4"];
+  final List<Widget> _homeScreen = [HomeScreen()];
   int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: _selectedIndex[homeScreen].title),
+      body: _homeScreen[_selectedIndex],
       bottomNavigationBar: SalomonBottomBar(
         currentIndex: _selectedIndex,
         selectedItemColor: const Color(0xff6200ee),

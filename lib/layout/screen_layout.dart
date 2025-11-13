@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "../widget/navigation_widget.dart";
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,7 +17,8 @@ class _WelcomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: Center(child: Text("Home"))),
+      body: SafeArea(child: Center(child: Text("hello"))),
+      bottomNavigationBar: NavigationWidget(),
     );
   }
 }
