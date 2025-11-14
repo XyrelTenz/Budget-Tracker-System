@@ -1,10 +1,54 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
+import 'package:budget_tracker/data/mock_data.dart';
+import "package:budget_tracker/widget/summary_card_widget.dart";
+import "package:budget_tracker/widget/transaction_list_widget.dart";
 
 class TransactionScreen extends StatelessWidget {
   const TransactionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text("TransactionScreen")));
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "Transactions",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        foregroundColor: Theme.of(context).colorScheme.onSurface,
+        actions: [
+          IconButton(icon: const Icon(Icons.filter_list), onPressed: () {}),
+          IconButton(icon: const Icon(Icons.search), onPressed: () {}),
+        ],
+      ),
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const SummaryCard(),
+
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+              child: Text(
+                "Recent Transactions",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
+            ),
+
+            Expanded(child: TransactionList(transactions: mockTransactions)),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        child: Icon(Icons.add, color: Theme.of(context).colorScheme.onPrimary),
+      ),
+    );
   }
 }
