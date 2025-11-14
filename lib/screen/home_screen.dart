@@ -14,50 +14,54 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            spacing: 10,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Padding(padding: EdgeInsetsGeometry.only(top: 50, left: 20)),
-                  Text(
-                    "Xyrel",
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            const Padding(
+              padding: EdgeInsets.only(top: 50, left: 20),
+              child: Text(
+                "Xyrels",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.normal),
               ),
-              SizedBox(
-                height: 200,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 15,
-                    vertical: 20,
-                  ),
-                  itemCount: 10,
-                  separatorBuilder: (_, __) => const SizedBox(width: 25),
-                  itemBuilder: (context, index) => const CardItem(),
+            ),
+
+            const SizedBox(height: 10),
+
+            SizedBox(
+              height: 200,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 15,
+                  vertical: 20,
                 ),
+                itemCount: 10,
+                separatorBuilder: (_, __) => const SizedBox(width: 25),
+                itemBuilder: (context, index) => const CardItem(),
               ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                decoration: BoxDecoration(
+            ),
+
+            Expanded(
+              child: Container(
+                width: double.infinity,
+                decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(25),
                     topRight: Radius.circular(25),
                   ),
                 ),
-                child: Column(children: <Widget>[Text("Hello")]),
+                child: const Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(20.0),
+                      child: Text("Hello"),
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
