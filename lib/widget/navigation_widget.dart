@@ -3,7 +3,6 @@ import 'package:budget_tracker/screen/home_screen.dart';
 import 'package:budget_tracker/screen/report_screen.dart';
 import 'package:budget_tracker/screen/transaction_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class NavigationWidget extends StatefulWidget {
   const NavigationWidget({super.key});
@@ -13,52 +12,56 @@ class NavigationWidget extends StatefulWidget {
 }
 
 class _NavigationBarState extends State<NavigationWidget> {
-  final List<Widget> _homeScreen = <Widget>[
-    HomeScreen(),
-    TransactionScreen(),
-    ReportScreen(),
-    AccountScreen(),
+  final List<Widget> _screens = <Widget>[
+    const HomeScreen(),
+    const TransactionScreen(),
+    const ReportScreen(),
+    const AccountScreen(),
   ];
+
   int _selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: _homeScreen[_selectedIndex],
-      bottomNavigationBar: SalomonBottomBar(
-        currentIndex: _selectedIndex,
-        selectedItemColor: const Color(0xff6200ee),
-        unselectedItemColor: const Color(0xff757575),
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
-        items: _navBarItems,
+      body: _screens[_selectedIndex],
+
+      bottomNavigationBar: NavigationBarTheme(
+        data: NavigationBarThemeData(indicatorColor: const Color(0x1A2563EB)),
+
+        child: NavigationBar(
+          animationDuration: const Duration(milliseconds: 300),
+          selectedIndex: _selectedIndex,
+          onDestinationSelected: (index) {
+            setState(() => _selectedIndex = index);
+          },
+          destinations: _navBarItems,
+        ),
       ),
     );
   }
 }
 
-final _navBarItems = [
-  SalomonBottomBarItem(
-    icon: const Icon(Icons.home),
-    title: const Text("Home"),
-    selectedColor: Color(0xFF313131),
+const _navBarItems = [
+  NavigationDestination(
+    icon: Icon(Icons.home_outlined, color: Color(0xFF313131)),
+    selectedIcon: Icon(Icons.home_rounded, color: Colors.blue),
+    label: 'Overview',
   ),
-  SalomonBottomBarItem(
-    icon: const Icon(Icons.bar_chart),
-    title: const Text("Transaction"),
-    selectedColor: Color(0xFF313131),
+  NavigationDestination(
+    icon: Icon(Icons.receipt_long_outlined, color: Color(0xFF313131)),
+    selectedIcon: Icon(Icons.receipt_long, color: Colors.blue),
+    label: 'Transactions',
   ),
-  SalomonBottomBarItem(
-    icon: const Icon(Icons.money),
-    title: const Text("Report"),
-    selectedColor: Color(0xFF313131),
+  NavigationDestination(
+    icon: Icon(Icons.bar_chart_outlined, color: Color(0xFF313131)),
+    selectedIcon: Icon(Icons.bar_chart_rounded, color: Colors.blue),
+    label: 'Reports',
   ),
-  SalomonBottomBarItem(
-    icon: const Icon(Icons.settings),
-    title: const Text("Reminders"),
-    selectedColor: Color(0xFF313131),
+  NavigationDestination(
+    icon: Icon(Icons.person_outline_rounded, color: Color(0xFF313131)),
+    selectedIcon: Icon(Icons.person_rounded, color: Colors.blue),
+    label: 'Account',
   ),
 ];
