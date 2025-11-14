@@ -1,3 +1,4 @@
+import 'package:budget_tracker/screen/account_screen.dart';
 import 'package:budget_tracker/screen/reminder_screen.dart';
 import 'package:budget_tracker/screen/home_screen.dart';
 import 'package:budget_tracker/screen/report_screen.dart';
@@ -17,6 +18,7 @@ class _NavigationBarState extends State<NavigationWidget> {
     const TransactionScreen(),
     const ReportScreen(),
     const RemindersScreen(),
+    const AccountScreen(),
   ];
 
   int _selectedIndex = 0;

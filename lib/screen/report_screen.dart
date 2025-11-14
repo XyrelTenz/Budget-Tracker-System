@@ -18,8 +18,6 @@ class _ReportScreenState extends State<ReportScreen> {
       body: ListView(
         padding: const EdgeInsets.all(20.0),
         children: [
-          _buildHeader(),
-
           const SizedBox(height: 20),
 
           _buildTimeFilter(),
@@ -35,35 +33,6 @@ class _ReportScreenState extends State<ReportScreen> {
       ),
     );
   }
-
-  // -----------------------------------------------------
-  // HEADER
-  // -----------------------------------------------------
-
-  Widget _buildHeader() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
-        Text(
-          "Reports",
-          style: TextStyle(
-            fontSize: 26,
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
-          ),
-        ),
-        SizedBox(height: 4),
-        Text(
-          "Track your expenses visually",
-          style: TextStyle(fontSize: 15, color: Colors.black54),
-        ),
-      ],
-    );
-  }
-
-  // -----------------------------------------------------
-  // TIME FILTER
-  // -----------------------------------------------------
 
   Widget _buildTimeFilter() {
     return SegmentedButton<TimeFilter>(
