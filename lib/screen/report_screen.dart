@@ -65,10 +65,6 @@ class _ReportScreenState extends State<ReportScreen> {
     );
   }
 
-  // -----------------------------------------------------
-  // WEEKLY CHART CARD
-  // -----------------------------------------------------
-
   Widget _buildWeeklyChartCard() {
     return _glassCard(
       child: Column(
