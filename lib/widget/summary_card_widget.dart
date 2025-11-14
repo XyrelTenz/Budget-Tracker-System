@@ -9,7 +9,7 @@ class SummaryCard extends StatelessWidget {
     double totalSpent = 187.44;
     double monthlyIncome = 1000.00;
     double remaining = monthlyIncome - totalSpent;
-    double spentPercent = totalSpent / monthlyIncome;
+    // double spentPercent = totalSpent / monthlyIncome;
 
     return Container(
       padding: const EdgeInsets.fromLTRB(24, 40, 24, 32),
