@@ -15,13 +15,14 @@ class SavingsCards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 100,
+      width: MediaQuery.of(context).size.width * 0.25,
       height: 45,
       decoration: BoxDecoration(
         color: isSelected ? Color(0xFF2563EB) : Colors.grey[200],
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(padding: EdgeInsetsGeometry.symmetric(horizontal: 5)),
           Container(
