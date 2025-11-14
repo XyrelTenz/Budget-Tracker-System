@@ -1,3 +1,4 @@
+import 'package:budget_tracker/widget/savings_cards_widget.dart';
 import 'package:flutter/material.dart';
 import "package:budget_tracker/widget/cards_widget.dart";
 
@@ -7,6 +8,12 @@ class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
+
+List<Map<String, dynamic>> items = [
+  {'icon': Icons.savings, 'label': 'Savings'},
+  {'icon': Icons.shopping_cart, 'label': 'Shopping'},
+  {'icon': Icons.fastfood, 'label': 'Food'},
+];
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
@@ -55,47 +62,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.all(35.0),
-                      child: Column(
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              Container(
-                                width: 125,
-                                height: 55,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFF3B82F6),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Row(
-                                  spacing: 10,
-                                  children: <Widget>[
-                                    SizedBox(width: 7),
-                                    Container(
-                                      height: 30,
-                                      width: 30,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        color: Color(0xFFBAE6FD),
-                                      ),
-                                      child: Icon(
-                                        Icons.savings,
-                                        size: 20,
-                                        color: Color(0xFF1F2937),
-                                      ),
-                                    ),
-                                    Text(
-                                      "Savings",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                      child: SizedBox(
+                        height: 55,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: items.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 10.0),
+                              child: SavingsCards(
+                                icon: items[index]['icon'],
+                                label: items[index]['label'],
                               ),
-                            ],
-                          ),
-                        ],
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ],

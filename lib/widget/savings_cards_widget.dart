@@ -1,28 +1,18 @@
 import 'package:flutter/material.dart';
 
-class DashboardCard extends StatelessWidget {
+class SavingsCards extends StatelessWidget {
   final IconData icon;
   final String label;
-  final Color backgroundColor;
-  final Color iconBackgroundColor;
-  final Color iconColor;
 
-  const DashboardCard({
-    super.key,
-    required this.icon,
-    required this.label,
-    this.backgroundColor = const Color(0xFF3B82F6),
-    this.iconBackgroundColor = const Color(0xFFBAE6FD),
-    this.iconColor = const Color(0xFF1F2937),
-  });
+  const SavingsCards({super.key, required this.icon, required this.label});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 125,
+      width: 120,
       height: 55,
       decoration: BoxDecoration(
-        color: backgroundColor,
+        color: Colors.grey[400],
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
@@ -31,16 +21,16 @@ class DashboardCard extends StatelessWidget {
           Container(
             height: 30,
             width: 30,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: iconBackgroundColor,
-            ),
-            child: Icon(icon, size: 20, color: iconColor),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
+            child: Icon(icon, size: 20, color: Color(0xFF313131)),
           ),
           SizedBox(width: 10),
           Text(
             label,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              color: Color(0xFF313131),
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ],
       ),
