@@ -62,7 +62,12 @@ const _navBarItems = [
     label: 'Reports',
   ),
   NavigationDestination(
-    icon: Icon(Icons.person_outline_rounded, color: Color(0xFF313131)),
+    icon: Icon(Icons.settings, color: Color(0xFF313131)),
+    selectedIcon: Icon(Icons.settings_rounded, color: Colors.blue),
+    label: 'Reminders',
+  ),
+  NavigationDestination(
+    icon: Icon(Icons.person, color: Color(0xFF313131)),
     selectedIcon: Icon(Icons.person_rounded, color: Colors.blue),
     label: 'Account',
   ),
