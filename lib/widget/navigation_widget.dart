@@ -32,6 +32,8 @@ class _NavigationBarState extends State<NavigationWidget> {
 
         child: NavigationBar(
           animationDuration: const Duration(milliseconds: 300),
+          backgroundColor: Colors.white,
+          surfaceTintColor: Colors.white,
           selectedIndex: _selectedIndex,
           onDestinationSelected: (index) {
             setState(() => _selectedIndex = index);

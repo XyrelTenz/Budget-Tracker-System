@@ -10,22 +10,43 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  // Data for the category buttons
   final List<Map<String, dynamic>> items = [
     {'icon': Icons.savings, 'label': 'Savings'},
     {'icon': Icons.notifications_active, 'label': 'Remind'},
     {'icon': Icons.wallet, 'label': 'Budget'},
   ];
 
+  // Data for the top horizontal cards
+  final List<Map<String, dynamic>> cardDataList = [
+    {
+      "title": "Total Salary",
+      "amount": "P50,000.00",
+      "icon": Icons.payments,
+      "isSelected": true,
+    },
+    {
+      "title": "Total Expenses",
+      "amount": "P32,500.00",
+      "icon": Icons.receipt_long,
+      "isSelected": false,
+    },
+    {
+      "title": "Remaining Balance",
+      "amount": "P17,500.00",
+      "icon": Icons.account_balance_wallet,
+      "isSelected": false,
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF3F5F9),
-
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ─────────────── HEADER ───────────────
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 5),
               child: Row(
@@ -35,149 +56,192 @@ class _HomeScreenState extends State<HomeScreen> {
                     "Overview",
                     style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
                   ),
-
-                  // Profile avatar
                   CircleAvatar(
                     radius: 22,
                     backgroundColor: Colors.grey.shade300,
-                    backgroundImage: AssetImage("assets/profile.jpg"),
                   ),
                 ],
               ),
             ),
 
-            // ─────────────── HORIZONTAL CARDS ───────────────
             SizedBox(
-              height: 190,
+              height: 170,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 15,
                   vertical: 10,
                 ),
-                itemCount: 3,
+                itemCount: cardDataList.length,
                 separatorBuilder: (_, __) => const SizedBox(width: 20),
-                itemBuilder: (context, index) => const CardItem(),
+                itemBuilder: (context, index) {
+                  final item = cardDataList[index];
+                  return CardItem(
+                    title: item["title"],
+                    amount: item["amount"],
+                    icon: item["icon"],
+                    isSelected: item["isSelected"],
+                  );
+                },
               ),
             ),
 
-            // ─────────────── CATEGORY BUTTONS BOX ───────────────
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.only(top: 25, bottom: 20),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(26),
-                  topRight: Radius.circular(26),
+            const SizedBox(height: 10),
+            Expanded(
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.only(top: 25, bottom: 20),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(26),
+                    topRight: Radius.circular(26),
+                  ),
+                  boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 8)],
                 ),
-                boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 8)],
-              ),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 55,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.only(left: 20),
-                      itemCount: items.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(right: 12),
-                          child: SavingsCards(
-                            icon: items[index]['icon'],
-                            label: items[index]['label'],
-                          ),
-                        );
-                      },
+                // 3. This Column holds all the content *inside* the
+                //    white box
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 55,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        padding: const EdgeInsets.only(left: 20),
+                        itemCount: items.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 12),
+                            child: SavingsCards(
+                              icon: items[index]['icon'],
+                              label: items[index]['label'],
+                            ),
+                          );
+                        },
+                      ),
                     ),
-                  ),
 
-                  const SizedBox(height: 10),
+                    const SizedBox(height: 10),
 
-                  // Indicator dots
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 20,
-                        height: 4,
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                      ),
-                      const SizedBox(width: 6),
-                      Container(
-                        width: 12,
-                        height: 4,
-                        decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                      ),
-                      const SizedBox(width: 6),
-                      Container(
-                        width: 12,
-                        height: 4,
-                        decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 25),
-
-                  // ─────────────── Latest Entries ───────────────
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text(
-                          "Latest Entries",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 20,
+                          height: 4,
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.circular(4),
                           ),
                         ),
-                        Icon(Icons.more_horiz),
+                        const SizedBox(width: 6),
+                        Container(
+                          width: 12,
+                          height: 4,
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        Container(
+                          width: 12,
+                          height: 4,
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        ),
                       ],
                     ),
-                  ),
 
-                  const SizedBox(height: 15),
+                    const SizedBox(height: 25),
 
-                  // LIST SAMPLE
-                  _buildEntry(
-                    icon: Icons.fastfood,
-                    label: "Food",
-                    amount: "+ \$20",
-                    vat: "0.5%",
-                    date: "20 Feb 2024",
-                    method: "Google Pay",
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const [
+                          Text(
+                            "Latest Entries",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Icon(Icons.more_horiz),
+                        ],
+                      ),
+                    ),
 
-                  _buildEntry(
-                    icon: Icons.directions_bike,
-                    label: "Uber",
-                    amount: "- \$18",
-                    vat: "0.8%",
-                    date: "13 Mar 2024",
-                    method: "Cash",
-                  ),
+                    const SizedBox(height: 15),
 
-                  _buildEntry(
-                    icon: Icons.shopping_bag,
-                    label: "Shopping",
-                    amount: "- \$400",
-                    vat: "0.12%",
-                    date: "11 Mar 2024",
-                    method: "Paytm",
-                  ),
-                ],
+                    Expanded(
+                      child: ListView(
+                        // This removes the default padding from the ListView
+                        padding: EdgeInsets.zero,
+                        children: [
+                          _buildEntry(
+                            icon: Icons.fastfood,
+                            label: "Food",
+                            amount: "+ \$20",
+                            vat: "0.5%",
+                            date: "20 Feb 2024",
+                            method: "Google Pay",
+                          ),
+                          _buildEntry(
+                            icon: Icons.directions_bike,
+                            label: "Uber",
+                            amount: "- \$18",
+                            vat: "0.8%",
+                            date: "13 Mar 2024",
+                            method: "Cash",
+                          ),
+                          _buildEntry(
+                            icon: Icons.shopping_bag,
+                            label: "Shopping",
+                            amount: "- \$400",
+                            vat: "0.12%",
+                            date: "11 Mar 2024",
+                            method: "Paytm",
+                          ),
+                          _buildEntry(
+                            icon: Icons.movie,
+                            label: "Cinema",
+                            amount: "- \$35",
+                            vat: "0.2%",
+                            date: "10 Mar 2024",
+                            method: "Credit Card",
+                          ),
+                          _buildEntry(
+                            icon: Icons.lightbulb,
+                            label: "Electricity Bill",
+                            amount: "- \$150",
+                            vat: "1.2%",
+                            date: "08 Mar 2024",
+                            method: "Bank Transfer",
+                          ),
+                          _buildEntry(
+                            icon: Icons.local_gas_station,
+                            label: "Gas",
+                            amount: "- \$55",
+                            vat: "0.5%",
+                            date: "07 Mar 2024",
+                            method: "Cash",
+                          ),
+                          _buildEntry(
+                            icon: Icons.subscriptions,
+                            label: "Netflix",
+                            amount: "- \$15",
+                            vat: "0.0%",
+                            date: "05 Mar 2024",
+                            method: "Google Pay",
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
@@ -186,7 +250,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // ======== Entry Item ========
   Widget _buildEntry({
     required IconData icon,
     required String label,
@@ -198,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: Row(
-        children: [
+        children: <Widget>[
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
@@ -207,10 +270,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             child: Icon(icon, size: 26, color: Colors.black87),
           ),
-
           const SizedBox(width: 15),
-
-          // Title + date
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -229,7 +289,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [

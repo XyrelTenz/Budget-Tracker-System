@@ -8,10 +8,10 @@ class CardItem extends StatelessWidget {
 
   const CardItem({
     super.key,
-    this.title = "Total Expense",
-    this.amount = "\$298.16",
-    this.icon = Icons.credit_card,
-    this.isSelected = true,
+    required this.title,
+    required this.amount,
+    required this.icon,
+    required this.isSelected,
   });
 
   @override
