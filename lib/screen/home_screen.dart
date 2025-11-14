@@ -51,11 +51,52 @@ class _HomeScreenState extends State<HomeScreen> {
                     topRight: Radius.circular(25),
                   ),
                 ),
-                child: const Column(
+                child: Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: Text("Hello"),
+                      padding: EdgeInsets.all(35.0),
+                      child: Column(
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Container(
+                                width: 125,
+                                height: 55,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF3B82F6),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Row(
+                                  spacing: 10,
+                                  children: <Widget>[
+                                    SizedBox(width: 7),
+                                    Container(
+                                      height: 30,
+                                      width: 30,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        color: Color(0xFFBAE6FD),
+                                      ),
+                                      child: Icon(
+                                        Icons.savings,
+                                        size: 20,
+                                        color: Color(0xFF1F2937),
+                                      ),
+                                    ),
+                                    Text(
+                                      "Savings",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
