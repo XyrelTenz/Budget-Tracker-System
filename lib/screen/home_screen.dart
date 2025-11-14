@@ -162,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
+                        children: [
                           Text(
                             "Latest Entries",
                             style: TextStyle(
@@ -170,7 +170,15 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Icon(Icons.more_horiz),
+                          Container(
+                            width: 30,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              border: Border.all(width: 1, color: Colors.grey),
+                              borderRadius: BorderRadiusDirectional.circular(5),
+                            ),
+                            child: Icon(Icons.more_horiz),
+                          ),
                         ],
                       ),
                     ),
@@ -179,7 +187,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
                     Expanded(
                       child: ListView(
-                        // This removes the default padding from the ListView
                         padding: EdgeInsets.zero,
                         children: [
                           _buildEntry(
