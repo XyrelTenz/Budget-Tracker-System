@@ -10,7 +10,7 @@ class SavingsCards extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 120,
-      height: 55,
+      height: 45,
       decoration: BoxDecoration(
         color: Colors.grey[400],
         borderRadius: BorderRadius.circular(10),
@@ -37,4 +37,3 @@ class SavingsCards extends StatelessWidget {
     );
   }
 }
-

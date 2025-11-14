@@ -63,19 +63,23 @@ class _HomeScreenState extends State<HomeScreen> {
                     Padding(
                       padding: EdgeInsets.all(35.0),
                       child: SizedBox(
-                        height: 55,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: items.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 10.0),
-                              child: SavingsCards(
-                                icon: items[index]['icon'],
-                                label: items[index]['label'],
-                              ),
-                            );
-                          },
+                        height: 45,
+                        child: PageView(
+                          children: <Widget>[
+                            ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: items.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(right: 10.0),
+                                  child: SavingsCards(
+                                    icon: items[index]['icon'],
+                                    label: items[index]['label'],
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
                         ),
                       ),
                     ),
