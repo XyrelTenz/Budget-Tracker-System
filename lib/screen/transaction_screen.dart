@@ -32,11 +32,11 @@ class TransactionScreen extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        child: Icon(Icons.add, color: Theme.of(context).colorScheme.onPrimary),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {},
+      //   backgroundColor: Theme.of(context).colorScheme.primary,
+      //   child: Icon(Icons.add, color: Theme.of(context).colorScheme.onPrimary),
+      // ),
     );
   }
 }

@@ -5,7 +5,6 @@ class SummaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // In a real app, this data would be passed in or come from a provider
     double totalSpent = 187.44;
     double monthlyBudget = 1000.00;
     double remaining = monthlyBudget - totalSpent;
