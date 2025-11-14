@@ -57,8 +57,8 @@ final _navBarItems = [
     selectedColor: Color(0xFF313131),
   ),
   SalomonBottomBarItem(
-    icon: const Icon(Icons.person),
-    title: const Text("Account"),
+    icon: const Icon(Icons.settings),
+    title: const Text("Reminders"),
     selectedColor: Color(0xFF313131),
   ),
 ];
