@@ -10,14 +10,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // Data for the category buttons
   final List<Map<String, dynamic>> items = [
-    {'icon': Icons.savings, 'label': 'Savings'},
-    {'icon': Icons.notifications_active, 'label': 'Remind'},
-    {'icon': Icons.wallet, 'label': 'Budget'},
+    {'icon': Icons.savings, 'label': 'Savings', 'isSelected': true},
+    {
+      'icon': Icons.notifications_active,
+      'label': 'Remind',
+      'isSelected': false,
+    },
+    {'icon': Icons.wallet, 'label': 'Budget', 'isSelected': false},
   ];
 
-  // Data for the top horizontal cards
   final List<Map<String, dynamic>> cardDataList = [
     {
       "title": "Total Salary",
@@ -65,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
 
             SizedBox(
-              height: 170,
+              height: 190,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(
@@ -99,28 +101,27 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 8)],
                 ),
-                // 3. This Column holds all the content *inside* the
-                //    white box
                 child: Column(
                   children: [
                     SizedBox(
                       height: 55,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        padding: const EdgeInsets.only(left: 20),
-                        itemCount: items.length,
-                        itemBuilder: (context, index) {
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: items.map((item) {
+                          bool isLastItem = item == items.last;
                           return Padding(
-                            padding: const EdgeInsets.only(right: 12),
+                            padding: EdgeInsets.only(
+                              right: isLastItem ? 0 : 12,
+                            ),
                             child: SavingsCards(
-                              icon: items[index]['icon'],
-                              label: items[index]['label'],
+                              isSelected: item['isSelected'],
+                              icon: item['icon'],
+                              label: item['label'],
                             ),
                           );
-                        },
+                        }).toList(),
                       ),
                     ),
-
                     const SizedBox(height: 10),
 
                     Row(
