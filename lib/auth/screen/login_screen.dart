@@ -10,6 +10,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text("LoginScreen")));
+    return Scaffold(body: Center(child: Image.asset("assets/login.png")));
   }
 }

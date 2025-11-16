@@ -12,23 +12,23 @@ class OnboardingScreen extends StatelessWidget {
           OnboardingPageModel(
             title: 'Track Your Expenses',
             description: 'Keep all your daily expenses organized in one place.',
-            imageUrl: 'lib/assets/expenses.png',
+            imageUrl: 'assets/expenses.png',
           ),
           OnboardingPageModel(
             title: 'Plan Your Budget',
             description:
                 'Set budgets for your categories and stick to them easily.',
-            imageUrl: 'lib/assets/finance.png',
+            imageUrl: 'assets/finance.png',
           ),
           OnboardingPageModel(
             title: 'Monitor Spending',
             description: 'Visual charts help you analyze your spending habits.',
-            imageUrl: 'lib/assets/location.png',
+            imageUrl: 'assets/location.png',
           ),
           OnboardingPageModel(
             title: 'Save More',
             description: 'Track your progress and save more efficiently.',
-            imageUrl: 'lib/assets/start.png',
+            imageUrl: 'assets/start.png',
           ),
         ],
       ),
@@ -52,6 +52,7 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           children: [
@@ -67,12 +68,12 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                 itemBuilder: (context, idx) {
                   final item = widget.pages[idx];
                   return Column(
-                    children: [
+                    children: <Widget>[
                       Expanded(
                         flex: 3,
                         child: Padding(
                           padding: const EdgeInsets.all(32.0),
-                          child: Image.network(item.imageUrl),
+                          child: Image.asset(item.imageUrl),
                         ),
                       ),
                       Expanded(
@@ -118,12 +119,12 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                 final idx = widget.pages.indexOf(item);
                 return AnimatedContainer(
                   duration: const Duration(milliseconds: 250),
-                  width: _currentPage == idx ? 30 : 8, // active page wider
+                  width: _currentPage == idx ? 30 : 8,
                   height: 8,
                   margin: const EdgeInsets.all(2.0),
                   decoration: BoxDecoration(
                     color: _currentPage == idx
-                        ? Colors.blue
+                        ? Colors.blue[700]
                         : Colors.grey, // active page blue
                     borderRadius: BorderRadius.circular(10.0),
                   ),
@@ -149,14 +150,21 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                     onPressed: () {
                       context.go("/Login");
                     },
-                    child: const Text("Skip"),
+                    child: const Text(
+                      "Skip",
+                      style: TextStyle(
+                        color: Color(0xFF313131),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                      ),
+                    ),
                   ),
                   TextButton(
                     style: TextButton.styleFrom(
                       visualDensity: VisualDensity.comfortable,
                       foregroundColor: Colors.black,
                       textStyle: const TextStyle(
-                        fontSize: 16,
+                        fontSize: 15,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -177,12 +185,18 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                           _currentPage == widget.pages.length - 1
                               ? "Finish"
                               : "Next",
+                          style: TextStyle(
+                            color: Color(0xFF313131),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                          ),
                         ),
                         const SizedBox(width: 8),
                         Icon(
                           _currentPage == widget.pages.length - 1
                               ? Icons.done
                               : Icons.arrow_forward,
+                          color: Color(0xFF313131),
                         ),
                       ],
                     ),
