@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// Transaction Model
 class Transaction {
   final String name;
   final String category;
