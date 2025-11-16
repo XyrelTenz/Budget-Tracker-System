@@ -8,11 +8,9 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // We create a Column to hold the title AND the list
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // The title is now part of this widget
+      children: <Widget>[
         const Padding(
           padding: EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 12.0),
           child: Text(
@@ -25,16 +23,13 @@ class TransactionList extends StatelessWidget {
           ),
         ),
 
-        // The list is now in an Expanded
         Expanded(
           child: ListView.builder(
-            // Use horizontal padding for the list
             padding: const EdgeInsets.symmetric(horizontal: 16),
             itemCount: transactions.length,
             itemBuilder: (context, index) {
               final transaction = transactions[index];
 
-              // Your logic here was already good
               final bool isExpense = transaction.amount < 0;
               final Color accentColor = isExpense
                   ? Colors.red.shade600
@@ -42,7 +37,6 @@ class TransactionList extends StatelessWidget {
               final String formattedAmount =
                   "${isExpense ? '-' : '+'}\$${transaction.amount.abs().toStringAsFixed(2)}";
 
-              // Replaced Container/Inkwell with a Card + ListTile
               return Card(
                 elevation: 1.0,
                 margin: const EdgeInsets.only(bottom: 12.0),
@@ -55,17 +49,15 @@ class TransactionList extends StatelessWidget {
                     vertical: 8,
                   ),
 
-                  // LEADING: The Icon
                   leading: Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: accentColor.withOpacity(0.12),
+                      color: accentColor.withValues(alpha: 0.12),
                       shape: BoxShape.circle,
                     ),
                     child: Icon(transaction.icon, color: accentColor, size: 22),
                   ),
 
-                  // TITLE: The name
                   title: Text(
                     transaction.name,
                     style: const TextStyle(
@@ -74,13 +66,11 @@ class TransactionList extends StatelessWidget {
                     ),
                   ),
 
-                  // SUBTITLE: The category and date
                   subtitle: Text(
                     "${transaction.category} • ${transaction.date}",
                     style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
                   ),
 
-                  // TRAILING: The amount
                   trailing: Text(
                     formattedAmount,
                     style: TextStyle(
@@ -89,9 +79,7 @@ class TransactionList extends StatelessWidget {
                       fontSize: 16,
                     ),
                   ),
-                  onTap: () {
-                    // Handle tap
-                  },
+                  onTap: () {},
                 ),
               );
             },

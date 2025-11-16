@@ -96,10 +96,6 @@ class _ReportScreenState extends State<ReportScreen> {
     );
   }
 
-  // -----------------------------------------------------
-  // CATEGORY CHART CARD
-  // -----------------------------------------------------
-
   Widget _buildCategoryChartCard() {
     return _glassCard(
       child: Column(
@@ -116,7 +112,7 @@ class _ReportScreenState extends State<ReportScreen> {
             height: 260,
             child: BarChart(
               _buildCategoryBarChartData(),
-              swapAnimationDuration: const Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 300),
             ),
           ),
         ],
@@ -131,7 +127,7 @@ class _ReportScreenState extends State<ReportScreen> {
   Widget _glassCard({required Widget child}) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.95),
+        color: Colors.white.withValues(alpha: 0.95),
         borderRadius: BorderRadius.circular(18),
         boxShadow: [
           BoxShadow(
