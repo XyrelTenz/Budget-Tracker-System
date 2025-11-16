@@ -10,26 +10,25 @@ class OnboardingScreen extends StatelessWidget {
       body: OnboardingPagePresenter(
         pages: [
           OnboardingPageModel(
-            title: 'Fast, Fluid and Secure',
+            title: 'Track Your Expenses',
+            description: 'Keep all your daily expenses organized in one place.',
+            imageUrl: 'lib/assets/expenses.png',
+          ),
+          OnboardingPageModel(
+            title: 'Plan Your Budget',
             description:
-                'Enjoy the best of the world in the palm of your hands.',
-            imageUrl: 'https://i.ibb.co/cJqsPSB/scooter.png',
+                'Set budgets for your categories and stick to them easily.',
+            imageUrl: 'lib/assets/finance.png',
           ),
           OnboardingPageModel(
-            title: 'Connect with your friends.',
-            description: 'Connect with your friends anytime anywhere.',
-            imageUrl: 'https://i.ibb.co/LvmZypG/storefront-illustration-2.png',
+            title: 'Monitor Spending',
+            description: 'Visual charts help you analyze your spending habits.',
+            imageUrl: 'lib/assets/location.png',
           ),
           OnboardingPageModel(
-            title: 'Bookmark your favourites',
-            description:
-                'Bookmark your favourite quotes to read at a leisure time.',
-            imageUrl: 'https://i.ibb.co/420D7VP/building.png',
-          ),
-          OnboardingPageModel(
-            title: 'Follow creators',
-            description: 'Follow your favourite creators to stay in the loop.',
-            imageUrl: 'https://i.ibb.co/cJqsPSB/scooter.png',
+            title: 'Save More',
+            description: 'Track your progress and save more efficiently.',
+            imageUrl: 'lib/assets/start.png',
           ),
         ],
       ),
@@ -113,25 +112,23 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
               ),
             ),
 
-            // Page indicator
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: widget.pages
-                  .map(
-                    (item) => AnimatedContainer(
-                      duration: const Duration(milliseconds: 250),
-                      width: _currentPage == widget.pages.indexOf(item)
-                          ? 30
-                          : 8,
-                      height: 8,
-                      margin: const EdgeInsets.all(2.0),
-                      decoration: BoxDecoration(
-                        color: Colors.grey, // fixed color
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                  )
-                  .toList(),
+              children: widget.pages.map((item) {
+                final idx = widget.pages.indexOf(item);
+                return AnimatedContainer(
+                  duration: const Duration(milliseconds: 250),
+                  width: _currentPage == idx ? 30 : 8, // active page wider
+                  height: 8,
+                  margin: const EdgeInsets.all(2.0),
+                  decoration: BoxDecoration(
+                    color: _currentPage == idx
+                        ? Colors.blue
+                        : Colors.grey, // active page blue
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                );
+              }).toList(),
             ),
 
             // Bottom buttons
