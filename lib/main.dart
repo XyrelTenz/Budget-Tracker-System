@@ -1,7 +1,8 @@
+import 'package:budget_tracker/auth/screen/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'layout/screen_layout.dart';
 import 'package:go_router/go_router.dart';
-import "screen/welcome_screen.dart";
+import 'onboarding_screen/onboarding_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,9 +13,15 @@ final GoRouter _router = GoRouter(
     GoRoute(
       path: '/',
       builder: (BuildContext context, GoRouterState state) {
-        return const WelcomeScreen();
+        return const OnboardingScreen();
       },
       routes: <RouteBase>[
+        GoRoute(
+          path: "/Login",
+          builder: (BuildContext context, GoRouterState state) {
+            return const LoginScreen();
+          },
+        ),
         GoRoute(
           path: '/HomeScreen',
           builder: (BuildContext context, GoRouterState state) {
