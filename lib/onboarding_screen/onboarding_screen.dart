@@ -123,7 +123,9 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                   height: 8,
                   margin: const EdgeInsets.all(2.0),
                   decoration: BoxDecoration(
-                    color: _currentPage == idx ? Colors.blue[700] : Colors.grey,
+                    color: _currentPage == idx
+                        ? Color(0xFF0046FF)
+                        : Colors.grey,
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                 );
@@ -179,23 +181,36 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                     },
                     child: Row(
                       children: [
-                        Text(
-                          _currentPage == widget.pages.length - 1
-                              ? "Finish"
-                              : "Next",
-                          style: TextStyle(
-                            color: Color(0xFF313131),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
+                        Container(
+                          height: 40,
+                          width: 100,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: _currentPage == widget.pages.length - 1
+                                ? Color(0xFF0046FF)
+                                : Colors.transparent,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Text(
+                            _currentPage == widget.pages.length - 1
+                                ? "Get Started"
+                                : "Next",
+                            style: TextStyle(
+                              color: _currentPage == widget.pages.length - 1
+                                  ? Colors.white
+                                  : Color(0xFF313131),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
                           ),
                         ),
-                        const SizedBox(width: 8),
-                        Icon(
-                          _currentPage == widget.pages.length - 1
-                              ? Icons.done
-                              : Icons.arrow_forward,
-                          color: Color(0xFF313131),
-                        ),
+                        // const SizedBox(width: 8),
+                        // Icon(
+                        //   _currentPage == widget.pages.length - 1
+                        //       ? Icons.done
+                        //       : Icons.arrow_forward,
+                        //   color: Color(0xFF313131),
+                        // ),
                       ],
                     ),
                   ),

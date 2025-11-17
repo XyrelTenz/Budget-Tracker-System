@@ -57,7 +57,7 @@ class _ReportScreenState extends State<ReportScreen> {
       style: SegmentedButton.styleFrom(
         backgroundColor: Colors.white,
         selectedBackgroundColor: Colors.blue.shade50,
-        selectedForegroundColor: Colors.blue.shade800,
+        selectedForegroundColor: Color(0xFF0046FF),
         elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
@@ -72,7 +72,11 @@ class _ReportScreenState extends State<ReportScreen> {
         children: [
           const Text(
             "Spending - Last 7 Days",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF313131),
+            ),
           ),
 
           const SizedBox(height: 6),
@@ -120,10 +124,6 @@ class _ReportScreenState extends State<ReportScreen> {
     );
   }
 
-  // -----------------------------------------------------
-  // CARD TEMPLATE (GLASS UI STYLE)
-  // -----------------------------------------------------
-
   Widget _glassCard({required Widget child}) {
     return Container(
       decoration: BoxDecoration(
@@ -142,10 +142,6 @@ class _ReportScreenState extends State<ReportScreen> {
       child: child,
     );
   }
-
-  // -----------------------------------------------------
-  // WEEKLY BAR CHART DATA
-  // -----------------------------------------------------
 
   BarChartData _buildWeeklyBarChartData() {
     final List<double> weeklyData = [65, 50, 90, 40, 110, 80, 23.5];
@@ -181,7 +177,7 @@ class _ReportScreenState extends State<ReportScreen> {
           barRods: [
             BarChartRodData(
               toY: weeklyData[index],
-              color: Colors.blue.shade600,
+              color: Color(0xFF0046FF),
               width: 22,
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(10),
@@ -192,10 +188,6 @@ class _ReportScreenState extends State<ReportScreen> {
       }),
     );
   }
-
-  // -----------------------------------------------------
-  // CATEGORY BAR CHART
-  // -----------------------------------------------------
 
   BarChartData _buildCategoryBarChartData() {
     final List<CategorySpending> categoryData = [
@@ -250,8 +242,6 @@ class _ReportScreenState extends State<ReportScreen> {
     );
   }
 }
-
-// -----------------------------------------------------
 
 enum TimeFilter { weekly, monthly }
 
