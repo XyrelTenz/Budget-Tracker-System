@@ -95,7 +95,7 @@ class AccountScreen extends StatelessWidget {
                     _item(Icons.lock, "Security & Privacy"),
                     _item(Icons.key, "Change Password"),
                     _item(Icons.backup, "Backup & Restore"),
-                    _DarkMode("Dark Mode"),
+                    _darkMode("Dark Mode"),
                   ],
                 ),
               ),
@@ -144,7 +144,7 @@ Widget _item(IconData icon, String label) {
   );
 }
 
-Widget _DarkMode(String label) {
+Widget _darkMode(String label) {
   return StatefulBuilder(
     builder: (context, setState) {
       bool isOn = false;
