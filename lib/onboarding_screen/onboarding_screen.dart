@@ -123,9 +123,7 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                   height: 8,
                   margin: const EdgeInsets.all(2.0),
                   decoration: BoxDecoration(
-                    color: _currentPage == idx
-                        ? Colors.blue[700]
-                        : Colors.grey, // active page blue
+                    color: _currentPage == idx ? Colors.blue[700] : Colors.grey,
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                 );

@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -103,6 +104,18 @@ class _LoginScreenState extends State<LoginScreen> {
                           return null;
                         },
                         onChanged: (value) {},
+                      ),
+                    ),
+
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            context.go("/HomeScreen");
+                          }
+                        },
+                        child: Text("Login"),
                       ),
                     ),
                   ],
