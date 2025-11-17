@@ -50,27 +50,27 @@ class _NavigationBarState extends State<NavigationWidget> {
 const _navBarItems = [
   NavigationDestination(
     icon: Icon(Icons.home_outlined, color: Color(0xFF313131)),
-    selectedIcon: Icon(Icons.home_rounded, color: Colors.blue),
+    selectedIcon: Icon(Icons.home_rounded, color: Color(0xFF0046FF)),
     label: 'Overview',
   ),
   NavigationDestination(
     icon: Icon(Icons.receipt_long_outlined, color: Color(0xFF313131)),
-    selectedIcon: Icon(Icons.receipt_long, color: Colors.blue),
+    selectedIcon: Icon(Icons.receipt_long, color: Color(0xFF0046FF)),
     label: 'Transactions',
   ),
   NavigationDestination(
     icon: Icon(Icons.bar_chart_outlined, color: Color(0xFF313131)),
-    selectedIcon: Icon(Icons.bar_chart_rounded, color: Colors.blue),
+    selectedIcon: Icon(Icons.bar_chart_rounded, color: Color(0xFF0046FF)),
     label: 'Reports',
   ),
   NavigationDestination(
     icon: Icon(Icons.settings, color: Color(0xFF313131)),
-    selectedIcon: Icon(Icons.settings_rounded, color: Colors.blue),
+    selectedIcon: Icon(Icons.settings_rounded, color: Color(0xFF0046FF)),
     label: 'Reminders',
   ),
   NavigationDestination(
     icon: Icon(Icons.person, color: Color(0xFF313131)),
-    selectedIcon: Icon(Icons.person_rounded, color: Colors.blue),
+    selectedIcon: Icon(Icons.person_rounded, color: Color(0xFF0046FF)),
     label: 'Account',
   ),
 ];

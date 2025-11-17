@@ -158,7 +158,7 @@ Widget _buildTab(String text, bool active) {
   return Container(
     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
     decoration: BoxDecoration(
-      color: active ? Colors.blue : Colors.transparent,
+      color: active ? Color(0xFF0046FF) : Colors.transparent,
       borderRadius: BorderRadius.circular(20),
     ),
     child: Text(
@@ -190,10 +190,10 @@ Widget _transactionItem({
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: Colors.blue.shade50,
+            color: Colors.grey[100],
             borderRadius: BorderRadius.circular(12),
           ),
-          child: Icon(icon, color: Colors.blue),
+          child: Icon(icon, color: Color(0xFF313131)),
         ),
         const SizedBox(width: 12),
 

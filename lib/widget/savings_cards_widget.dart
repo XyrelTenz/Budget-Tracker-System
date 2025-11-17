@@ -18,7 +18,7 @@ class SavingsCards extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.25,
       height: 45,
       decoration: BoxDecoration(
-        color: isSelected ? Color(0xFF2563EB) : Colors.grey[200],
+        color: isSelected ? Color(0xFF0046FF) : Colors.grey[200],
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(

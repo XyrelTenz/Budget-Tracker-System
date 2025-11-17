@@ -38,6 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   spacing: 15,
                   children: <Widget>[
                     SizedBox(
+                      height: 50,
                       width: MediaQuery.of(context).size.width * 0.9,
                       child: TextFormField(
                         decoration: InputDecoration(
@@ -50,13 +51,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           prefixIcon: Icon(Icons.person_outline_rounded),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0),
-                            borderSide: BorderSide(width: 1),
+                            borderSide: BorderSide(
+                              width: 1,
+                              color: Colors.grey,
+                            ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0),
                             borderSide: BorderSide(
-                              color: Colors.blueAccent,
-                              width: 2,
+                              color: Color(0xFF0046FF),
+                              width: 1,
                             ),
                           ),
                           filled: true,
@@ -72,6 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     SizedBox(
+                      height: 50,
                       width: MediaQuery.of(context).size.width * 0.9,
                       child: TextFormField(
                         obscureText: true,
@@ -85,13 +90,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           prefixIcon: Icon(Icons.lock_outline_rounded),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0),
-                            borderSide: BorderSide(width: 1),
+                            borderSide: BorderSide(
+                              width: 1,
+                              color: Colors.grey,
+                            ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0),
                             borderSide: BorderSide(
-                              color: Colors.blueAccent,
-                              width: 2,
+                              color: Color(0xFF0046FF),
+                              width: 1,
                             ),
                           ),
                           filled: true,
@@ -99,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your email';
+                            return 'Please enter your password';
                           }
                           return null;
                         },
@@ -109,13 +117,28 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.9,
+                      height: 50,
                       child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          elevation: 10,
+                          backgroundColor: Color(0xFF0046FF),
+                          shadowColor: Color(0xFF0046FF),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                        ),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             context.go("/HomeScreen");
                           }
                         },
-                        child: Text("Login"),
+                        child: Text(
+                          "LOGIN",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
                   ],

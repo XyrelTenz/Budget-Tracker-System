@@ -16,7 +16,7 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
     text: "12,000",
   );
 
-  final List<String> bills = ["Car Nhan", "Iphone 15 Pro", "House", "Shopping"];
+  final List<String> bills = ["Car", "Iphone 15 Pro", "House", "Shopping"];
 
   final List<String> freqList = ["Daily", "Weekly", "Monthly", "Yearly"];
 
@@ -24,18 +24,21 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back, color: Color(0xFF313131)),
           onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,
         title: const Text(
           "Set Reminders",
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF313131),
+          ),
         ),
       ),
 
@@ -60,13 +63,12 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
 
           const SizedBox(height: 40),
 
-          // Set Reminder Button
           Container(
             width: double.infinity,
             height: 55,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Colors.blue,
+              color: Color(0xFF0046FF),
             ),
             child: const Center(
               child: Text(
@@ -173,7 +175,7 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
           return ListTile(
             title: Text(bill),
             trailing: bill == selectedBill
-                ? const Icon(Icons.check_circle, color: Colors.blue)
+                ? const Icon(Icons.check_circle, color: Color(0xFF0046FF))
                 : null,
             onTap: () {
               setState(() => selectedBill = bill);

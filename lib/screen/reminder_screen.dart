@@ -8,23 +8,8 @@ class RemindersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        centerTitle: true,
-        title: const Text(
-          "Reminders",
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
-          ),
-        ),
-      ),
-
       floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color(0xFF3164F4),
+        backgroundColor: const Color(0xFF0046FF),
         elevation: 3,
         onPressed: () {
           Navigator.push(

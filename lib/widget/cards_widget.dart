@@ -16,7 +16,7 @@ class CardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color bgColor = isSelected ? const Color(0xFF2563EB) : Colors.white;
+    final Color bgColor = isSelected ? const Color(0xFF0046FF) : Colors.white;
     final Color textColor = isSelected ? Colors.white : Colors.black87;
 
     return Container(

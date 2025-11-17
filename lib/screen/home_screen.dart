@@ -132,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           width: 20,
                           height: 4,
                           decoration: BoxDecoration(
-                            color: Colors.blue,
+                            color: Color(0xFF0046FF),
                             borderRadius: BorderRadius.circular(4),
                           ),
                         ),

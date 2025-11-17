@@ -7,7 +7,7 @@ class AccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xfff6f8fb),
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -95,7 +95,7 @@ class AccountScreen extends StatelessWidget {
                     _item(Icons.lock, "Security & Privacy"),
                     _item(Icons.key, "Change Password"),
                     _item(Icons.backup, "Backup & Restore"),
-                    _toggleItem("Dark Mode"),
+                    _DarkMode("Dark Mode"),
                   ],
                 ),
               ),
@@ -130,13 +130,12 @@ class AccountScreen extends StatelessWidget {
   }
 }
 
-// REUSABLE ITEM ROW
 Widget _item(IconData icon, String label) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 10),
     child: Row(
       children: [
-        Icon(icon, color: Colors.blue),
+        Icon(icon, color: Color(0xFF313131)),
         const SizedBox(width: 16),
         Expanded(child: Text(label, style: const TextStyle(fontSize: 16))),
         const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
@@ -145,8 +144,7 @@ Widget _item(IconData icon, String label) {
   );
 }
 
-// TOGGLE ITEM (e.g., Dark Mode)
-Widget _toggleItem(String label) {
+Widget _DarkMode(String label) {
   return StatefulBuilder(
     builder: (context, setState) {
       bool isOn = false;
@@ -154,7 +152,7 @@ Widget _toggleItem(String label) {
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: Row(
           children: [
-            const Icon(Icons.dark_mode, color: Colors.blue),
+            const Icon(Icons.dark_mode, color: Color(0xFF313131)),
             const SizedBox(width: 16),
             Expanded(child: Text(label, style: const TextStyle(fontSize: 16))),
             Switch(value: isOn, onChanged: (val) => setState(() => isOn = val)),
