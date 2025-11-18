@@ -1,4 +1,5 @@
 import 'package:budget_tracker/auth/screen/login_screen.dart';
+import 'package:budget_tracker/auth/screen/signup_screen.dart';
 import 'package:budget_tracker/layout/screen_layout.dart';
 import 'package:budget_tracker/onboarding_screen/onboarding_screen.dart';
 import "package:go_router/go_router.dart";
@@ -16,6 +17,12 @@ final GoRouter router = GoRouter(
           path: "/Login",
           builder: (BuildContext context, GoRouterState state) {
             return const LoginScreen();
+          },
+        ),
+        GoRoute(
+          path: "/Register",
+          builder: (BuildContext context, GoRouterState state) {
+            return const SignupScreen();
           },
         ),
         GoRoute(
