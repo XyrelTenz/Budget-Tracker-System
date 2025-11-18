@@ -59,24 +59,23 @@ flutter_launcher_icons:
     generate: true
     image_path: "assets/1.png"
 
-# flutter_native_splash:
-#
-#   color: "#FFFFFF"
-#   # OR an image background (use only one: color or background_image)
-#   # background_image: "assets/dark_background.png"
-#
-#   # The image to display on the splash screen
-#   image: "assets/2.png"
-#
-#   android: true
-#   ios: true
-#
-#   # Optional: For Android 12+ (which uses a new splash screen API)
-#   # Ensure the background color is set above or here:
-#   android_12:
-#     image: "assets/2.png" # You can use a different image for Android 12
-#     icon_background_color: "#FFFFFF"
-#
+flutter_native_splash:
+  color: "#FFFFFF"
+  # OR an image background (use only one: color or background_image)
+  # background_image: "assets/dark_background.png"
+
+  # The image to display on the splash screen
+  image: "assets/1.png"
+
+  android: true
+  ios: true
+
+  # Optional: For Android 12+ (which uses a new splash screen API)
+  # Ensure the background color is set above or here:
+  android_12:
+    image: "assets/1.png" # You can use a different image for Android 12
+    icon_background_color: "#FFFFFF"
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
