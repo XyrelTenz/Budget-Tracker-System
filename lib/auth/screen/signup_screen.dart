@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-// import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -20,6 +19,15 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_new, color: Color(0xFF313131)),
+          onPressed: () {
+            context.go("/Login");
+          },
+        ),
+      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
