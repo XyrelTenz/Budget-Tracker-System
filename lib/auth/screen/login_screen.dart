@@ -35,8 +35,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     AspectRatio(
                       aspectRatio: 16 / 9,
                       child: Image.asset(
-                        width: 200,
-                        height: 200,
                         "assets/login.png",
                         fit: BoxFit.contain,
                       ),
