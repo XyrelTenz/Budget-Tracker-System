@@ -30,7 +30,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: EdgeInsets.symmetric(vertical: 30),
                 alignment: Alignment.center,
                 color: Colors.white,
-                child: Column(children: [Image.asset("assets/login.png")]),
+                child: Column(
+                  children: <Widget>[
+                    AspectRatio(
+                      aspectRatio: 16 / 9,
+                      child: Image.asset(
+                        width: 200,
+                        height: 200,
+                        "assets/login.png",
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             Expanded(
@@ -150,6 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: Colors.grey[700],
                         fontWeight: FontWeight.bold,
                       ),
+                      textAlign: TextAlign.end,
                     ),
 
                     // Row(
