@@ -31,6 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 alignment: Alignment.center,
                 color: Colors.white,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     AspectRatio(
                       aspectRatio: 16 / 9,
@@ -44,6 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             Expanded(
+              flex: 1,
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -184,6 +186,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     //   icon: Icon(Icons.person),
                     // ),
                     Expanded(
+                      flex: 3,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[

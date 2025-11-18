@@ -22,10 +22,21 @@ class _SignupScreenState extends State<SignupScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new, color: Color(0xFF313131)),
           onPressed: () {
             context.go("/Login");
           },
+          icon: Container(
+            padding: const EdgeInsets.all(5.0),
+            decoration: BoxDecoration(
+              color: Colors.grey[100],
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(
+              Icons.arrow_back_ios_new,
+              color: Color(0xFF313131),
+              size: 20,
+            ),
+          ),
         ),
       ),
       backgroundColor: Colors.white,
@@ -38,6 +49,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 alignment: Alignment.center,
                 color: Colors.white,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     AspectRatio(
                       aspectRatio: 16 / 9,
@@ -106,7 +118,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             color: Colors.grey[400],
                           ),
 
-                          prefixIcon: Icon(Icons.lock_outline_rounded),
+                          prefixIcon: Icon(Icons.key_rounded),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0),
                             borderSide: BorderSide(
@@ -145,7 +157,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             color: Colors.grey[400],
                           ),
 
-                          prefixIcon: Icon(Icons.lock_outline_rounded),
+                          prefixIcon: Icon(Icons.key_rounded),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0),
                             borderSide: BorderSide(
