@@ -1,4 +1,6 @@
 import "package:flutter/material.dart";
+// import 'package:flutter/services.dart';
+import "package:flutter/gestures.dart";
 import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -22,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
-          children: [
+          children: <Widget>[
             Expanded(
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 30),
@@ -139,6 +141,71 @@ class _LoginScreenState extends State<LoginScreen> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      "FORGOT PASSWORD",
+                      style: TextStyle(
+                        color: Colors.grey[700],
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+
+                    // Row(
+                    //   children: <Widget>[
+                    //     Expanded(
+                    //       child: Divider(
+                    //         color: Color(0xFF313131),
+                    //         endIndent: 25,
+                    //       ),
+                    //     ),
+                    //     Text("OR"),
+                    //     Expanded(
+                    //       child: Divider(color: Color(0xFF313131), indent: 25),
+                    //     ),
+                    //   ],
+                    // ),
+                    //
+                    // TextButton.icon(
+                    //   label: Text("Google"),
+                    //   onPressed: () {},
+                    //   icon: Icon(Icons.person),
+                    // ),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 50),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text.rich(
+                                  TextSpan(
+                                    text: 'Don\'t have an account? ',
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                    ),
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                        text: 'Register',
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          color: Color(0xFF0046FF),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {},
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
