@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:budget_tracker/model/transaction_model.dart';
+import 'package:smart_budget_ph/model/transaction_model.dart';
 
 final List<Transaction> mockTransactions = const [
   Transaction(

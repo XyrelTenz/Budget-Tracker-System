@@ -1,8 +1,8 @@
-import 'package:budget_tracker/screen/account_screen.dart';
-import 'package:budget_tracker/screen/reminder_screen.dart';
-import 'package:budget_tracker/screen/home_screen.dart';
-import 'package:budget_tracker/screen/report_screen.dart';
-import 'package:budget_tracker/screen/transaction_screen.dart';
+import 'package:smart_budget_ph/screen/account_screen.dart';
+import 'package:smart_budget_ph/screen/reminder_screen.dart';
+import 'package:smart_budget_ph/screen/home_screen.dart';
+import 'package:smart_budget_ph/screen/report_screen.dart';
+import 'package:smart_budget_ph/screen/transaction_screen.dart';
 import 'package:flutter/material.dart';
 
 class NavigationWidget extends StatefulWidget {

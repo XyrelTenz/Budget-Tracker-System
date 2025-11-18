@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:budget_tracker/widget/cards_widget.dart';
-import 'package:budget_tracker/widget/savings_cards_widget.dart';
+import 'package:smart_budget_ph/widget/cards_widget.dart';
+import 'package:smart_budget_ph/widget/savings_cards_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

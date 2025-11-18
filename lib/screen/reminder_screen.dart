@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import "package:budget_tracker/components/set_reminder_components.dart";
+import "package:smart_budget_ph/components/set_reminder_components.dart";
 
 class RemindersScreen extends StatelessWidget {
   const RemindersScreen({super.key});
