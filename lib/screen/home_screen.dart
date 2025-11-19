@@ -10,7 +10,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<Map<String, dynamic>> items = [
+  List<Map<String, dynamic>> items = [
     {'icon': Icons.savings, 'label': 'Savings', 'isSelected': true},
     {
       'icon': Icons.notifications_active,
@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
     {'icon': Icons.wallet, 'label': 'Budget', 'isSelected': false},
   ];
 
-  final List<Map<String, dynamic>> cardDataList = [
+  List<Map<String, dynamic>> cardDataList = [
     {
       "title": "Total Salary",
       "amount": "P50,000.00",
@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
       "isSelected": false,
     },
     {
-      "title": "Remaining Balance",
+      "title": "Remaining",
       "amount": "P17,500.00",
       "icon": Icons.account_balance_wallet,
       "isSelected": false,
@@ -50,32 +50,47 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 20, 20, 5),
+              padding: const EdgeInsets.fromLTRB(20, 50, 20, 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    "Overview",
-                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        "Overview",
+                        style: TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF313131),
+                        ),
+                      ),
+                      Text(
+                        "Welcome back!",
+                        style: TextStyle(fontSize: 14, color: Colors.grey),
+                      ),
+                    ],
                   ),
                   CircleAvatar(
                     radius: 22,
                     backgroundColor: Colors.grey.shade300,
+                    child: const Icon(Icons.person, color: Colors.white),
                   ),
                 ],
               ),
             ),
 
+            // --- CARDS LIST ---
             SizedBox(
-              height: 190,
+              height: 170,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 15,
+                  horizontal: 20,
                   vertical: 10,
                 ),
                 itemCount: cardDataList.length,
-                separatorBuilder: (_, __) => const SizedBox(width: 20),
+                separatorBuilder: (_, __) => const SizedBox(width: 15),
                 itemBuilder: (context, index) {
                   final item = cardDataList[index];
                   return CardItem(
@@ -83,112 +98,115 @@ class _HomeScreenState extends State<HomeScreen> {
                     amount: item["amount"],
                     icon: item["icon"],
                     isSelected: item["isSelected"],
+                    onTap: () {
+                      setState(() {
+                        // Set all to false, then selected to true
+                        for (var element in cardDataList) {
+                          element["isSelected"] = false;
+                        }
+                        cardDataList[index]["isSelected"] = true;
+                      });
+                    },
                   );
                 },
               ),
             ),
 
-            const SizedBox(height: 10),
+            const SizedBox(height: 15),
+
+            // --- BOTTOM SHEET CONTAINER ---
             Expanded(
               child: Container(
                 width: double.infinity,
-                padding: const EdgeInsets.only(top: 25, bottom: 20),
+                padding: const EdgeInsets.only(top: 25, left: 20, right: 20),
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(26),
-                    topRight: Radius.circular(26),
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
                   ),
-                  boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 8)],
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 15,
+                      offset: Offset(0, -5),
+                    ),
+                  ],
                 ),
                 child: Column(
                   children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: 55,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: items.map((item) {
-                          bool isLastItem = item == items.last;
-                          return Padding(
+                    // --- TABS ROW (Responsive) ---
+                    Row(
+                      children: items.asMap().entries.map((entry) {
+                        int idx = entry.key;
+                        Map item = entry.value;
+                        return Expanded(
+                          child: Padding(
                             padding: EdgeInsets.only(
-                              right: isLastItem ? 0 : 12,
+                              right: idx == items.length - 1 ? 0 : 10,
                             ),
                             child: SavingsCards(
                               isSelected: item['isSelected'],
                               icon: item['icon'],
                               label: item['label'],
+                              onTap: () {
+                                setState(() {
+                                  for (var element in items) {
+                                    element["isSelected"] = false;
+                                  }
+                                  items[idx]["isSelected"] = true;
+                                });
+                              },
                             ),
-                          );
-                        }).toList(),
-                      ),
+                          ),
+                        );
+                      }).toList(),
                     ),
-                    const SizedBox(height: 10),
 
+                    const SizedBox(height: 15),
+
+                    // --- INDICATORS ---
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          width: 20,
-                          height: 4,
-                          decoration: BoxDecoration(
-                            color: Color(0xFF0046FF),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                        ),
+                        _buildIndicator(true),
                         const SizedBox(width: 6),
-                        Container(
-                          width: 12,
-                          height: 4,
-                          decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                        ),
+                        _buildIndicator(false),
                         const SizedBox(width: 6),
-                        Container(
-                          width: 12,
-                          height: 4,
-                          decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                        ),
+                        _buildIndicator(false),
                       ],
                     ),
 
                     const SizedBox(height: 25),
 
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Latest Entries",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
+                    // --- LIST HEADER ---
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Latest Entries",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF313131),
                           ),
-                          Container(
-                            width: 30,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              border: Border.all(width: 1, color: Colors.grey),
-                              borderRadius: BorderRadiusDirectional.circular(5),
-                            ),
-                            child: Icon(Icons.more_horiz),
-                          ),
-                        ],
-                      ),
+                        ),
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.more_horiz),
+                          color: Colors.grey,
+                          padding: EdgeInsets.zero,
+                          constraints: const BoxConstraints(),
+                        ),
+                      ],
                     ),
 
                     const SizedBox(height: 15),
 
+                    // --- TRANSACTIONS LIST ---
                     Expanded(
                       child: ListView(
-                        padding: EdgeInsets.zero,
+                        padding: const EdgeInsets.only(bottom: 20),
                         children: [
                           _buildEntry(
                             icon: Icons.fastfood,
@@ -220,31 +238,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             amount: "- \$35",
                             vat: "0.2%",
                             date: "10 Mar 2024",
-                            method: "Credit Card",
-                          ),
-                          _buildEntry(
-                            icon: Icons.lightbulb,
-                            label: "Electricity Bill",
-                            amount: "- \$150",
-                            vat: "1.2%",
-                            date: "08 Mar 2024",
-                            method: "Bank Transfer",
-                          ),
-                          _buildEntry(
-                            icon: Icons.local_gas_station,
-                            label: "Gas",
-                            amount: "- \$55",
-                            vat: "0.5%",
-                            date: "07 Mar 2024",
-                            method: "Cash",
-                          ),
-                          _buildEntry(
-                            icon: Icons.subscriptions,
-                            label: "Netflix",
-                            amount: "- \$15",
-                            vat: "0.0%",
-                            date: "05 Mar 2024",
-                            method: "Google Pay",
+                            method: "Card",
                           ),
                         ],
                       ),
@@ -259,6 +253,18 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Widget _buildIndicator(bool isActive) {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
+      width: isActive ? 24 : 8,
+      height: 6,
+      decoration: BoxDecoration(
+        color: isActive ? const Color(0xFF0046FF) : Colors.grey.shade300,
+        borderRadius: BorderRadius.circular(10),
+      ),
+    );
+  }
+
   Widget _buildEntry({
     required IconData icon,
     required String label,
@@ -267,17 +273,31 @@ class _HomeScreenState extends State<HomeScreen> {
     required String date,
     required String method,
   }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+    bool isExpense = amount.contains('-');
+    return Container(
+      margin: const EdgeInsets.only(bottom: 15),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade50,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.grey.shade100),
+      ),
       child: Row(
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: Colors.grey.shade100,
-              borderRadius: BorderRadius.circular(16),
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.03),
+                  blurRadius: 5,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
-            child: Icon(icon, size: 26, color: Colors.black87),
+            child: Icon(icon, size: 24, color: const Color(0xFF313131)),
           ),
           const SizedBox(width: 15),
           Expanded(
@@ -287,13 +307,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 Text(
                   label,
                   style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF313131),
                   ),
                 ),
+                const SizedBox(height: 4),
                 Text(
                   date,
-                  style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
+                  style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
                 ),
               ],
             ),
@@ -302,16 +324,17 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                "$amount + Vat $vat",
+                amount,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: amount.contains('-') ? Colors.red : Colors.green,
+                  color: isExpense ? Colors.redAccent : Colors.green,
                   fontSize: 15,
                 ),
               ),
+              const SizedBox(height: 4),
               Text(
                 method,
-                style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
+                style: TextStyle(color: Colors.grey.shade500, fontSize: 11),
               ),
             ],
           ),

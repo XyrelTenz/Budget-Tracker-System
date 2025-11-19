@@ -20,7 +20,7 @@ class _ReportScreenState extends State<ReportScreen> {
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: [
-            const SizedBox(height: 27),
+            const SizedBox(height: 20),
             _buildTimeFilter(),
             const SizedBox(height: 24),
             _buildWeeklyChartCard(),
