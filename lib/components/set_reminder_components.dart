@@ -23,11 +23,9 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      // UI: Added SafeArea to prevent notch overlap
       body: SafeArea(
         child: Column(
-          children: [
-            // Custom AppBar Area
+          children: <Widget>[
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 8.0,
@@ -53,7 +51,7 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 48), // Balance the back button spacing
+                  const SizedBox(width: 48),
                 ],
               ),
             ),
@@ -83,10 +81,7 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                   const SizedBox(height: 40),
 
                   GestureDetector(
-                    onTap: () {
-                      // Handle Save Action
-                      // print("Saved: $selectedBill, $frequency, $selectedDate");
-                    },
+                    onTap: () {},
                     child: Container(
                       width: double.infinity,
                       height: 55,
