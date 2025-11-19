@@ -1,110 +1,107 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class OnboardingScreen extends StatelessWidget {
+class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: OnboardingPagePresenter(
-        pages: [
-          OnboardingPageModel(
-            title: 'Track Your Expenses',
-            description: 'Keep all your daily expenses organized in one place.',
-            imageUrl: 'assets/expenses.png',
-          ),
-          OnboardingPageModel(
-            title: 'Plan Your Budget',
-            description:
-                'Set budgets for your categories and stick to them easily.',
-            imageUrl: 'assets/finance.png',
-          ),
-          OnboardingPageModel(
-            title: 'Monitor Spending',
-            description: 'Visual charts help you analyze your spending habits.',
-            imageUrl: 'assets/location.png',
-          ),
-          OnboardingPageModel(
-            title: 'Save More',
-            description: 'Track your progress and save more efficiently.',
-            imageUrl: 'assets/start.png',
-          ),
-        ],
-      ),
-    );
-  }
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class OnboardingPagePresenter extends StatefulWidget {
-  final List<OnboardingPageModel> pages;
-
-  const OnboardingPagePresenter({super.key, required this.pages});
-
-  @override
-  State<OnboardingPagePresenter> createState() => _OnboardingPageState();
-}
-
-class _OnboardingPageState extends State<OnboardingPagePresenter> {
+class _OnboardingScreenState extends State<OnboardingScreen> {
+  final PageController _pageController = PageController();
   int _currentPage = 0;
-  final PageController _pageController = PageController(initialPage: 0);
+
+  final List<OnboardingPageModel> _pages = [
+    OnboardingPageModel(
+      title: 'Track Your Expenses',
+      description: 'Keep all your daily expenses organized in one place.',
+      imageUrl: 'assets/expenses.png',
+    ),
+    OnboardingPageModel(
+      title: 'Plan Your Budget',
+      description: 'Set budgets for your categories and stick to them easily.',
+      imageUrl: 'assets/finance.png',
+    ),
+    OnboardingPageModel(
+      title: 'Monitor Spending',
+      description: 'Visual charts help you analyze your spending habits.',
+      imageUrl: 'assets/location.png',
+    ),
+    OnboardingPageModel(
+      title: 'Save More',
+      description: 'Track your progress and save more efficiently.',
+      imageUrl: 'assets/start.png',
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
+    bool isLastPage = _currentPage == _pages.length - 1;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Column(
+        child: Stack(
           children: [
-            Expanded(
+            // 1. The Page Content
+            Positioned.fill(
+              bottom: 100, // Leave space for bottom bar
               child: PageView.builder(
                 controller: _pageController,
-                itemCount: widget.pages.length,
+                itemCount: _pages.length,
                 onPageChanged: (idx) {
                   setState(() {
                     _currentPage = idx;
                   });
                 },
-                itemBuilder: (context, idx) {
-                  final item = widget.pages[idx];
+                itemBuilder: (context, index) {
+                  final item = _pages[index];
                   return Column(
-                    children: <Widget>[
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Spacer(),
+                      // Image Area
                       Expanded(
-                        flex: 3,
+                        flex: 4,
                         child: Padding(
-                          padding: const EdgeInsets.all(32.0),
-                          child: Image.asset(item.imageUrl),
+                          padding: const EdgeInsets.all(30.0),
+                          child: Image.asset(
+                            item.imageUrl,
+                            fit: BoxFit.contain,
+                          ),
                         ),
                       ),
+                      const SizedBox(height: 20),
+                      // Text Area
                       Expanded(
-                        flex: 1,
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Text(
+                        flex: 2,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                          child: Column(
+                            children: [
+                              Text(
                                 item.title,
-                                style: Theme.of(context).textTheme.titleMedium
-                                    ?.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: item.textColor,
-                                    ),
-                              ),
-                            ),
-                            Container(
-                              constraints: const BoxConstraints(maxWidth: 280),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 24,
-                                vertical: 8,
-                              ),
-                              child: Text(
-                                item.description,
+                                style: const TextStyle(
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                  height: 1.2,
+                                ),
                                 textAlign: TextAlign.center,
-                                style: Theme.of(context).textTheme.bodyMedium
-                                    ?.copyWith(color: item.textColor),
                               ),
-                            ),
-                          ],
+                              const SizedBox(height: 16),
+                              Text(
+                                item.description,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey[600],
+                                  height: 1.5,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -113,105 +110,96 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
               ),
             ),
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: widget.pages.map((item) {
-                final idx = widget.pages.indexOf(item);
-                return AnimatedContainer(
-                  duration: const Duration(milliseconds: 250),
-                  width: _currentPage == idx ? 30 : 8,
-                  height: 8,
-                  margin: const EdgeInsets.all(2.0),
-                  decoration: BoxDecoration(
-                    color: _currentPage == idx
-                        ? Color(0xFF0046FF)
-                        : Colors.grey,
-                    borderRadius: BorderRadius.circular(10.0),
+            // 2. Top Right Skip Button (Hidden on last page)
+            Positioned(
+              top: 20,
+              right: 20,
+              child: AnimatedOpacity(
+                opacity: isLastPage ? 0.0 : 1.0,
+                duration: const Duration(milliseconds: 300),
+                child: TextButton(
+                  onPressed: isLastPage ? null : () => context.go("/Login"),
+                  child: Text(
+                    "Skip",
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                );
-              }).toList(),
+                ),
+              ),
             ),
 
-            // Bottom buttons
-            SizedBox(
-              height: 100,
+            // 3. Bottom Navigation Area
+            Positioned(
+              bottom: 30,
+              left: 30,
+              right: 30,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      visualDensity: VisualDensity.comfortable,
-                      foregroundColor: Colors.black,
-                      textStyle: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    onPressed: () {
-                      context.go("/Login");
-                    },
-                    child: const Text(
-                      "Skip",
-                      style: TextStyle(
-                        color: Color(0xFF313131),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
+                  // Page Indicators (Dots)
+                  Row(
+                    children: List.generate(
+                      _pages.length,
+                      (index) => AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        margin: const EdgeInsets.only(right: 6),
+                        height: 6,
+                        width: _currentPage == index ? 24 : 6,
+                        decoration: BoxDecoration(
+                          color: _currentPage == index
+                              ? const Color(0xFF0046FF)
+                              : Colors.grey[300],
+                          borderRadius: BorderRadius.circular(3),
+                        ),
                       ),
                     ),
                   ),
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      visualDensity: VisualDensity.comfortable,
-                      foregroundColor: Colors.black,
-                      textStyle: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    onPressed: () {
-                      if (_currentPage == widget.pages.length - 1) {
+
+                  // Dynamic Next/Get Started Button
+                  GestureDetector(
+                    onTap: () {
+                      if (isLastPage) {
                         context.go("/Login");
                       } else {
-                        _pageController.animateToPage(
-                          _currentPage + 1,
-                          curve: Curves.easeInOutCubic,
-                          duration: const Duration(milliseconds: 250),
+                        _pageController.nextPage(
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
                         );
                       }
                     },
-                    child: Row(
-                      children: [
-                        Container(
-                          height: 40,
-                          width: 100,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: _currentPage == widget.pages.length - 1
-                                ? Color(0xFF0046FF)
-                                : Colors.transparent,
-                            borderRadius: BorderRadius.circular(20),
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      height: 50,
+                      // If last page, widen the button. If not, circle.
+                      width: isLastPage ? 140 : 50,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF0046FF),
+                        borderRadius: BorderRadius.circular(25),
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color(0xFF0046FF).withOpacity(0.3),
+                            blurRadius: 10,
+                            offset: const Offset(0, 5),
                           ),
-                          child: Text(
-                            _currentPage == widget.pages.length - 1
-                                ? "Get Started"
-                                : "Next",
-                            style: TextStyle(
-                              color: _currentPage == widget.pages.length - 1
-                                  ? Colors.white
-                                  : Color(0xFF313131),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
+                        ],
+                      ),
+                      alignment: Alignment.center,
+                      child: isLastPage
+                          ? const Text(
+                              "Get Started",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            )
+                          : const Icon(
+                              Icons.arrow_forward,
+                              color: Colors.white,
                             ),
-                          ),
-                        ),
-                        // const SizedBox(width: 8),
-                        // Icon(
-                        //   _currentPage == widget.pages.length - 1
-                        //       ? Icons.done
-                        //       : Icons.arrow_forward,
-                        //   color: Color(0xFF313131),
-                        // ),
-                      ],
                     ),
                   ),
                 ],
@@ -224,16 +212,15 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
   }
 }
 
+// Simplified Model (removed unused textColor)
 class OnboardingPageModel {
   final String title;
   final String description;
   final String imageUrl;
-  final Color textColor;
 
   OnboardingPageModel({
     required this.title,
     required this.description,
     required this.imageUrl,
-    this.textColor = Colors.black, // fixed color
   });
 }

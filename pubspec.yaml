@@ -25,20 +25,20 @@ flutter_launcher_icons:
   min_sdk_android: 21
   web:
     generate: true
-    image_path: "assets/play_store_512.png"
+    image_path: "assets/nativelogo.png"
     background_color: "#FFFFFF"
     theme_color: "#FFFFFF"
   windows:
     generate: true
-    image_path: "assets/play_store_512.png"
+    image_path: "assets/nativelogo.png"
     icon_size: 48
   macos:
     generate: true
-    image_path: "assets/play_store_512.png"
+    image_path: "assets/nativelogo.png"
 
 flutter_native_splash:
   color: "#FFFFFF"
-  background_image: "assets/play_store_512.png"
+  background_image: "assets/nativelogo.png"
 
   fullscreen: true
   android_gravity: fill
@@ -46,7 +46,7 @@ flutter_native_splash:
   ios: true
 
   android_12:
-    image: "assets/play_store_512.png"
+    image: "assets/nativelogo.png"
     icon_background_color: "#FFFFFF"
 
 dev_dependencies:
