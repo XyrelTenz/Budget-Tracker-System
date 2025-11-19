@@ -25,7 +25,7 @@ class RemindersScreen extends StatelessWidget {
           padding: const EdgeInsets.only(
             left: 20,
             right: 20,
-            top: 25,
+            top: 30,
             bottom: 80,
           ),
           children: [
