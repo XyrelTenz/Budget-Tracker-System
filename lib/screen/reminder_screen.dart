@@ -11,6 +11,7 @@ class RemindersScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color(0xFF0046FF),
         elevation: 3,
+        shape: const CircleBorder(),
         onPressed: () {
           Navigator.push(
             context,
@@ -19,10 +20,14 @@ class RemindersScreen extends StatelessWidget {
         },
         child: const Icon(Icons.add, size: 32, color: Colors.white),
       ),
-
       body: SafeArea(
         child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.only(
+            left: 20,
+            right: 20,
+            top: 20,
+            bottom: 80,
+          ),
           children: [
             reminderItem(
               title: "Bill Payments",
@@ -48,7 +53,12 @@ class RemindersScreen extends StatelessWidget {
               reminderDate: "26 May 2024",
               dueDate: "12 Sep 2024",
             ),
-            const SizedBox(height: 60),
+            reminderItem(
+              title: "House Rent",
+              amount: "\$1,500",
+              reminderDate: "28 May 2024",
+              dueDate: "15 Sep 2024",
+            ),
           ],
         ),
       ),
