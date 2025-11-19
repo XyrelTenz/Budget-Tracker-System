@@ -9,7 +9,8 @@ class SetReminderScreen extends StatefulWidget {
 }
 
 class _SetReminderScreenState extends State<SetReminderScreen> {
-  String selectedBill = "Car Nhan";
+  //TODO:
+  String selectedBill = "Car";
   String? frequency;
   DateTime selectedDate = DateTime.now();
   TextEditingController amountController = TextEditingController(
@@ -17,71 +18,108 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
   );
 
   final List<String> bills = ["Car", "Iphone 15 Pro", "House", "Shopping"];
-
   final List<String> freqList = ["Daily", "Weekly", "Monthly", "Yearly"];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF313131)),
-          onPressed: () => Navigator.pop(context),
-        ),
-        centerTitle: true,
-        title: const Text(
-          "Set Reminders",
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: Color(0xFF313131),
-          ),
-        ),
-      ),
-
-      body: ListView(
-        padding: const EdgeInsets.all(20),
-        children: [
-          _dropdownField(
-            label: "Select Bill",
-            value: selectedBill,
-            onTap: () => _showBillSelection(context),
-          ),
-
-          _textField(label: "Amount", controller: amountController),
-
-          _dropdownField(
-            label: "Frequency",
-            value: frequency ?? "Select One",
-            onTap: () => _showFrequency(context),
-          ),
-
-          _dateField(context),
-
-          const SizedBox(height: 40),
-
-          Container(
-            width: double.infinity,
-            height: 55,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Color(0xFF0046FF),
-            ),
-            child: const Center(
-              child: Text(
-                "SET REMINDER",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
+      // UI: Added SafeArea to prevent notch overlap
+      body: SafeArea(
+        child: Column(
+          children: [
+            // Custom AppBar Area
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8.0,
+                vertical: 10,
+              ),
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: Color(0xFF313131),
+                    ),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  const Expanded(
+                    child: Text(
+                      "Set Reminders",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF313131),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 48), // Balance the back button spacing
+                ],
               ),
             ),
-          ),
-        ],
+
+            // Main Content
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.all(20),
+                children: [
+                  _dropdownField(
+                    label: "Select Bill",
+                    value: selectedBill,
+                    onTap: () => _showBillSelection(context),
+                  ),
+
+                  _textField(label: "Amount", controller: amountController),
+
+                  _dropdownField(
+                    label: "Frequency",
+                    value: frequency ?? "Select One",
+                    onTap: () => _showFrequency(context),
+                    isPlaceholder:
+                        frequency == null, // Style differently if null
+                  ),
+
+                  _dateField(context, label: "Payment Date"),
+
+                  const SizedBox(height: 40),
+
+                  GestureDetector(
+                    onTap: () {
+                      // Handle Save Action
+                      print("Saved: $selectedBill, $frequency, $selectedDate");
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 55,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: const Color(0xFF0046FF),
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color(0xFF0046FF).withOpacity(0.2),
+                            blurRadius: 10,
+                            offset: const Offset(0, 5),
+                          ),
+                        ],
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "SET REMINDER",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -94,24 +132,48 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
     required String label,
     required String value,
     required VoidCallback onTap,
+    bool isPlaceholder = false,
   }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 18),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(14),
-          border: Border.all(color: Colors.black12),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // FIX: Displaying the Label above the field
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: Colors.grey,
+          ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(value, style: const TextStyle(fontSize: 16)),
-            const Icon(Icons.keyboard_arrow_down),
-          ],
+        const SizedBox(height: 8),
+        GestureDetector(
+          onTap: onTap,
+          child: Container(
+            margin: const EdgeInsets.only(bottom: 18),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: Colors.black12),
+              color: Colors.grey.shade50,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  value,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: isPlaceholder ? Colors.grey : Colors.black87,
+                  ),
+                ),
+                const Icon(Icons.keyboard_arrow_down, color: Colors.grey),
+              ],
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 
@@ -119,42 +181,80 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
     required String label,
     required TextEditingController controller,
   }) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 18),
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: Colors.black12),
-      ),
-      child: TextField(
-        controller: controller,
-        keyboardType: TextInputType.number,
-        decoration: InputDecoration(labelText: label, border: InputBorder.none),
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // FIX: Displaying the Label
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: Colors.grey,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Container(
+          margin: const EdgeInsets.only(bottom: 18),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: Colors.black12),
+            color: Colors.grey.shade50,
+          ),
+          child: TextField(
+            controller: controller,
+            keyboardType: TextInputType.number,
+            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              hintText: "0.00",
+            ),
+          ),
+        ),
+      ],
     );
   }
 
-  Widget _dateField(BuildContext context) {
-    return GestureDetector(
-      onTap: () => _showDatePicker(context),
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 18),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(14),
-          border: Border.all(color: Colors.black12),
+  Widget _dateField(BuildContext context, {required String label}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: Colors.grey,
+          ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}",
-              style: const TextStyle(fontSize: 16),
+        const SizedBox(height: 8),
+        GestureDetector(
+          onTap: () => _showDatePicker(context),
+          child: Container(
+            margin: const EdgeInsets.only(bottom: 18),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: Colors.black12),
+              color: Colors.grey.shade50,
             ),
-            const Icon(Icons.calendar_month),
-          ],
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}",
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const Icon(Icons.calendar_month, color: Color(0xFF0046FF)),
+              ],
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 
@@ -169,20 +269,33 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
       ),
-      builder: (_) => Column(
-        mainAxisSize: MainAxisSize.min,
-        children: bills.map((bill) {
-          return ListTile(
-            title: Text(bill),
-            trailing: bill == selectedBill
-                ? const Icon(Icons.check_circle, color: Color(0xFF0046FF))
-                : null,
-            onTap: () {
-              setState(() => selectedBill = bill);
-              Navigator.pop(context);
-            },
-          );
-        }).toList(),
+      builder: (_) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(height: 10),
+            Container(
+              height: 4,
+              width: 40,
+              color: Colors.grey.shade300,
+            ), // Handle bar
+            ...bills.map((bill) {
+              return ListTile(
+                title: Text(
+                  bill,
+                  style: const TextStyle(fontWeight: FontWeight.w500),
+                ),
+                trailing: bill == selectedBill
+                    ? const Icon(Icons.check_circle, color: Color(0xFF0046FF))
+                    : null,
+                onTap: () {
+                  setState(() => selectedBill = bill);
+                  Navigator.pop(context);
+                },
+              );
+            }),
+          ],
+        ),
       ),
     );
   }
@@ -194,32 +307,61 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
       ),
-      builder: (_) => Column(
-        mainAxisSize: MainAxisSize.min,
-        children: freqList.map((f) {
-          return ListTile(
-            title: Text(f),
-            onTap: () {
-              setState(() => frequency = f);
-              Navigator.pop(context);
-            },
-          );
-        }).toList(),
+      builder: (_) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(height: 10),
+            Container(height: 4, width: 40, color: Colors.grey.shade300),
+            ...freqList.map((f) {
+              return ListTile(
+                title: Text(
+                  f,
+                  style: const TextStyle(fontWeight: FontWeight.w500),
+                ),
+                trailing: f == frequency
+                    ? const Icon(Icons.check_circle, color: Color(0xFF0046FF))
+                    : null,
+                onTap: () {
+                  setState(() => frequency = f);
+                  Navigator.pop(context);
+                },
+              );
+            }),
+          ],
+        ),
       ),
     );
   }
 
   void _showDatePicker(BuildContext context) {
-    showModalBottomSheet(
+    showCupertinoModalPopup(
       context: context,
-      builder: (_) => SizedBox(
+      builder: (_) => Container(
         height: 300,
-        child: CupertinoDatePicker(
-          initialDateTime: selectedDate,
-          mode: CupertinoDatePickerMode.date,
-          onDateTimeChanged: (date) {
-            setState(() => selectedDate = date);
-          },
+        color: Colors.white,
+        child: Column(
+          children: [
+            // UX: Added a Done button bar
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                CupertinoButton(
+                  child: const Text("Done"),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ],
+            ),
+            Expanded(
+              child: CupertinoDatePicker(
+                initialDateTime: selectedDate,
+                mode: CupertinoDatePickerMode.date,
+                onDateTimeChanged: (date) {
+                  setState(() => selectedDate = date);
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
