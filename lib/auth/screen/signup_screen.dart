@@ -12,15 +12,13 @@ class _SignupScreenState extends State<SignupScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        elevation: 0,
         leading: IconButton(
           onPressed: () {
             context.go("/Login");
@@ -39,58 +37,68 @@ class _SignupScreenState extends State<SignupScreen> {
           ),
         ),
       ),
-      backgroundColor: Colors.white,
       body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 30),
-                alignment: Alignment.center,
-                color: Colors.white,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    AspectRatio(
-                      aspectRatio: 16 / 9,
-                      child: Image.asset(
-                        "assets/signup.png",
-                        fit: BoxFit.contain,
-                      ),
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                // --- LOGO SECTION ---
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  alignment: Alignment.center,
+                  child: AspectRatio(
+                    aspectRatio: 16 / 9,
+                    child: Image.asset(
+                      "assets/signup.png",
+                      fit: BoxFit.contain,
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-            Expanded(
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  spacing: 15,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 50,
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      child: TextFormField(
+
+                const SizedBox(height: 20),
+
+                // --- FORM SECTION ---
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    spacing: 15,
+                    children: <Widget>[
+                      // Username
+                      TextFormField(
                         decoration: InputDecoration(
                           hintText: 'Username',
                           hintStyle: TextStyle(
                             fontSize: 15,
                             color: Colors.grey[400],
                           ),
-
-                          prefixIcon: Icon(Icons.person_outline_rounded),
+                          prefixIcon: const Icon(Icons.person_outline_rounded),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               width: 1,
                               color: Colors.grey,
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFF0046FF),
+                              width: 1,
+                            ),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                            borderSide: const BorderSide(
+                              color: Colors.red,
+                              width: 1,
+                            ),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                            borderSide: const BorderSide(
+                              color: Colors.red,
                               width: 1,
                             ),
                           ),
@@ -99,17 +107,14 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your email';
+                            return 'Please enter your username';
                           }
                           return null;
                         },
-                        onChanged: (value) {},
                       ),
-                    ),
-                    SizedBox(
-                      height: 50,
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      child: TextFormField(
+
+                      // Password
+                      TextFormField(
                         obscureText: true,
                         decoration: InputDecoration(
                           hintText: 'Password',
@@ -117,19 +122,32 @@ class _SignupScreenState extends State<SignupScreen> {
                             fontSize: 15,
                             color: Colors.grey[400],
                           ),
-
-                          prefixIcon: Icon(Icons.key_rounded),
+                          prefixIcon: const Icon(Icons.key_rounded),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               width: 1,
                               color: Colors.grey,
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFF0046FF),
+                              width: 1,
+                            ),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                            borderSide: const BorderSide(
+                              color: Colors.red,
+                              width: 1,
+                            ),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                            borderSide: const BorderSide(
+                              color: Colors.red,
                               width: 1,
                             ),
                           ),
@@ -142,13 +160,10 @@ class _SignupScreenState extends State<SignupScreen> {
                           }
                           return null;
                         },
-                        onChanged: (value) {},
                       ),
-                    ),
-                    SizedBox(
-                      height: 50,
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      child: TextFormField(
+
+                      // Confirm Password
+                      TextFormField(
                         obscureText: true,
                         decoration: InputDecoration(
                           hintText: 'Confirm Password',
@@ -156,19 +171,32 @@ class _SignupScreenState extends State<SignupScreen> {
                             fontSize: 15,
                             color: Colors.grey[400],
                           ),
-
-                          prefixIcon: Icon(Icons.key_rounded),
+                          prefixIcon: const Icon(Icons.key_rounded),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               width: 1,
                               color: Colors.grey,
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFF0046FF),
+                              width: 1,
+                            ),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                            borderSide: const BorderSide(
+                              color: Colors.red,
+                              width: 1,
+                            ),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                            borderSide: const BorderSide(
+                              color: Colors.red,
                               width: 1,
                             ),
                           ),
@@ -177,45 +205,45 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your password';
+                            return 'Please confirm your password';
                           }
                           return null;
                         },
-                        onChanged: (value) {},
                       ),
-                    ),
 
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      height: 50,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          elevation: 10,
-                          backgroundColor: Color(0xFF0046FF),
-                          shadowColor: Color(0xFF0046FF),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
+                      // Register Button
+                      SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            elevation: 10,
+                            backgroundColor: const Color(0xFF0046FF),
+                            shadowColor: const Color(0xFF0046FF),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
                           ),
-                        ),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            context.go("/HomeScreen");
-                          }
-                        },
-                        child: Text(
-                          "LOGIN",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              context.go("/HomeScreen");
+                            }
+                          },
+                          child: const Text(
+                            "REGISTER",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
