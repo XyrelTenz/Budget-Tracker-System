@@ -37,8 +37,8 @@ class CardItem extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               color: isSelected
-                  ? const Color(0xFF0046FF).withOpacity(0.3)
-                  : Colors.grey.withOpacity(0.05),
+                  ? const Color(0xFF0046FF).withValues(alpha: 0.03)
+                  : Colors.grey.withValues(alpha: 0.05),
               blurRadius: 12,
               offset: const Offset(0, 6),
             ),
@@ -55,8 +55,8 @@ class CardItem extends StatelessWidget {
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     color: isSelected
-                        ? Colors.white.withOpacity(0.2)
-                        : const Color(0xFF0046FF).withOpacity(0.1),
+                        ? Colors.white.withValues(alpha: 0.2)
+                        : const Color(0xFF0046FF).withValues(alpha: 0.2),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(icon, color: iconColor, size: 20),
@@ -72,7 +72,7 @@ class CardItem extends StatelessWidget {
                   title,
                   style: TextStyle(
                     fontSize: 13,
-                    color: textColor.withOpacity(0.8),
+                    color: textColor.withValues(alpha: 0.8),
                     fontWeight: FontWeight.w500,
                   ),
                   maxLines: 1,

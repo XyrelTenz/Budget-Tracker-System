@@ -21,7 +21,6 @@ class SavingsCards extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
         height: 50,
-        // Removed fixed MediaQuery width to allow parent to control sizing (Flexibility)
         decoration: BoxDecoration(
           color: isSelected ? const Color(0xFF0046FF) : Colors.white,
           borderRadius: BorderRadius.circular(16),
@@ -32,7 +31,7 @@ class SavingsCards extends StatelessWidget {
           boxShadow: isSelected
               ? [
                   BoxShadow(
-                    color: const Color(0xFF0046FF).withOpacity(0.3),
+                    color: const Color(0xFF0046FF).withValues(alpha: 0.3),
                     blurRadius: 8,
                     offset: const Offset(0, 4),
                   ),
