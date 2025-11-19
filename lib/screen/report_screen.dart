@@ -61,7 +61,7 @@ class _ReportScreenState extends State<ReportScreen> {
             Set<WidgetState> states,
           ) {
             if (states.contains(WidgetState.selected)) {
-              return const Color(0xFF0046FF).withOpacity(0.1);
+              return const Color(0xFF0046FF).withValues(alpha: 0.1);
             }
             return Colors.white;
           }),

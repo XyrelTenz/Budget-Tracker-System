@@ -12,7 +12,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
-  final List<OnboardingPageModel> _pages = [
+  final List<OnboardingPageModel> _pages = <OnboardingPageModel>[
     OnboardingPageModel(
       title: 'Track Your Expenses',
       description: 'Keep all your daily expenses organized in one place.',
@@ -180,7 +180,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         borderRadius: BorderRadius.circular(25),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(0xFF0046FF).withOpacity(0.3),
+                            color: const Color(
+                              0xFF0046FF,
+                            ).withValues(alpha: 0.3),
                             blurRadius: 10,
                             offset: const Offset(0, 5),
                           ),
