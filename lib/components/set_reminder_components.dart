@@ -9,7 +9,6 @@ class SetReminderScreen extends StatefulWidget {
 }
 
 class _SetReminderScreenState extends State<SetReminderScreen> {
-  //TODO:
   String selectedBill = "Car";
   String? frequency;
   DateTime selectedDate = DateTime.now();
@@ -76,8 +75,7 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                     label: "Frequency",
                     value: frequency ?? "Select One",
                     onTap: () => _showFrequency(context),
-                    isPlaceholder:
-                        frequency == null, // Style differently if null
+                    isPlaceholder: frequency == null,
                   ),
 
                   _dateField(context, label: "Payment Date"),
@@ -87,7 +85,7 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                   GestureDetector(
                     onTap: () {
                       // Handle Save Action
-                      print("Saved: $selectedBill, $frequency, $selectedDate");
+                      // print("Saved: $selectedBill, $frequency, $selectedDate");
                     },
                     child: Container(
                       width: double.infinity,
@@ -97,7 +95,9 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                         color: const Color(0xFF0046FF),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(0xFF0046FF).withOpacity(0.2),
+                            color: const Color(
+                              0xFF0046FF,
+                            ).withValues(alpha: 0.2),
                             blurRadius: 10,
                             offset: const Offset(0, 5),
                           ),
@@ -137,7 +137,6 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // FIX: Displaying the Label above the field
         Text(
           label,
           style: const TextStyle(
