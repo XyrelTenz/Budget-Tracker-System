@@ -20,35 +20,37 @@ class RemindersScreen extends StatelessWidget {
         child: const Icon(Icons.add, size: 32, color: Colors.white),
       ),
 
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        children: [
-          reminderItem(
-            title: "Bill Payment",
-            amount: "\$200",
-            reminderDate: "26 May 2024",
-            dueDate: "3 Jun 2024",
-          ),
-          reminderItem(
-            title: "Car Loan",
-            amount: "\$600",
-            reminderDate: "26 May 2024",
-            dueDate: "11 July 2024",
-          ),
-          reminderItem(
-            title: "Iphone 15 Pro",
-            amount: "\$1,000",
-            reminderDate: "26 May 2024",
-            dueDate: "3 Aug 2024",
-          ),
-          reminderItem(
-            title: "New Bike",
-            amount: "\$2,300",
-            reminderDate: "26 May 2024",
-            dueDate: "12 Sep 2024",
-          ),
-          const SizedBox(height: 60),
-        ],
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          children: [
+            reminderItem(
+              title: "Bill Payments",
+              amount: "\$200",
+              reminderDate: "26 May 2024",
+              dueDate: "3 Jun 2024",
+            ),
+            reminderItem(
+              title: "Car Loan",
+              amount: "\$600",
+              reminderDate: "26 May 2024",
+              dueDate: "11 July 2024",
+            ),
+            reminderItem(
+              title: "Iphone 15 Pro",
+              amount: "\$1,000",
+              reminderDate: "26 May 2024",
+              dueDate: "3 Aug 2024",
+            ),
+            reminderItem(
+              title: "New Bike",
+              amount: "\$2,300",
+              reminderDate: "26 May 2024",
+              dueDate: "12 Sep 2024",
+            ),
+            const SizedBox(height: 60),
+          ],
+        ),
       ),
     );
   }

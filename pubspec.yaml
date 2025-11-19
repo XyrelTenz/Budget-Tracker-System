@@ -61,12 +61,11 @@ flutter_launcher_icons:
 
 flutter_native_splash:
   color: "#FFFFFF"
-  # OR an image background (use only one: color or background_image)
-  # background_image: "assets/dark_background.png"
-
   # The image to display on the splash screen
-  image: "assets/1.png"
+  background_image: "assets/1.png"
 
+  fullscreen: true
+  android_gravity: fill
   android: true
   ios: true
 
