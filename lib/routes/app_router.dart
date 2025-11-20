@@ -6,6 +6,7 @@ import "package:go_router/go_router.dart";
 import 'package:flutter/material.dart';
 import 'package:smart_budget_ph/splash_screen/splash.dart';
 
+//TODO: Use ShellRoute
 final GoRouter router = GoRouter(
   routes: <RouteBase>[
     GoRoute(

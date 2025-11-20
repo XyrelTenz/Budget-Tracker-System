@@ -13,6 +13,7 @@ class NavigationWidget extends StatefulWidget {
 }
 
 class _NavigationBarState extends State<NavigationWidget> {
+  //TODO: Replace with destination routes
   final List<Widget> _screens = <Widget>[
     const HomeScreen(),
     const TransactionScreen(),
@@ -47,6 +48,7 @@ class _NavigationBarState extends State<NavigationWidget> {
   }
 }
 
+//TODO: Removige hardcoded colors
 const _navBarItems = [
   NavigationDestination(
     icon: Icon(Icons.home_outlined, color: Color(0xFF313131)),
