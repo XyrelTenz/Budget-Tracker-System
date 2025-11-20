@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:smart_budget_ph/routes/helper/routes.dart';
 
 class CustomSplashScreen extends StatefulWidget {
   const CustomSplashScreen({super.key});
@@ -100,7 +101,7 @@ class _CustomSplashScreenState extends State<CustomSplashScreen>
         SystemUiMode.manual,
         overlays: SystemUiOverlay.values,
       );
-      context.go('/OnBoardingScreen');
+      context.go(Routes.onboarding);
     }
   }
 

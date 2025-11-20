@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:go_router/go_router.dart';
+import "package:smart_budget_ph/routes/helper/routes.dart";
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -21,7 +22,7 @@ class _SignupScreenState extends State<SignupScreen> {
         elevation: 0,
         leading: IconButton(
           onPressed: () {
-            context.go("/Login");
+            context.go(Routes.login);
           },
           icon: Container(
             padding: const EdgeInsets.all(5.0),
@@ -225,9 +226,9 @@ class _SignupScreenState extends State<SignupScreen> {
                             ),
                           ),
                           onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              context.go("/HomeScreen");
-                            }
+                            // if (_formKey.currentState!.validate()) {
+                            //   context.go("/HomeScreen");
+                            // }
                           },
                           child: const Text(
                             "REGISTER",

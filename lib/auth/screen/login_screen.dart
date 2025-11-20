@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter/gestures.dart";
 import 'package:go_router/go_router.dart';
+import 'package:smart_budget_ph/routes/helper/routes.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -163,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                     onPressed: () {
                                       if (_formKey.currentState!.validate()) {
-                                        context.go("/HomeScreen");
+                                        context.go(Routes.home);
                                       }
                                     },
                                     child: const Text(
@@ -211,7 +212,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  context.go("/Register");
+                                  context.go(Routes.register);
                                 },
                             ),
                           ],

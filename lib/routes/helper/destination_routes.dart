@@ -12,7 +12,7 @@ class Destination {
   final IconData selectedIcon;
 }
 
-const destinations = [
+const destinations = <Destination>[
   Destination(
     label: 'Overview',
     icon: Icons.home_outlined,

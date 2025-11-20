@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:smart_budget_ph/routes/helper/routes.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -118,7 +119,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 opacity: isLastPage ? 0.0 : 1.0,
                 duration: const Duration(milliseconds: 300),
                 child: TextButton(
-                  onPressed: isLastPage ? null : () => context.go("/Login"),
+                  onPressed: isLastPage ? null : () => context.go(Routes.login),
                   child: Text(
                     "Skip",
                     style: TextStyle(
@@ -158,11 +159,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                   ),
 
-                  // Dynamic Next/Get Started Button
                   GestureDetector(
                     onTap: () {
                       if (isLastPage) {
-                        context.go("/Login");
+                        context.go(Routes.login);
                       } else {
                         _pageController.nextPage(
                           duration: const Duration(milliseconds: 300),
@@ -173,7 +173,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 300),
                       height: 50,
-                      // If last page, widen the button. If not, circle.
                       width: isLastPage ? 140 : 50,
                       decoration: BoxDecoration(
                         color: const Color(0xFF0046FF),

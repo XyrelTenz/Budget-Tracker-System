@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import "package:smart_budget_ph/routes/helper/routes.dart";
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
@@ -132,7 +133,7 @@ class AccountScreen extends StatelessWidget {
               width: double.infinity,
               child: TextButton(
                 onPressed: () {
-                  context.go("/Login");
+                  context.go(Routes.login);
                 },
                 style: TextButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),

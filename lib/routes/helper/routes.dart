@@ -1,10 +1,11 @@
-// TODO: Configure this later
 class Routes {
   Routes._();
 
-  // Auth Routes
+  // General Routes
   static const String splash = '/';
   static const String onboarding = '/onboarding';
+
+  // Auth Routes
   static const String login = '/login';
   static const String register = '/register';
 
