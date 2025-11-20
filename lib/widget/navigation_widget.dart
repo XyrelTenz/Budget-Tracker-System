@@ -56,17 +56,17 @@ const _navBarItems = [
   NavigationDestination(
     icon: Icon(Icons.receipt_long_outlined, color: Color(0xFF313131)),
     selectedIcon: Icon(Icons.receipt_long, color: Color(0xFF0046FF)),
-    label: 'Transactions',
+    label: 'Transaction',
   ),
   NavigationDestination(
     icon: Icon(Icons.bar_chart_outlined, color: Color(0xFF313131)),
     selectedIcon: Icon(Icons.bar_chart_rounded, color: Color(0xFF0046FF)),
-    label: 'Reports',
+    label: 'Report',
   ),
   NavigationDestination(
     icon: Icon(Icons.settings, color: Color(0xFF313131)),
     selectedIcon: Icon(Icons.settings_rounded, color: Color(0xFF0046FF)),
-    label: 'Reminders',
+    label: 'Reminder',
   ),
   NavigationDestination(
     icon: Icon(Icons.person, color: Color(0xFF313131)),

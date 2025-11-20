@@ -121,7 +121,7 @@ class _CustomSplashScreenState extends State<CustomSplashScreen>
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: <Widget>[
             AnimatedBuilder(
               animation: _glowAnimation,
               builder: (context, child) {
