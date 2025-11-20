@@ -13,11 +13,9 @@ class AccountScreen extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: [
-            SizedBox(height: MediaQuery.of(context).size.height * 0.03),
             // --- PROFILE HEADER ---
             _buildProfileHeader(),
             const SizedBox(height: 30),
-
             // --- GENERAL SECTION ---
             const Padding(
               padding: EdgeInsets.only(left: 8, bottom: 10),
@@ -220,7 +218,7 @@ class AccountScreen extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         Text(
-          "xyrel.ten@example.com",
+          "xdemocrito1@gmail.com",
           style: TextStyle(fontSize: 14, color: Colors.grey.shade500),
         ),
       ],

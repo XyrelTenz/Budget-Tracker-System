@@ -25,7 +25,7 @@ class RemindersScreen extends StatelessWidget {
           padding: const EdgeInsets.only(
             left: 20,
             right: 20,
-            top: 30,
+            top: 20,
             bottom: 80,
           ),
           children: [
@@ -73,7 +73,6 @@ class RemindersScreen extends StatelessWidget {
   }) {
     return Column(
       children: [
-        const SizedBox(height: 16),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

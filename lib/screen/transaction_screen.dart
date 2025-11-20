@@ -12,7 +12,6 @@ class _TransactionScreenState extends State<TransactionScreen> {
   String _searchQuery = "";
   String _selectedTab = "All";
 
-  // Dummy Data Source
   final List<TransactionModel> _allTransactions = [
     TransactionModel(
       icon: Icons.fastfood,
@@ -91,7 +90,6 @@ class _TransactionScreenState extends State<TransactionScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: MediaQuery.of(context).size.height * 0.03),
               Row(
                 children: [
                   Expanded(
