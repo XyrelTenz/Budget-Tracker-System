@@ -13,6 +13,9 @@ class Routes {
   static const String home = '/home';
   static const String transaction = '/transaction';
   static const String report = '/report';
+  // Reminder
   static const String reminder = '/reminder';
+  static const String set = 'set';
+
   static const String account = '/account';
 }

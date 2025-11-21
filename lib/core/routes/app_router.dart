@@ -9,7 +9,10 @@ import "package:smart_budget_ph/features/auth/presentation/screens/signup_screen
 import "package:smart_budget_ph/features/home/presentation/screens/home_screen.dart";
 import "package:smart_budget_ph/features/transaction/presentation/screens/transaction_screen.dart";
 import "package:smart_budget_ph/features/reports/presentation/screens/report_screen.dart";
+//Reminders
 import "package:smart_budget_ph/features/reminders/presentation/screens/reminder_screen.dart";
+import "package:smart_budget_ph/features/reminders/widgets/reminder_picker.dart";
+
 import "package:smart_budget_ph/features/accounts/presentation/screens/account_screen.dart";
 
 // Helpers
@@ -74,6 +77,12 @@ final GoRouter router = GoRouter(
             GoRoute(
               path: Routes.reminder,
               builder: (context, state) => const RemindersScreen(),
+              routes: [
+                GoRoute(
+                  path: Routes.set,
+                  builder: (context, state) => const SetReminderWidget(),
+                ),
+              ],
             ),
           ],
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import "package:smart_budget_ph/features/reminders/widgets/reminder_picker.dart";
+import "package:smart_budget_ph/core/routes/app_routes.dart";
+import "package:go_router/go_router.dart";
 
 class RemindersScreen extends StatelessWidget {
   const RemindersScreen({super.key});
@@ -13,10 +14,7 @@ class RemindersScreen extends StatelessWidget {
         elevation: 3,
         shape: const CircleBorder(),
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const SetReminderWidget()),
-          );
+          context.go('${Routes.reminder}/${Routes.set}');
         },
         child: const Icon(Icons.add, size: 32, color: Colors.white),
       ),
