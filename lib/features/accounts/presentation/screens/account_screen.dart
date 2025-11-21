@@ -9,17 +9,14 @@ class AccountScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // 1. Capture Theme & Provider State
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final textTheme = theme.textTheme;
 
-    // Listen to current theme mode (Light/Dark/System)
     final currentThemeMode = ref.watch(themeProvider);
     final isDarkMode = currentThemeMode == ThemeMode.dark;
 
     return Scaffold(
-      // Adaptive Background (Light Grey / Dark Background)
       backgroundColor: colorScheme.surfaceContainerLow,
       body: SafeArea(
         child: ListView(
