@@ -74,20 +74,18 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Capture Theme
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
     final groupedTransactions = <String, List<TransactionModel>>{};
     for (var tx in _filteredTransactions) {
       if (!groupedTransactions.containsKey(tx.day)) {
-        groupedTransactions[tx.day] = [];
+        groupedTransactions[tx.day] = <TransactionModel>[];
       }
       groupedTransactions[tx.day]!.add(tx);
     }
 
     return Scaffold(
-      // Adaptive Background
       backgroundColor: colorScheme.surface,
       body: SafeArea(
         child: Padding(
@@ -95,7 +93,6 @@ class _TransactionScreenState extends State<TransactionScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // --- SEARCH & FILTER ---
               Row(
                 children: [
                   Expanded(
@@ -157,7 +154,6 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
               const SizedBox(height: 20),
 
-              // --- TOTAL BALANCE CARD ---
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(16),
@@ -200,14 +196,14 @@ class _TransactionScreenState extends State<TransactionScreen> {
                           "Income",
                           "₱20,000",
                           Icons.arrow_downward,
-                          Colors.greenAccent, // Keep accents distinct
+                          Colors.greenAccent,
                           colorScheme,
                         ),
                         _buildSummaryItem(
                           "Expense",
                           "₱7,550",
                           Icons.arrow_upward,
-                          Colors.redAccent, // Keep accents distinct
+                          Colors.redAccent,
                           colorScheme,
                         ),
                       ],
@@ -218,7 +214,6 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
               const SizedBox(height: 20),
 
-              // --- TABS ---
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -230,7 +225,6 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
               const SizedBox(height: 20),
 
-              // --- TRANSACTION LIST ---
               Expanded(
                 child: _filteredTransactions.isEmpty
                     ? Center(
@@ -321,7 +315,6 @@ class _TransactionScreenState extends State<TransactionScreen> {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
         decoration: BoxDecoration(
-          // Active: Blue, Inactive: Light Grey (or Dark Grey)
           color: active
               ? colorScheme.primary
               : colorScheme.surfaceContainerHighest,
@@ -348,12 +341,11 @@ class _TransactionScreenState extends State<TransactionScreen> {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        // Adaptive Card Background
         color: colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.03), // Subtle shadow
+            color: Colors.black.withValues(alpha: 0.03),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
