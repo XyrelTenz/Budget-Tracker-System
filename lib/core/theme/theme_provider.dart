@@ -1,19 +1,17 @@
-import "package:riverpod/riverpod.dart";
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import './theme.dart';
 
-class ThemeController extends Notifier<ThemeData> {
+class ThemeNotifier extends Notifier<ThemeMode> {
   @override
-  ThemeData build() {
-    return lightTheme;
+  ThemeMode build() {
+    return ThemeMode.system;
   }
 
-  void setLight() => state = lightTheme;
-  void setDark() => state = darkTheme;
-
-  void setCustom(ThemeData custom) => state = custom;
+  void setLight() => state = ThemeMode.light;
+  void setDark() => state = ThemeMode.dark;
+  void setSystem() => state = ThemeMode.system;
 }
 
-final themeProvider = NotifierProvider<ThemeController, ThemeData>(
-  ThemeController.new,
+final themeProvider = NotifierProvider<ThemeNotifier, ThemeMode>(
+  ThemeNotifier.new,
 );
