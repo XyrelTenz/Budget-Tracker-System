@@ -17,5 +17,11 @@ class Routes {
   static const String reminder = '/reminder';
   static const String set = 'set';
 
+  // Accounts
   static const String account = '/account';
+  static const String editprofile = 'edit';
+  static const String exportdata = 'exportdata';
+  static const String notificationsettings = 'notificationsettings';
+  static const String securityprivacy = 'securityprivacy';
+  static const String categories = 'categories';
 }

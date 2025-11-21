@@ -22,18 +22,16 @@ class AccountScreen extends ConsumerWidget {
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: [
-            // --- PROFILE HEADER ---
             _buildProfileHeader(colorScheme),
 
             const SizedBox(height: 30),
 
-            // --- GENERAL SECTION ---
             Padding(
               padding: const EdgeInsets.only(left: 8, bottom: 10),
               child: Text(
                 "General",
                 style: textTheme.labelLarge?.copyWith(
-                  color: colorScheme.onSurfaceVariant, // Adaptive Grey
+                  color: colorScheme.onSurfaceVariant,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -57,7 +55,9 @@ class AccountScreen extends ConsumerWidget {
                     icon: Icons.person_outline,
                     color: Colors.blue,
                     label: "Edit Profile",
-                    onTap: () {},
+                    onTap: () {
+                      context.go('${Routes.account}/${Routes.editprofile}');
+                    },
                     colorScheme: colorScheme,
                   ),
                   _buildDivider(colorScheme),
@@ -65,7 +65,11 @@ class AccountScreen extends ConsumerWidget {
                     icon: Icons.notifications_outlined,
                     color: Colors.orange,
                     label: "Notifications",
-                    onTap: () {},
+                    onTap: () {
+                      context.go(
+                        '${Routes.account}/${Routes.notificationsettings}',
+                      );
+                    },
                     colorScheme: colorScheme,
                   ),
                   _buildDivider(colorScheme),
@@ -73,7 +77,9 @@ class AccountScreen extends ConsumerWidget {
                     icon: Icons.category_outlined,
                     color: Colors.purple,
                     label: "Categories",
-                    onTap: () {},
+                    onTap: () {
+                      context.go('${Routes.account}/${Routes.categories}');
+                    },
                     colorScheme: colorScheme,
                   ),
                   _buildDivider(colorScheme),
@@ -81,7 +87,9 @@ class AccountScreen extends ConsumerWidget {
                     icon: Icons.file_download_outlined,
                     color: Colors.teal,
                     label: "Export Data",
-                    onTap: () {},
+                    onTap: () {
+                      context.go('${Routes.account}/${Routes.exportdata}');
+                    },
                     colorScheme: colorScheme,
                   ),
                 ],
@@ -90,7 +98,6 @@ class AccountScreen extends ConsumerWidget {
 
             const SizedBox(height: 25),
 
-            // --- PREFERENCES SECTION ---
             Padding(
               padding: const EdgeInsets.only(left: 8, bottom: 10),
               child: Text(
@@ -119,7 +126,9 @@ class AccountScreen extends ConsumerWidget {
                     icon: Icons.lock_outline,
                     color: Colors.pink,
                     label: "Security & Privacy",
-                    onTap: () {},
+                    onTap: () {
+                      context.go('${Routes.account}/${Routes.securityprivacy}');
+                    },
                     colorScheme: colorScheme,
                   ),
                   _buildDivider(colorScheme),
@@ -139,7 +148,6 @@ class AccountScreen extends ConsumerWidget {
                   ),
                   _buildDivider(colorScheme),
 
-                  // --- DARK MODE SWITCH ---
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 20,
@@ -190,7 +198,6 @@ class AccountScreen extends ConsumerWidget {
 
             const SizedBox(height: 25),
 
-            // --- LOGOUT BUTTON ---
             SizedBox(
               width: double.infinity,
               child: TextButton(
@@ -199,7 +206,6 @@ class AccountScreen extends ConsumerWidget {
                 },
                 style: TextButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  // Adaptive Button Background
                   backgroundColor: colorScheme.surfaceContainerHighest,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
@@ -210,7 +216,7 @@ class AccountScreen extends ConsumerWidget {
                 child: Text(
                   "Log Out",
                   style: TextStyle(
-                    color: colorScheme.error, // Adaptive Red
+                    color: colorScheme.error,
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
@@ -242,10 +248,7 @@ class AccountScreen extends ConsumerWidget {
             Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(
-                  color: colorScheme.surface, // Matches background
-                  width: 4,
-                ),
+                border: Border.all(color: colorScheme.surface, width: 4),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withValues(alpha: 0.1),
@@ -281,7 +284,7 @@ class AccountScreen extends ConsumerWidget {
           style: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,
-            color: colorScheme.onSurface, // Adaptive Black
+            color: colorScheme.onSurface,
           ),
         ),
         const SizedBox(height: 4),
@@ -295,7 +298,7 @@ class AccountScreen extends ConsumerWidget {
 
   Widget _buildMenuItem({
     required IconData icon,
-    required Color color, // Kept specific colors for icons (Blue/Orange/etc)
+    required Color color,
     required String label,
     Widget? trailing,
     required VoidCallback onTap,
@@ -311,7 +314,6 @@ class AccountScreen extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                // Use lighter alpha for dark mode so color isn't too muddy
                 color: color.withValues(alpha: 0.15),
                 shape: BoxShape.circle,
               ),
@@ -324,7 +326,7 @@ class AccountScreen extends ConsumerWidget {
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
-                  color: colorScheme.onSurface, // Adaptive Text
+                  color: colorScheme.onSurface,
                 ),
               ),
             ),

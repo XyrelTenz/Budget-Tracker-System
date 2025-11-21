@@ -13,7 +13,13 @@ import "package:smart_budget_ph/features/reports/presentation/screens/report_scr
 import "package:smart_budget_ph/features/reminders/presentation/screens/reminder_screen.dart";
 import "package:smart_budget_ph/features/reminders/widgets/reminder_picker.dart";
 
+//Accounts
 import "package:smart_budget_ph/features/accounts/presentation/screens/account_screen.dart";
+import "package:smart_budget_ph/features/accounts/presentation/screens/categories_screen.dart";
+import "package:smart_budget_ph/features/accounts/presentation/screens/edit_profile_screen.dart";
+import "package:smart_budget_ph/features/accounts/presentation/screens/export_data_screen.dart";
+import "package:smart_budget_ph/features/accounts/presentation/screens/notification_settings_screen.dart";
+import "package:smart_budget_ph/features/accounts/presentation/screens/security_privacy_screen.dart";
 
 // Helpers
 import 'package:smart_budget_ph/core/routes/app_routes.dart';
@@ -91,6 +97,33 @@ final GoRouter router = GoRouter(
             GoRoute(
               path: Routes.account,
               builder: (context, state) => const AccountScreen(),
+              routes: [
+                GoRoute(
+                  path: Routes.editprofile,
+                  builder: (BuildContext context, state) =>
+                      const EditProfileScreen(),
+                ),
+                GoRoute(
+                  path: Routes.exportdata,
+                  builder: (BuildContext context, GoRouterState state) =>
+                      const ExportDataScreen(),
+                ),
+                GoRoute(
+                  path: Routes.notificationsettings,
+                  builder: (BuildContext context, GoRouterState state) =>
+                      const NotificationsSettingsScreen(),
+                ),
+                GoRoute(
+                  path: Routes.securityprivacy,
+                  builder: (BuildContext context, GoRouterState state) =>
+                      const SecurityPrivacyScreen(),
+                ),
+                GoRoute(
+                  path: Routes.categories,
+                  builder: (BuildContext context, GoRouterState state) =>
+                      const CategoriesScreen(),
+                ),
+              ],
             ),
           ],
         ),
