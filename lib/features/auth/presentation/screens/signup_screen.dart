@@ -14,11 +14,16 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Capture theme
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: Colors.white,
+      // 1. Adaptive Background
+      backgroundColor: colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: colorScheme.surface, // Matches body
         elevation: 0,
         leading: IconButton(
           onPressed: () {
@@ -27,12 +32,14 @@ class _SignupScreenState extends State<SignupScreen> {
           icon: Container(
             padding: const EdgeInsets.all(5.0),
             decoration: BoxDecoration(
-              color: Colors.grey[100],
+              // 2. Adaptive Back Button Circle (Light Grey / Dark Grey)
+              color: colorScheme.surfaceContainerHighest,
               shape: BoxShape.circle,
             ),
-            child: const Icon(
+            child: Icon(
               Icons.arrow_back_ios_new,
-              color: Color(0xFF313131),
+              // 3. Adaptive Icon Color (Black / White)
+              color: colorScheme.onSurface,
               size: 20,
             ),
           ),
@@ -68,43 +75,47 @@ class _SignupScreenState extends State<SignupScreen> {
                     children: <Widget>[
                       // Username
                       TextFormField(
+                        style: TextStyle(color: colorScheme.onSurface),
                         decoration: InputDecoration(
                           hintText: 'Username',
                           hintStyle: TextStyle(
                             fontSize: 15,
-                            color: Colors.grey[400],
+                            color: colorScheme.onSurfaceVariant,
                           ),
-                          prefixIcon: const Icon(Icons.person_outline_rounded),
+                          prefixIcon: Icon(
+                            Icons.person_outline_rounded,
+                            color: colorScheme.onSurfaceVariant,
+                          ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0),
-                            borderSide: const BorderSide(
+                            borderSide: BorderSide(
                               width: 1,
-                              color: Colors.grey,
+                              color: colorScheme.outline,
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0),
-                            borderSide: const BorderSide(
-                              color: Color(0xFF0046FF),
+                            borderSide: BorderSide(
+                              color: colorScheme.primary,
                               width: 1,
                             ),
                           ),
                           errorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0),
-                            borderSide: const BorderSide(
-                              color: Colors.red,
+                            borderSide: BorderSide(
+                              color: colorScheme.error,
                               width: 1,
                             ),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0),
-                            borderSide: const BorderSide(
-                              color: Colors.red,
+                            borderSide: BorderSide(
+                              color: colorScheme.error,
                               width: 1,
                             ),
                           ),
                           filled: true,
-                          fillColor: Colors.grey[50],
+                          fillColor: colorScheme.surfaceContainerLowest,
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -116,44 +127,48 @@ class _SignupScreenState extends State<SignupScreen> {
 
                       // Password
                       TextFormField(
+                        style: TextStyle(color: colorScheme.onSurface),
                         obscureText: true,
                         decoration: InputDecoration(
                           hintText: 'Password',
                           hintStyle: TextStyle(
                             fontSize: 15,
-                            color: Colors.grey[400],
+                            color: colorScheme.onSurfaceVariant,
                           ),
-                          prefixIcon: const Icon(Icons.key_rounded),
+                          prefixIcon: Icon(
+                            Icons.key_rounded,
+                            color: colorScheme.onSurfaceVariant,
+                          ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0),
-                            borderSide: const BorderSide(
+                            borderSide: BorderSide(
                               width: 1,
-                              color: Colors.grey,
+                              color: colorScheme.outline,
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0),
-                            borderSide: const BorderSide(
-                              color: Color(0xFF0046FF),
+                            borderSide: BorderSide(
+                              color: colorScheme.primary,
                               width: 1,
                             ),
                           ),
                           errorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0),
-                            borderSide: const BorderSide(
-                              color: Colors.red,
+                            borderSide: BorderSide(
+                              color: colorScheme.error,
                               width: 1,
                             ),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0),
-                            borderSide: const BorderSide(
-                              color: Colors.red,
+                            borderSide: BorderSide(
+                              color: colorScheme.error,
                               width: 1,
                             ),
                           ),
                           filled: true,
-                          fillColor: Colors.grey[50],
+                          fillColor: colorScheme.surfaceContainerLowest,
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -165,44 +180,48 @@ class _SignupScreenState extends State<SignupScreen> {
 
                       // Confirm Password
                       TextFormField(
+                        style: TextStyle(color: colorScheme.onSurface),
                         obscureText: true,
                         decoration: InputDecoration(
                           hintText: 'Confirm Password',
                           hintStyle: TextStyle(
                             fontSize: 15,
-                            color: Colors.grey[400],
+                            color: colorScheme.onSurfaceVariant,
                           ),
-                          prefixIcon: const Icon(Icons.key_rounded),
+                          prefixIcon: Icon(
+                            Icons.key_rounded,
+                            color: colorScheme.onSurfaceVariant,
+                          ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0),
-                            borderSide: const BorderSide(
+                            borderSide: BorderSide(
                               width: 1,
-                              color: Colors.grey,
+                              color: colorScheme.outline,
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0),
-                            borderSide: const BorderSide(
-                              color: Color(0xFF0046FF),
+                            borderSide: BorderSide(
+                              color: colorScheme.primary,
                               width: 1,
                             ),
                           ),
                           errorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0),
-                            borderSide: const BorderSide(
-                              color: Colors.red,
+                            borderSide: BorderSide(
+                              color: colorScheme.error,
                               width: 1,
                             ),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15.0),
-                            borderSide: const BorderSide(
-                              color: Colors.red,
+                            borderSide: BorderSide(
+                              color: colorScheme.error,
                               width: 1,
                             ),
                           ),
                           filled: true,
-                          fillColor: Colors.grey[50],
+                          fillColor: colorScheme.surfaceContainerLowest,
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -219,21 +238,23 @@ class _SignupScreenState extends State<SignupScreen> {
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             elevation: 10,
-                            backgroundColor: const Color(0xFF0046FF),
-                            shadowColor: const Color(0xFF0046FF),
+                            backgroundColor: colorScheme.primary,
+                            shadowColor: colorScheme.primary.withValues(
+                              alpha: 0.5,
+                            ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15.0),
                             ),
                           ),
                           onPressed: () {
                             // if (_formKey.currentState!.validate()) {
-                            //   context.go("/HomeScreen");
+                            //    context.go("/HomeScreen");
                             // }
                           },
-                          child: const Text(
+                          child: Text(
                             "REGISTER",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: colorScheme.onPrimary,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
