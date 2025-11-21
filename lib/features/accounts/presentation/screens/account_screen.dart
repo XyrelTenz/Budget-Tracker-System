@@ -1,40 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import "package:smart_budget_ph/core/routes/app_routes.dart";
+import "package:smart_budget_ph/core/theme/theme_provider.dart";
 
-class AccountScreen extends StatelessWidget {
+class AccountScreen extends ConsumerWidget {
   const AccountScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // 1. Capture Theme & Provider State
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
+
+    // Listen to current theme mode (Light/Dark/System)
+    final currentThemeMode = ref.watch(themeProvider);
+    final isDarkMode = currentThemeMode == ThemeMode.dark;
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      // Adaptive Background (Light Grey / Dark Background)
+      backgroundColor: colorScheme.surfaceContainerLow,
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: [
             // --- PROFILE HEADER ---
-            _buildProfileHeader(),
+            _buildProfileHeader(colorScheme),
+
             const SizedBox(height: 30),
+
             // --- GENERAL SECTION ---
-            const Padding(
-              padding: EdgeInsets.only(left: 8, bottom: 10),
+            Padding(
+              padding: const EdgeInsets.only(left: 8, bottom: 10),
               child: Text(
                 "General",
-                style: TextStyle(
-                  fontSize: 14,
+                style: textTheme.labelLarge?.copyWith(
+                  color: colorScheme.onSurfaceVariant, // Adaptive Grey
                   fontWeight: FontWeight.bold,
-                  color: Colors.grey,
                 ),
               ),
             ),
             Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                // Adaptive Card Color
+                color: colorScheme.surfaceContainer,
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.02),
+                    color: Colors.black.withValues(alpha: 0.05),
                     blurRadius: 10,
                     offset: const Offset(0, 4),
                   ),
@@ -47,27 +61,31 @@ class AccountScreen extends StatelessWidget {
                     color: Colors.blue,
                     label: "Edit Profile",
                     onTap: () {},
+                    colorScheme: colorScheme,
                   ),
-                  _buildDivider(),
+                  _buildDivider(colorScheme),
                   _buildMenuItem(
                     icon: Icons.notifications_outlined,
                     color: Colors.orange,
                     label: "Notifications",
                     onTap: () {},
+                    colorScheme: colorScheme,
                   ),
-                  _buildDivider(),
+                  _buildDivider(colorScheme),
                   _buildMenuItem(
                     icon: Icons.category_outlined,
                     color: Colors.purple,
                     label: "Categories",
                     onTap: () {},
+                    colorScheme: colorScheme,
                   ),
-                  _buildDivider(),
+                  _buildDivider(colorScheme),
                   _buildMenuItem(
                     icon: Icons.file_download_outlined,
                     color: Colors.teal,
                     label: "Export Data",
                     onTap: () {},
+                    colorScheme: colorScheme,
                   ),
                 ],
               ),
@@ -76,24 +94,23 @@ class AccountScreen extends StatelessWidget {
             const SizedBox(height: 25),
 
             // --- PREFERENCES SECTION ---
-            const Padding(
-              padding: EdgeInsets.only(left: 8, bottom: 10),
+            Padding(
+              padding: const EdgeInsets.only(left: 8, bottom: 10),
               child: Text(
                 "Preferences",
-                style: TextStyle(
-                  fontSize: 14,
+                style: textTheme.labelLarge?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
                   fontWeight: FontWeight.bold,
-                  color: Colors.grey,
                 ),
               ),
             ),
             Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: colorScheme.surfaceContainer,
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.02),
+                    color: Colors.black.withValues(alpha: 0.05),
                     blurRadius: 10,
                     offset: const Offset(0, 4),
                   ),
@@ -106,20 +123,70 @@ class AccountScreen extends StatelessWidget {
                     color: Colors.pink,
                     label: "Security & Privacy",
                     onTap: () {},
+                    colorScheme: colorScheme,
                   ),
-                  _buildDivider(),
+                  _buildDivider(colorScheme),
                   _buildMenuItem(
                     icon: Icons.language,
                     color: Colors.indigo,
                     label: "Language",
-                    trailing: const Text(
+                    trailing: Text(
                       "English",
-                      style: TextStyle(color: Colors.grey, fontSize: 12),
+                      style: TextStyle(
+                        color: colorScheme.onSurfaceVariant,
+                        fontSize: 12,
+                      ),
                     ),
                     onTap: () {},
+                    colorScheme: colorScheme,
                   ),
-                  _buildDivider(),
-                  _buildDarkModeSwitch(),
+                  _buildDivider(colorScheme),
+
+                  // --- DARK MODE SWITCH ---
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 8,
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: colorScheme.onSurface.withValues(alpha: 0.1),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            Icons.dark_mode,
+                            color: colorScheme.onSurface,
+                            size: 20,
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Text(
+                            "Dark Mode",
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
+                              color: colorScheme.onSurface,
+                            ),
+                          ),
+                        ),
+                        Switch(
+                          value: isDarkMode,
+                          activeThumbColor: colorScheme.primary,
+                          onChanged: (val) {
+                            if (val) {
+                              ref.read(themeProvider.notifier).setDark();
+                            } else {
+                              ref.read(themeProvider.notifier).setLight();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -135,17 +202,18 @@ class AccountScreen extends StatelessWidget {
                 },
                 style: TextButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  backgroundColor: Colors.grey[200],
+                  // Adaptive Button Background
+                  backgroundColor: colorScheme.surfaceContainerHighest,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),
                   elevation: 0,
                   shadowColor: Colors.transparent,
                 ),
-                child: const Text(
+                child: Text(
                   "Log Out",
                   style: TextStyle(
-                    color: Colors.red,
+                    color: colorScheme.error, // Adaptive Red
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
@@ -154,10 +222,13 @@ class AccountScreen extends StatelessWidget {
             ),
 
             const SizedBox(height: 20),
-            const Center(
+            Center(
               child: Text(
                 "Version 1.0.0",
-                style: TextStyle(color: Colors.grey, fontSize: 12),
+                style: TextStyle(
+                  color: colorScheme.onSurfaceVariant,
+                  fontSize: 12,
+                ),
               ),
             ),
           ],
@@ -166,7 +237,7 @@ class AccountScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildProfileHeader() {
+  Widget _buildProfileHeader(ColorScheme colorScheme) {
     return Column(
       children: [
         Stack(
@@ -174,7 +245,10 @@ class AccountScreen extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(color: Colors.white, width: 4),
+                border: Border.all(
+                  color: colorScheme.surface, // Matches background
+                  width: 4,
+                ),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withValues(alpha: 0.1),
@@ -185,12 +259,8 @@ class AccountScreen extends StatelessWidget {
               ),
               child: CircleAvatar(
                 radius: 50,
-                backgroundColor: Colors.blue.shade50,
-                child: const Icon(
-                  Icons.person,
-                  size: 50,
-                  color: Color(0xFF0046FF),
-                ),
+                backgroundColor: colorScheme.primaryContainer,
+                child: Icon(Icons.person, size: 50, color: colorScheme.primary),
               ),
             ),
             Positioned(
@@ -198,28 +268,29 @@ class AccountScreen extends StatelessWidget {
               right: 0,
               child: Container(
                 padding: const EdgeInsets.all(6),
-                decoration: const BoxDecoration(
-                  color: Color(0xFF0046FF),
+                decoration: BoxDecoration(
+                  color: colorScheme.primary,
                   shape: BoxShape.circle,
+                  border: Border.all(color: colorScheme.surface, width: 2),
                 ),
-                child: const Icon(Icons.edit, color: Colors.white, size: 16),
+                child: Icon(Icons.edit, color: colorScheme.onPrimary, size: 16),
               ),
             ),
           ],
         ),
         const SizedBox(height: 16),
-        const Text(
+        Text(
           "Xyrel D. Tenefrancia",
           style: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF313131),
+            color: colorScheme.onSurface, // Adaptive Black
           ),
         ),
         const SizedBox(height: 4),
         Text(
           "xdemocrito1@gmail.com",
-          style: TextStyle(fontSize: 14, color: Colors.grey.shade500),
+          style: TextStyle(fontSize: 14, color: colorScheme.onSurfaceVariant),
         ),
       ],
     );
@@ -227,10 +298,11 @@ class AccountScreen extends StatelessWidget {
 
   Widget _buildMenuItem({
     required IconData icon,
-    required Color color,
+    required Color color, // Kept specific colors for icons (Blue/Orange/etc)
     required String label,
     Widget? trailing,
     required VoidCallback onTap,
+    required ColorScheme colorScheme,
   }) {
     return InkWell(
       onTap: onTap,
@@ -242,7 +314,8 @@ class AccountScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.1),
+                // Use lighter alpha for dark mode so color isn't too muddy
+                color: color.withValues(alpha: 0.15),
                 shape: BoxShape.circle,
               ),
               child: Icon(icon, color: color, size: 20),
@@ -251,70 +324,31 @@ class AccountScreen extends StatelessWidget {
             Expanded(
               child: Text(
                 label,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
-                  color: Color(0xFF313131),
+                  color: colorScheme.onSurface, // Adaptive Text
                 ),
               ),
             ),
             trailing ??
-                const Icon(Icons.chevron_right, color: Colors.grey, size: 20),
+                Icon(
+                  Icons.chevron_right,
+                  color: colorScheme.onSurfaceVariant,
+                  size: 20,
+                ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildDivider() {
+  Widget _buildDivider(ColorScheme colorScheme) {
     return Divider(
       height: 1,
       thickness: 1,
-      color: Colors.grey.shade100,
+      color: colorScheme.outlineVariant.withValues(alpha: 0.5),
       indent: 60,
-    );
-  }
-
-  Widget _buildDarkModeSwitch() {
-    return StatefulBuilder(
-      builder: (context, setState) {
-        bool isDark = false;
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-          child: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.black.withValues(alpha: 0.1),
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(
-                  Icons.dark_mode,
-                  color: Colors.black87,
-                  size: 20,
-                ),
-              ),
-              const SizedBox(width: 16),
-              const Expanded(
-                child: Text(
-                  "Dark Mode",
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xFF313131),
-                  ),
-                ),
-              ),
-              Switch(
-                value: isDark,
-                activeThumbColor: const Color(0xFF0046FF),
-                onChanged: (val) => setState(() => isDark = val),
-              ),
-            ],
-          ),
-        );
-      },
     );
   }
 }
