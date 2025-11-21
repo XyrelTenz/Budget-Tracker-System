@@ -21,7 +21,6 @@ class _SetReminderWidgetState extends State<SetReminderWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // Capture Theme
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
@@ -57,7 +56,6 @@ class _SetReminderWidgetState extends State<SetReminderWidget> {
               ),
             ),
 
-            // Main Content
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.all(20),
@@ -128,10 +126,6 @@ class _SetReminderWidgetState extends State<SetReminderWidget> {
     );
   }
 
-  // ---------------------------
-  // UI Widgets
-  // ---------------------------
-
   Widget _dropdownField({
     required String label,
     required String value,
@@ -159,7 +153,7 @@ class _SetReminderWidgetState extends State<SetReminderWidget> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(14),
               border: Border.all(color: colorScheme.outline),
-              color: colorScheme.surfaceContainerLowest, // Light Input BG
+              color: colorScheme.surfaceContainerLowest,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -277,15 +271,11 @@ class _SetReminderWidgetState extends State<SetReminderWidget> {
     );
   }
 
-  // ---------------------------
-  // BOTTOM SHEETS
-  // ---------------------------
-
   void _showBillSelection(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     showModalBottomSheet(
       context: context,
-      backgroundColor: colorScheme.surface, // Adaptive Sheet BG
+      backgroundColor: colorScheme.surface,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
       ),
@@ -362,10 +352,9 @@ class _SetReminderWidgetState extends State<SetReminderWidget> {
       context: context,
       builder: (_) => Container(
         height: 300,
-        color: colorScheme.surface, // Match Dark Mode Background
+        color: colorScheme.surface,
         child: Column(
           children: [
-            // UX: Added a Done button bar
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -379,7 +368,6 @@ class _SetReminderWidgetState extends State<SetReminderWidget> {
               child: CupertinoDatePicker(
                 initialDateTime: selectedDate,
                 mode: CupertinoDatePickerMode.date,
-                // Optional: Force white background for picker if preferred
                 backgroundColor: colorScheme.surface,
                 onDateTimeChanged: (date) {
                   setState(() => selectedDate = date);

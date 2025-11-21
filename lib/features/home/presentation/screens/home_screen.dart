@@ -275,7 +275,6 @@ class _HomeScreenState extends State<HomeScreen> {
       width: isActive ? 24 : 8,
       height: 6,
       decoration: BoxDecoration(
-        // Active: Blue, Inactive: Light Grey (or Dark Grey in Dark Mode)
         color: isActive
             ? colorScheme.primary
             : colorScheme.surfaceContainerHighest,
@@ -298,10 +297,8 @@ class _HomeScreenState extends State<HomeScreen> {
       margin: const EdgeInsets.only(bottom: 15),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        // Adaptive Container Color
         color: colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(16),
-        // Adaptive Border
         border: Border.all(color: colorScheme.outlineVariant),
       ),
       child: Row(
@@ -309,7 +306,6 @@ class _HomeScreenState extends State<HomeScreen> {
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              // Icon Background: Slightly lighter than container
               color: colorScheme.surface,
               borderRadius: BorderRadius.circular(12),
               boxShadow: [

@@ -7,15 +7,12 @@ class RemindersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Capture Theme
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
     return Scaffold(
-      // Adaptive Background
       backgroundColor: colorScheme.surface,
       floatingActionButton: FloatingActionButton(
-        // Brand Blue
         backgroundColor: colorScheme.primary,
         elevation: 3,
         shape: const CircleBorder(),
@@ -106,7 +103,7 @@ class RemindersScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
-                      color: colorScheme.onSurface, // Adaptive Black
+                      color: colorScheme.onSurface,
                     ),
                   ),
                   Text(
@@ -120,7 +117,6 @@ class RemindersScreen extends StatelessWidget {
               ),
             ),
 
-            // Right Section
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [

@@ -11,7 +11,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin<SplashScreen> {
   late AnimationController _logoAnimationController;
   late Animation<double> _scaleAnimation;
   late Animation<double> _glowAnimation;
@@ -114,11 +114,9 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    // Capture the theme
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      // 1. Adaptive Background (White in Light, Dark Grey in Dark)
       backgroundColor: colorScheme.surface,
       body: Center(
         child: Column(
@@ -133,7 +131,6 @@ class _SplashScreenState extends State<SplashScreen>
                     height: 120,
                     width: 120,
                     decoration: BoxDecoration(
-                      // 2. Match container to background so it blends in
                       color: colorScheme.surface,
                       shape: BoxShape.circle,
                     ),
@@ -177,7 +174,6 @@ class _SplashScreenState extends State<SplashScreen>
                       child: Text(
                         "PH",
                         style: TextStyle(
-                          // 4. Brand Blue (stays Blue in both modes)
                           color: colorScheme.primary,
                           fontSize: 32,
                           fontWeight: FontWeight.w900,

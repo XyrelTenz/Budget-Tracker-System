@@ -1,0 +1,1 @@
+enum TimeFilter { weekly, monthly }

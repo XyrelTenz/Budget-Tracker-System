@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import "package:smart_budget_ph/features/reports/domains/entities/category_spending.dart";
+import "package:smart_budget_ph/features/reports/domains/entities/time_filter.dart";
 
 class ReportScreen extends StatefulWidget {
   const ReportScreen({super.key});
@@ -14,12 +16,10 @@ class _ReportScreenState extends State<ReportScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Capture Theme
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
     return Scaffold(
-      // Adaptive Background
       backgroundColor: colorScheme.surface,
       body: SafeArea(
         child: ListView(
@@ -175,7 +175,7 @@ class _ReportScreenState extends State<ReportScreen> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // The Pie Chart
+              // Pie Chart
               Expanded(
                 flex: 3,
                 child: SizedBox(
@@ -247,8 +247,7 @@ class _ReportScreenState extends State<ReportScreen> {
                               cat.name,
                               style: TextStyle(
                                 fontSize: 14,
-                                color: colorScheme
-                                    .onSurfaceVariant, // Adaptive Text
+                                color: colorScheme.onSurfaceVariant,
                               ),
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -327,7 +326,7 @@ class _ReportScreenState extends State<ReportScreen> {
             reservedSize: 30,
             getTitlesWidget: (value, meta) {
               final style = TextStyle(
-                color: colorScheme.onSurfaceVariant, // Adaptive Axis Labels
+                color: colorScheme.onSurfaceVariant,
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
               );
@@ -363,8 +362,7 @@ class _ReportScreenState extends State<ReportScreen> {
               ),
               backDrawRodData: BackgroundBarChartRodData(
                 show: true,
-                toY: 120, // Max height background
-                // Adaptive Background Bar
+                toY: 120,
                 color: colorScheme.surfaceContainerHighest,
               ),
             ),
@@ -373,14 +371,4 @@ class _ReportScreenState extends State<ReportScreen> {
       }),
     );
   }
-}
-
-enum TimeFilter { weekly, monthly }
-
-class CategorySpending {
-  final String name;
-  final double amount;
-  final Color color;
-
-  CategorySpending(this.name, this.amount, this.color);
 }

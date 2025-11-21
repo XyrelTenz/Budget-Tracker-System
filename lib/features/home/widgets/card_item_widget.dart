@@ -18,23 +18,20 @@ class CardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Capture Theme
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
-    // 1. Dynamic Colors based on Selection AND Theme
     final Color bgColor = isSelected
         ? colorScheme.primary
-        : colorScheme.surfaceContainer; // White (Light) / Dark Grey (Dark)
+        : colorScheme.surfaceContainer;
 
     final Color textColor = isSelected
         ? colorScheme.onPrimary
-        : colorScheme
-              .onSurface; // White (Selected) / Black or White (Unselected)
+        : colorScheme.onSurface;
 
     final Color iconColor = isSelected
         ? colorScheme.onPrimary
-        : colorScheme.primary; // Brand Blue
+        : colorScheme.primary;
 
     return GestureDetector(
       onTap: onTap,
@@ -45,7 +42,6 @@ class CardItem extends StatelessWidget {
         decoration: BoxDecoration(
           color: bgColor,
           borderRadius: BorderRadius.circular(24),
-          // 2. Adaptive Border
           border: Border.all(
             color: isSelected
                 ? Colors.transparent
@@ -55,9 +51,7 @@ class CardItem extends StatelessWidget {
             BoxShadow(
               color: isSelected
                   ? colorScheme.primary.withValues(alpha: 0.3)
-                  : Colors.black.withValues(
-                      alpha: 0.05,
-                    ), // Subtle shadow for both modes
+                  : Colors.black.withValues(alpha: 0.05),
               blurRadius: 12,
               offset: const Offset(0, 6),
             ),

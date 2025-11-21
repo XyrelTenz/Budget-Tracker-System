@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_budget_ph/core/routes/app_routes.dart';
+import "package:smart_budget_ph/features/onboarding/data/onboardingpage_model.dart";
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -45,12 +46,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     final textTheme = theme.textTheme;
 
     return Scaffold(
-      // Uses 'surface' (White in Light mode, Dark Grey in Dark mode)
       backgroundColor: colorScheme.surface,
       body: SafeArea(
         child: Stack(
           children: [
-            // 1. The Page Content
             Positioned.fill(
               bottom: 100,
               child: PageView.builder(
@@ -67,7 +66,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Spacer(),
-                      // Image Area
                       Expanded(
                         flex: 4,
                         child: Padding(
@@ -219,16 +217,4 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       ),
     );
   }
-}
-
-class OnboardingPageModel {
-  final String title;
-  final String description;
-  final String imageUrl;
-
-  OnboardingPageModel({
-    required this.title,
-    required this.description,
-    required this.imageUrl,
-  });
 }

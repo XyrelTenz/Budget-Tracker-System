@@ -25,7 +25,6 @@ class SavingsCards extends StatelessWidget {
         duration: const Duration(milliseconds: 250),
         height: 50,
         decoration: BoxDecoration(
-          // Active: Blue, Inactive: White/DarkGrey
           color: isSelected
               ? colorScheme.primary
               : colorScheme.surfaceContainer,
@@ -52,7 +51,6 @@ class SavingsCards extends StatelessWidget {
             Icon(
               icon,
               size: 20,
-              // Active: White, Inactive: Grey
               color: isSelected
                   ? colorScheme.onPrimary
                   : colorScheme.onSurfaceVariant,
