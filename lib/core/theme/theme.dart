@@ -6,8 +6,8 @@ const Color _seedColor = Color(0xFF0046FF);
 final TextTheme _appTextTheme = TextTheme(
   displayLarge: const TextStyle(fontSize: 72, fontWeight: FontWeight.bold),
   titleLarge: GoogleFonts.oswald(fontSize: 30, fontStyle: FontStyle.italic),
-  bodyMedium: GoogleFonts.merriweather(),
-  displaySmall: GoogleFonts.pacifico(),
+  bodyMedium: GoogleFonts.roboto(),
+  displaySmall: GoogleFonts.roboto(),
 );
 
 final ThemeData lightTheme = ThemeData(

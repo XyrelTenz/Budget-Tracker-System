@@ -39,15 +39,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     bool isLastPage = _currentPage == _pages.length - 1;
+    // Capture theme shortcuts to keep code clean
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      // Uses 'surface' (White in Light mode, Dark Grey in Dark mode)
+      backgroundColor: colorScheme.surface,
       body: SafeArea(
         child: Stack(
           children: [
             // 1. The Page Content
             Positioned.fill(
-              bottom: 100, // Leave space for bottom bar
+              bottom: 100,
               child: PageView.builder(
                 controller: _pageController,
                 itemCount: _pages.length,
@@ -83,10 +88,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             children: [
                               Text(
                                 item.title,
-                                style: const TextStyle(
-                                  fontSize: 28,
+                                // Use your Oswald Font
+                                style: textTheme.titleLarge?.copyWith(
+                                  color: colorScheme
+                                      .onSurface, // Black in Light, White in Dark
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.black,
                                   height: 1.2,
                                 ),
                                 textAlign: TextAlign.center,
@@ -94,9 +100,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               const SizedBox(height: 16),
                               Text(
                                 item.description,
-                                style: TextStyle(
+                                // Use your Merriweather Font
+                                style: textTheme.bodyMedium?.copyWith(
+                                  color: colorScheme
+                                      .onSurfaceVariant, // Standard "Grey" text
                                   fontSize: 16,
-                                  color: Colors.grey[600],
                                   height: 1.5,
                                 ),
                                 textAlign: TextAlign.center,
@@ -111,7 +119,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
             ),
 
-            // 2. Top Right Skip Button (Hidden on last page)
+            // 2. Top Right Skip Button
             Positioned(
               top: 20,
               right: 20,
@@ -123,7 +131,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   child: Text(
                     "Skip",
                     style: TextStyle(
-                      color: Colors.grey[600],
+                      color: colorScheme.onSurfaceVariant, // Adaptive Grey
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),
@@ -150,9 +158,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         height: 6,
                         width: _currentPage == index ? 24 : 6,
                         decoration: BoxDecoration(
+                          // Blue if active, Grey if inactive
                           color: _currentPage == index
-                              ? const Color(0xFF0046FF)
-                              : Colors.grey[300],
+                              ? colorScheme.primary
+                              : colorScheme
+                                    .outlineVariant, // M3 Standard inactive color
                           borderRadius: BorderRadius.circular(3),
                         ),
                       ),
@@ -175,13 +185,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       height: 50,
                       width: isLastPage ? 140 : 50,
                       decoration: BoxDecoration(
-                        color: const Color(0xFF0046FF),
+                        color: colorScheme.primary, // Your Brand Blue
                         borderRadius: BorderRadius.circular(25),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(
-                              0xFF0046FF,
-                            ).withValues(alpha: 0.3),
+                            color: colorScheme.primary.withValues(alpha: 0.3),
                             blurRadius: 10,
                             offset: const Offset(0, 5),
                           ),
@@ -189,17 +197,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ),
                       alignment: Alignment.center,
                       child: isLastPage
-                          ? const Text(
+                          ? Text(
                               "Get Started",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: colorScheme.onPrimary, // White text
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
                               ),
                             )
-                          : const Icon(
+                          : Icon(
                               Icons.arrow_forward,
-                              color: Colors.white,
+                              color: colorScheme.onPrimary, // White Icon
                             ),
                     ),
                   ),
@@ -213,7 +221,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 }
 
-// Simplified Model (removed unused textColor)
 class OnboardingPageModel {
   final String title;
   final String description;

@@ -114,11 +114,12 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    const brandBlue = Color(0xFF0046FF);
-    const darkGrey = Color(0xFF313131);
+    // Capture the theme
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      // 1. Adaptive Background (White in Light, Dark Grey in Dark)
+      backgroundColor: colorScheme.surface,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -131,15 +132,19 @@ class _SplashScreenState extends State<SplashScreen>
                   child: Container(
                     height: 120,
                     width: 120,
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
+                    decoration: BoxDecoration(
+                      // 2. Match container to background so it blends in
+                      color: colorScheme.surface,
                       shape: BoxShape.circle,
                     ),
                     child: Image.asset(
                       "assets/1.png",
                       fit: BoxFit.contain,
-                      errorBuilder: (context, error, stackTrace) =>
-                          Icon(Icons.wallet, size: 60, color: brandBlue),
+                      errorBuilder: (context, error, stackTrace) => Icon(
+                        Icons.wallet,
+                        size: 60,
+                        color: colorScheme.primary,
+                      ),
                     ),
                   ),
                 );
@@ -155,10 +160,11 @@ class _SplashScreenState extends State<SplashScreen>
                   children: [
                     ScaleTransition(
                       scale: _smartBudgetScale,
-                      child: const Text(
+                      child: Text(
                         "Smart Budget",
                         style: TextStyle(
-                          color: darkGrey,
+                          // 3. Adaptive Text (Black <-> White)
+                          color: colorScheme.onSurface,
                           fontSize: 22,
                           fontWeight: FontWeight.w600,
                           letterSpacing: 0.5,
@@ -168,10 +174,11 @@ class _SplashScreenState extends State<SplashScreen>
                     const SizedBox(width: 5),
                     ScaleTransition(
                       scale: _phScale,
-                      child: const Text(
+                      child: Text(
                         "PH",
                         style: TextStyle(
-                          color: brandBlue,
+                          // 4. Brand Blue (stays Blue in both modes)
+                          color: colorScheme.primary,
                           fontSize: 32,
                           fontWeight: FontWeight.w900,
                           letterSpacing: 1.0,

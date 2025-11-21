@@ -15,8 +15,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Capture the theme for cleaner code
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      // 1. Adaptive Background
+      backgroundColor: colorScheme.surface,
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: CustomScrollView(
@@ -51,46 +57,58 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Column(
                               spacing: 15,
                               children: <Widget>[
+                                // --- USERNAME FIELD ---
                                 TextFormField(
+                                  // Adaptive Text Color
+                                  style: TextStyle(
+                                    color: colorScheme.onSurface,
+                                  ),
                                   decoration: InputDecoration(
                                     hintText: 'Username',
                                     hintStyle: TextStyle(
                                       fontSize: 15,
-                                      color: Colors.grey[400],
+                                      color: colorScheme
+                                          .onSurfaceVariant, // Adaptive Grey
                                     ),
-                                    prefixIcon: const Icon(
+                                    prefixIcon: Icon(
                                       Icons.person_outline_rounded,
+                                      color: colorScheme.onSurfaceVariant,
                                     ),
+                                    // 2. Adaptive Input Borders
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(15.0),
-                                      borderSide: const BorderSide(
+                                      borderSide: BorderSide(
                                         width: 1,
-                                        color: Colors.grey,
+                                        color: colorScheme
+                                            .outline, // Standard grey outline
                                       ),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(15.0),
-                                      borderSide: const BorderSide(
-                                        color: Color(0xFF0046FF),
+                                      borderSide: BorderSide(
+                                        color: colorScheme
+                                            .primary, // Your Brand Blue
                                         width: 1,
                                       ),
                                     ),
                                     errorBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(15.0),
-                                      borderSide: const BorderSide(
-                                        color: Colors.red,
+                                      borderSide: BorderSide(
+                                        color: colorScheme.error,
                                         width: 1,
                                       ),
                                     ),
                                     focusedErrorBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(15.0),
-                                      borderSide: const BorderSide(
-                                        color: Colors.red,
+                                      borderSide: BorderSide(
+                                        color: colorScheme.error,
                                         width: 1,
                                       ),
                                     ),
                                     filled: true,
-                                    fillColor: Colors.grey[50],
+                                    // 3. Adaptive Fill Color (Light Grey in Light, Dark Grey in Dark)
+                                    fillColor:
+                                        colorScheme.surfaceContainerLowest,
                                   ),
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
@@ -99,47 +117,54 @@ class _LoginScreenState extends State<LoginScreen> {
                                     return null;
                                   },
                                 ),
+
+                                // --- PASSWORD FIELD ---
                                 TextFormField(
+                                  style: TextStyle(
+                                    color: colorScheme.onSurface,
+                                  ),
                                   obscureText: true,
                                   decoration: InputDecoration(
                                     hintText: 'Password',
                                     hintStyle: TextStyle(
                                       fontSize: 15,
-                                      color: Colors.grey[400],
+                                      color: colorScheme.onSurfaceVariant,
                                     ),
-                                    prefixIcon: const Icon(
+                                    prefixIcon: Icon(
                                       Icons.lock_outline_rounded,
+                                      color: colorScheme.onSurfaceVariant,
                                     ),
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(15.0),
-                                      borderSide: const BorderSide(
+                                      borderSide: BorderSide(
                                         width: 1,
-                                        color: Colors.grey,
+                                        color: colorScheme.outline,
                                       ),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(15.0),
-                                      borderSide: const BorderSide(
-                                        color: Color(0xFF0046FF),
+                                      borderSide: BorderSide(
+                                        color: colorScheme.primary,
                                         width: 1,
                                       ),
                                     ),
                                     errorBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(15.0),
-                                      borderSide: const BorderSide(
-                                        color: Colors.red,
+                                      borderSide: BorderSide(
+                                        color: colorScheme.error,
                                         width: 1,
                                       ),
                                     ),
                                     focusedErrorBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(15.0),
-                                      borderSide: const BorderSide(
-                                        color: Colors.red,
+                                      borderSide: BorderSide(
+                                        color: colorScheme.error,
                                         width: 1,
                                       ),
                                     ),
                                     filled: true,
-                                    fillColor: Colors.grey[50],
+                                    fillColor:
+                                        colorScheme.surfaceContainerLowest,
                                   ),
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
@@ -148,14 +173,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                     return null;
                                   },
                                 ),
+
+                                // --- LOGIN BUTTON ---
                                 SizedBox(
                                   width: double.infinity,
                                   height: 50,
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       elevation: 10,
-                                      backgroundColor: const Color(0xFF0046FF),
-                                      shadowColor: const Color(0xFF0046FF),
+                                      backgroundColor:
+                                          colorScheme.primary, // Brand Blue
+                                      shadowColor: colorScheme.primary
+                                          .withValues(alpha: 0.5),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(
                                           15.0,
@@ -167,10 +196,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                         context.go(Routes.home);
                                       }
                                     },
-                                    child: const Text(
+                                    child: Text(
                                       "LOGIN",
                                       style: TextStyle(
-                                        color: Colors.white,
+                                        color:
+                                            colorScheme.onPrimary, // White Text
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -179,9 +209,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 Align(
                                   alignment: Alignment.centerRight,
                                   child: Text(
-                                    "FORGOT PASSWORD",
+                                    "Forgot Password?",
                                     style: TextStyle(
-                                      color: Colors.grey[700],
+                                      color: colorScheme
+                                          .onSurfaceVariant, // Adaptive Grey
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -193,21 +224,22 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
 
+                    // --- FOOTER ---
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 30),
                       child: Text.rich(
                         TextSpan(
                           text: 'Don\'t have an account? ',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 16,
-                            color: Colors.black,
+                            color: colorScheme.onSurface, // Adapts to Dark Mode
                           ),
                           children: <TextSpan>[
                             TextSpan(
                               text: 'Register',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 16,
-                                color: Color(0xFF0046FF),
+                                color: colorScheme.primary, // Brand Blue
                                 fontWeight: FontWeight.bold,
                               ),
                               recognizer: TapGestureRecognizer()
