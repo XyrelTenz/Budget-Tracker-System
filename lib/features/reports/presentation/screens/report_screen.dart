@@ -14,24 +14,29 @@ class _ReportScreenState extends State<ReportScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Capture Theme
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      // Adaptive Background
+      backgroundColor: colorScheme.surface,
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: [
-            _buildTimeFilter(),
+            _buildTimeFilter(colorScheme),
             const SizedBox(height: 24),
-            _buildWeeklyChartCard(),
+            _buildWeeklyChartCard(colorScheme, theme.textTheme),
             const SizedBox(height: 24),
-            _buildCategoryChartCard(),
+            _buildCategoryChartCard(colorScheme, theme.textTheme),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildTimeFilter() {
+  Widget _buildTimeFilter(ColorScheme colorScheme) {
     return Container(
       width: double.infinity,
       alignment: Alignment.center,
@@ -54,23 +59,23 @@ class _ReportScreenState extends State<ReportScreen> {
             _selectedFilter = newSelection.first;
           });
         },
-        // Fixed: Replaced MaterialStateProperty with WidgetStateProperty
         style: ButtonStyle(
           backgroundColor: WidgetStateProperty.resolveWith<Color>((
             Set<WidgetState> states,
           ) {
             if (states.contains(WidgetState.selected)) {
-              return const Color(0xFF0046FF).withValues(alpha: 0.1);
+              return colorScheme.primary.withValues(alpha: 0.1);
             }
-            return Colors.white;
+            // Unselected background
+            return colorScheme.surfaceContainerLow;
           }),
           foregroundColor: WidgetStateProperty.resolveWith<Color>((
             Set<WidgetState> states,
           ) {
             if (states.contains(WidgetState.selected)) {
-              return const Color(0xFF0046FF);
+              return colorScheme.primary;
             }
-            return Colors.grey.shade700;
+            return colorScheme.onSurfaceVariant;
           }),
           side: WidgetStateProperty.all(BorderSide.none),
           elevation: WidgetStateProperty.all(0),
@@ -85,8 +90,9 @@ class _ReportScreenState extends State<ReportScreen> {
     );
   }
 
-  Widget _buildWeeklyChartCard() {
+  Widget _buildWeeklyChartCard(ColorScheme colorScheme, TextTheme textTheme) {
     return _glassCard(
+      colorScheme: colorScheme,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -96,18 +102,20 @@ class _ReportScreenState extends State<ReportScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     "Spending Trend",
-                    style: TextStyle(
-                      fontSize: 18,
+                    style: textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF313131),
+                      color: colorScheme.onSurface,
                     ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     "Last 7 Days",
-                    style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: colorScheme.onSurfaceVariant,
+                    ),
                   ),
                 ],
               ),
@@ -117,13 +125,13 @@ class _ReportScreenState extends State<ReportScreen> {
                   vertical: 6,
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF0046FF).withValues(alpha: 0.1),
+                  color: colorScheme.primary.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: const Text(
+                child: Text(
                   "\$458.50",
                   style: TextStyle(
-                    color: Color(0xFF0046FF),
+                    color: colorScheme.primary,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -134,7 +142,7 @@ class _ReportScreenState extends State<ReportScreen> {
           SizedBox(
             height: 220,
             child: BarChart(
-              _buildWeeklyBarChartData(),
+              _buildWeeklyBarChartData(colorScheme),
               duration: const Duration(milliseconds: 300),
             ),
           ),
@@ -143,7 +151,7 @@ class _ReportScreenState extends State<ReportScreen> {
     );
   }
 
-  Widget _buildCategoryChartCard() {
+  Widget _buildCategoryChartCard(ColorScheme colorScheme, TextTheme textTheme) {
     final List<CategorySpending> categoryData = [
       CategorySpending("Food", 300.50, const Color(0xFF0046FF)),
       CategorySpending("Transport", 120.00, const Color(0xFFFF6B00)),
@@ -152,12 +160,16 @@ class _ReportScreenState extends State<ReportScreen> {
     ];
 
     return _glassCard(
+      colorScheme: colorScheme,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             "Spending by Category",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: colorScheme.onSurface,
+            ),
           ),
           const SizedBox(height: 20),
           Row(
@@ -233,9 +245,10 @@ class _ReportScreenState extends State<ReportScreen> {
                           Expanded(
                             child: Text(
                               cat.name,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 14,
-                                color: Colors.black54,
+                                color: colorScheme
+                                    .onSurfaceVariant, // Adaptive Text
                               ),
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -253,27 +266,31 @@ class _ReportScreenState extends State<ReportScreen> {
     );
   }
 
-  Widget _glassCard({required Widget child}) {
+  Widget _glassCard({required Widget child, required ColorScheme colorScheme}) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        // Adaptive Card Background
+        color: colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(24),
         boxShadow: <BoxShadow>[
           BoxShadow(
-            color: Colors.grey.withValues(alpha: 0),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 20,
             spreadRadius: 0,
             offset: const Offset(0, 10),
           ),
         ],
-        border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
+        // Adaptive Border
+        border: Border.all(
+          color: colorScheme.outlineVariant.withValues(alpha: 0.2),
+        ),
       ),
       padding: const EdgeInsets.all(24),
       child: child,
     );
   }
 
-  BarChartData _buildWeeklyBarChartData() {
+  BarChartData _buildWeeklyBarChartData(ColorScheme colorScheme) {
     final List<double> weeklyData = [65, 50, 90, 40, 110, 80, 23.5];
 
     return BarChartData(
@@ -281,13 +298,17 @@ class _ReportScreenState extends State<ReportScreen> {
       barTouchData: BarTouchData(
         enabled: true,
         touchTooltipData: BarTouchTooltipData(
-          getTooltipColor: (group) => Colors.blueGrey.shade800,
+          getTooltipColor: (group) => colorScheme
+              .inverseSurface, // Dark tooltip in light, Light in dark
           tooltipPadding: const EdgeInsets.all(8),
           tooltipMargin: 8,
           getTooltipItem: (group, groupIndex, rod, rodIndex) {
             return BarTooltipItem(
               '\$${rod.toY.round()}',
-              const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              TextStyle(
+                color: colorScheme.onInverseSurface,
+                fontWeight: FontWeight.bold,
+              ),
             );
           },
         ),
@@ -305,8 +326,8 @@ class _ReportScreenState extends State<ReportScreen> {
             showTitles: true,
             reservedSize: 30,
             getTitlesWidget: (value, meta) {
-              const style = TextStyle(
-                color: Colors.black54,
+              final style = TextStyle(
+                color: colorScheme.onSurfaceVariant, // Adaptive Axis Labels
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
               );
@@ -328,8 +349,11 @@ class _ReportScreenState extends State<ReportScreen> {
           barRods: [
             BarChartRodData(
               toY: weeklyData[index],
-              gradient: const LinearGradient(
-                colors: [Color(0xFF0046FF), Color(0xFF6690FF)],
+              gradient: LinearGradient(
+                colors: [
+                  colorScheme.primary,
+                  colorScheme.primary.withValues(alpha: 0.7),
+                ],
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
               ),
@@ -340,7 +364,8 @@ class _ReportScreenState extends State<ReportScreen> {
               backDrawRodData: BackgroundBarChartRodData(
                 show: true,
                 toY: 120, // Max height background
-                color: const Color(0xFFF0F2F5),
+                // Adaptive Background Bar
+                color: colorScheme.surfaceContainerHighest,
               ),
             ),
           ],

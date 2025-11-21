@@ -74,6 +74,10 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Capture Theme
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     final groupedTransactions = <String, List<TransactionModel>>{};
     for (var tx in _filteredTransactions) {
       if (!groupedTransactions.containsKey(tx.day)) {
@@ -83,17 +87,20 @@ class _TransactionScreenState extends State<TransactionScreen> {
     }
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      // Adaptive Background
+      backgroundColor: colorScheme.surface,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // --- SEARCH & FILTER ---
               Row(
                 children: [
                   Expanded(
                     child: TextField(
+                      style: TextStyle(color: colorScheme.onSurface),
                       onChanged: (value) {
                         setState(() {
                           _searchQuery = value;
@@ -101,13 +108,16 @@ class _TransactionScreenState extends State<TransactionScreen> {
                       },
                       decoration: InputDecoration(
                         hintText: "Search transactions...",
-                        hintStyle: TextStyle(color: Colors.grey.shade400),
-                        prefixIcon: const Icon(
+                        hintStyle: TextStyle(
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                        prefixIcon: Icon(
                           Icons.search,
-                          color: Colors.grey,
+                          color: colorScheme.onSurfaceVariant,
                         ),
                         filled: true,
-                        fillColor: Colors.grey.shade100,
+                        // Adaptive Search Fill
+                        fillColor: colorScheme.surfaceContainerLowest,
                         contentPadding: const EdgeInsets.symmetric(
                           horizontal: 16,
                           vertical: 12,
@@ -122,8 +132,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(
-                            color: Color(0xFF0046FF),
+                          borderSide: BorderSide(
+                            color: colorScheme.primary,
                             width: 1,
                           ),
                         ),
@@ -133,12 +143,12 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   const SizedBox(width: 12),
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade100,
+                      color: colorScheme.surfaceContainerLowest,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: IconButton(
                       icon: const Icon(Icons.filter_list),
-                      color: const Color(0xFF313131),
+                      color: colorScheme.onSurfaceVariant,
                       onPressed: () {},
                     ),
                   ),
@@ -147,15 +157,17 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
               const SizedBox(height: 20),
 
+              // --- TOTAL BALANCE CARD ---
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF0046FF),
+                  // Brand Blue
+                  color: colorScheme.primary,
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFF0046FF).withValues(alpha: 0.3),
+                      color: colorScheme.primary.withValues(alpha: 0.3),
                       blurRadius: 10,
                       offset: const Offset(0, 5),
                     ),
@@ -164,17 +176,20 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Total Balance",
-                      style: TextStyle(fontSize: 14, color: Colors.white70),
+                    Text(
+                      "Total Balances",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: colorScheme.onPrimary.withValues(alpha: 0.8),
+                      ),
                     ),
                     const SizedBox(height: 4),
-                    const Text(
+                    Text(
                       "₱12,450",
                       style: TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: colorScheme.onPrimary,
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -185,13 +200,15 @@ class _TransactionScreenState extends State<TransactionScreen> {
                           "Income",
                           "₱20,000",
                           Icons.arrow_downward,
-                          Colors.greenAccent,
+                          Colors.greenAccent, // Keep accents distinct
+                          colorScheme,
                         ),
                         _buildSummaryItem(
                           "Expense",
                           "₱7,550",
                           Icons.arrow_upward,
-                          Colors.redAccent,
+                          Colors.redAccent, // Keep accents distinct
+                          colorScheme,
                         ),
                       ],
                     ),
@@ -201,23 +218,25 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
               const SizedBox(height: 20),
 
+              // --- TABS ---
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildTab("All"),
-                  _buildTab("Income"),
-                  _buildTab("Expense"),
+                  _buildTab("All", colorScheme),
+                  _buildTab("Income", colorScheme),
+                  _buildTab("Expense", colorScheme),
                 ],
               ),
 
               const SizedBox(height: 20),
 
+              // --- TRANSACTION LIST ---
               Expanded(
                 child: _filteredTransactions.isEmpty
                     ? Center(
                         child: Text(
                           "No transactions found",
-                          style: TextStyle(color: Colors.grey.shade400),
+                          style: TextStyle(color: colorScheme.onSurfaceVariant),
                         ),
                       )
                     : ListView(
@@ -228,14 +247,17 @@ class _TransactionScreenState extends State<TransactionScreen> {
                             children: [
                               Text(
                                 entry.key,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xFF313131),
+                                  color:
+                                      colorScheme.onSurface, // Adaptive Black
                                 ),
                               ),
                               const SizedBox(height: 10),
-                              ...entry.value.map((tx) => _transactionItem(tx)),
+                              ...entry.value.map(
+                                (tx) => _transactionItem(tx, colorScheme),
+                              ),
                               const SizedBox(height: 20),
                             ],
                           );
@@ -254,13 +276,14 @@ class _TransactionScreenState extends State<TransactionScreen> {
     String amount,
     IconData icon,
     Color color,
+    ColorScheme colorScheme,
   ) {
     return Row(
       children: [
         Container(
           padding: const EdgeInsets.all(4),
           decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.2),
+            color: colorScheme.onPrimary.withValues(alpha: 0.2),
             shape: BoxShape.circle,
           ),
           child: Icon(icon, color: color, size: 16),
@@ -271,12 +294,15 @@ class _TransactionScreenState extends State<TransactionScreen> {
           children: [
             Text(
               label,
-              style: const TextStyle(color: Colors.white70, fontSize: 12),
+              style: TextStyle(
+                color: colorScheme.onPrimary.withValues(alpha: 0.8),
+                fontSize: 12,
+              ),
             ),
             Text(
               amount,
-              style: const TextStyle(
-                color: Colors.white,
+              style: TextStyle(
+                color: colorScheme.onPrimary,
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
               ),
@@ -287,7 +313,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
     );
   }
 
-  Widget _buildTab(String text) {
+  Widget _buildTab(String text, ColorScheme colorScheme) {
     bool active = _selectedTab == text;
     return GestureDetector(
       onTap: () => setState(() => _selectedTab = text),
@@ -295,13 +321,19 @@ class _TransactionScreenState extends State<TransactionScreen> {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
         decoration: BoxDecoration(
-          color: active ? const Color(0xFF0046FF) : Colors.grey.shade100,
+          // Active: Blue, Inactive: Light Grey (or Dark Grey)
+          color: active
+              ? colorScheme.primary
+              : colorScheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(
           text,
           style: TextStyle(
-            color: active ? Colors.white : Colors.grey.shade600,
+            // Active: White, Inactive: Grey
+            color: active
+                ? colorScheme.onPrimary
+                : colorScheme.onSurfaceVariant,
             fontWeight: FontWeight.bold,
             fontSize: 14,
           ),
@@ -310,31 +342,36 @@ class _TransactionScreenState extends State<TransactionScreen> {
     );
   }
 
-  Widget _transactionItem(TransactionModel tx) {
+  Widget _transactionItem(TransactionModel tx, ColorScheme colorScheme) {
+    bool isExpense = tx.amount < 0;
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: Colors.white,
+        // Adaptive Card Background
+        color: colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withValues(alpha: 0.05),
+            color: Colors.black.withValues(alpha: 0.03), // Subtle shadow
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
         ],
-        border: Border.all(color: Colors.grey.shade100),
+        border: Border.all(
+          color: colorScheme.outlineVariant.withValues(alpha: 0.5),
+        ),
       ),
       child: Row(
         children: [
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.grey[50],
+              // Icon Background
+              color: colorScheme.surface,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(tx.icon, color: const Color(0xFF313131)),
+            child: Icon(tx.icon, color: colorScheme.onSurface),
           ),
           const SizedBox(width: 12),
 
@@ -345,15 +382,18 @@ class _TransactionScreenState extends State<TransactionScreen> {
               children: [
                 Text(
                   tx.label,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF313131),
+                    color: colorScheme.onSurface,
                   ),
                 ),
                 Text(
                   tx.description,
-                  style: TextStyle(color: Colors.grey.shade500, fontSize: 13),
+                  style: TextStyle(
+                    color: colorScheme.onSurfaceVariant,
+                    fontSize: 13,
+                  ),
                 ),
               ],
             ),
@@ -364,16 +404,19 @@ class _TransactionScreenState extends State<TransactionScreen> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                tx.amount > 0 ? "+₱${tx.amount}" : "₱${tx.amount.abs()}",
+                isExpense ? "-\$${tx.amount.abs()}" : "+\$${tx.amount}",
                 style: TextStyle(
-                  color: tx.amount > 0 ? Colors.green : Colors.red,
+                  color: isExpense ? colorScheme.error : Colors.green,
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                 ),
               ),
               Text(
                 tx.time,
-                style: TextStyle(color: Colors.grey.shade400, fontSize: 12),
+                style: TextStyle(
+                  color: colorScheme.onSurfaceVariant,
+                  fontSize: 12,
+                ),
               ),
             ],
           ),
