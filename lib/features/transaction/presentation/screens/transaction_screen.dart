@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import "package:smart_budget_ph/helper/transaction_helper.dart";
+import "package:smart_budget_ph/features/transaction/data/transaction_model.dart";
 
 class TransactionScreen extends StatefulWidget {
   const TransactionScreen({super.key});

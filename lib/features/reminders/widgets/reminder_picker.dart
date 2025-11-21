@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SetReminderScreen extends StatefulWidget {
-  const SetReminderScreen({super.key});
+class SetReminderWidget extends StatefulWidget {
+  const SetReminderWidget({super.key});
 
   @override
-  State<SetReminderScreen> createState() => _SetReminderScreenState();
+  State<SetReminderWidget> createState() => _SetReminderWidgetState();
 }
 
-class _SetReminderScreenState extends State<SetReminderScreen> {
+class _SetReminderWidgetState extends State<SetReminderWidget> {
   String selectedBill = "Car";
   String? frequency;
   DateTime selectedDate = DateTime.now();

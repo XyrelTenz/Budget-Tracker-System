@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:smart_budget_ph/routes/helper/routes.dart';
+import 'package:smart_budget_ph/core/routes/app_routes.dart';
 
-class CustomSplashScreen extends StatefulWidget {
-  const CustomSplashScreen({super.key});
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
 
   @override
-  State<CustomSplashScreen> createState() => _CustomSplashScreenState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _CustomSplashScreenState extends State<CustomSplashScreen>
+class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   late AnimationController _logoAnimationController;
   late Animation<double> _scaleAnimation;

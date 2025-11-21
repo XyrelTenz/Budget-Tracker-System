@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 // Screens
-import 'package:smart_budget_ph/splash_screen/splash.dart';
-import 'package:smart_budget_ph/onboarding_screen/onboarding_screen.dart';
-import 'package:smart_budget_ph/auth/screen/login_screen.dart';
-import 'package:smart_budget_ph/auth/screen/signup_screen.dart';
-import 'package:smart_budget_ph/screen/home_screen.dart';
-import 'package:smart_budget_ph/screen/transaction_screen.dart';
-import 'package:smart_budget_ph/screen/report_screen.dart';
-import 'package:smart_budget_ph/screen/reminder_screen.dart';
-import 'package:smart_budget_ph/screen/account_screen.dart';
+import "package:smart_budget_ph/features/onboarding/presentation/screens/onboarding_screen.dart";
+import "package:smart_budget_ph/features/onboarding/presentation/screens/splash_screen.dart";
+import "package:smart_budget_ph/features/auth/presentation/screens/login_screen.dart";
+import "package:smart_budget_ph/features/auth/presentation/screens/signup_screen.dart";
+import "package:smart_budget_ph/features/home/presentation/screens/home_screen.dart";
+import "package:smart_budget_ph/features/transaction/presentation/screens/transaction_screen.dart";
+import "package:smart_budget_ph/features/reports/presentation/screens/report_screen.dart";
+import "package:smart_budget_ph/features/reminders/presentation/screens/reminder_screen.dart";
+import "package:smart_budget_ph/features/accounts/presentation/screens/account_screen.dart";
 
 // Helpers
-import 'package:smart_budget_ph/routes/helper/routes.dart';
+import 'package:smart_budget_ph/core/routes/app_routes.dart';
 
 //Navigation Widget
-import 'package:smart_budget_ph/widget/navigation_widget.dart';
+import 'package:smart_budget_ph/core/widgets/main_wrapper.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -26,7 +26,7 @@ final GoRouter router = GoRouter(
   routes: <RouteBase>[
     GoRoute(
       path: Routes.splash,
-      builder: (context, state) => const CustomSplashScreen(),
+      builder: (context, state) => const SplashScreen(),
     ),
     GoRoute(
       path: Routes.onboarding,

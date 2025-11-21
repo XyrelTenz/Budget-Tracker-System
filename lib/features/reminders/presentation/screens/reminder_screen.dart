@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import "package:smart_budget_ph/components/set_reminder_components.dart";
+import "package:smart_budget_ph/features/reminders/widgets/reminder_picker.dart";
 
 class RemindersScreen extends StatelessWidget {
   const RemindersScreen({super.key});
@@ -15,7 +15,7 @@ class RemindersScreen extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => const SetReminderScreen()),
+            MaterialPageRoute(builder: (_) => const SetReminderWidget()),
           );
         },
         child: const Icon(Icons.add, size: 32, color: Colors.white),

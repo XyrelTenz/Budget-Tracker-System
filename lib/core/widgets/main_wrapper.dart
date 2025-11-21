@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import "package:smart_budget_ph/routes/helper/destination_routes.dart"; // Ensure this import path is correct
+import "package:smart_budget_ph/core/constant/navigation_items.dart";
 
 class NavigationWidget extends StatelessWidget {
   const NavigationWidget({super.key, required this.navigationShell});
