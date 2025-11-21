@@ -43,8 +43,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Capture Theme
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
+
     return Scaffold(
-      backgroundColor: const Color(0xFFF3F5F9),
+      // Adaptive Grey-ish Background
+      backgroundColor: colorScheme.surfaceContainerLow,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,25 +62,28 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         "Overview",
-                        style: TextStyle(
+                        style: textTheme.headlineMedium?.copyWith(
                           fontSize: 26,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF313131),
+                          color: colorScheme.onSurface, // Adaptive Black/White
                         ),
                       ),
                       Text(
                         "Welcome back!",
-                        style: TextStyle(fontSize: 14, color: Colors.grey),
+                        style: textTheme.bodyMedium?.copyWith(
+                          fontSize: 14,
+                          color: colorScheme.onSurfaceVariant, // Adaptive Grey
+                        ),
                       ),
                     ],
                   ),
                   CircleAvatar(
                     radius: 22,
-                    backgroundColor: Colors.grey.shade300,
-                    child: const Icon(Icons.person, color: Colors.white),
+                    backgroundColor: colorScheme.surfaceContainerHigh,
+                    child: Icon(Icons.person, color: colorScheme.primary),
                   ),
                 ],
               ),
@@ -119,17 +128,20 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Container(
                 width: double.infinity,
                 padding: const EdgeInsets.only(top: 25, left: 20, right: 20),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
+                decoration: BoxDecoration(
+                  // Adaptive Sheet Color (White / Dark Grey)
+                  color: colorScheme.surface,
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30),
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black12,
+                      color: Colors.black.withValues(
+                        alpha: 0.05,
+                      ), // Subtle shadow
                       blurRadius: 15,
-                      offset: Offset(0, -5),
+                      offset: const Offset(0, -5),
                     ),
                   ],
                 ),
@@ -169,11 +181,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        _buildIndicator(true),
+                        _buildIndicator(true, colorScheme),
                         const SizedBox(width: 6),
-                        _buildIndicator(false),
+                        _buildIndicator(false, colorScheme),
                         const SizedBox(width: 6),
-                        _buildIndicator(false),
+                        _buildIndicator(false, colorScheme),
                       ],
                     ),
 
@@ -183,18 +195,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           "Latest Entries",
-                          style: TextStyle(
+                          style: textTheme.titleLarge?.copyWith(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF313131),
+                            color: colorScheme.onSurface,
                           ),
                         ),
                         IconButton(
                           onPressed: () {},
                           icon: const Icon(Icons.more_horiz),
-                          color: Colors.grey,
+                          color: colorScheme.onSurfaceVariant,
                           padding: EdgeInsets.zero,
                           constraints: const BoxConstraints(),
                         ),
@@ -215,6 +227,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             vat: "0.5%",
                             date: "20 Feb 2024",
                             method: "Google Pay",
+                            colorScheme: colorScheme,
                           ),
                           _buildEntry(
                             icon: Icons.directions_bike,
@@ -223,6 +236,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             vat: "0.8%",
                             date: "13 Mar 2024",
                             method: "Cash",
+                            colorScheme: colorScheme,
                           ),
                           _buildEntry(
                             icon: Icons.shopping_bag,
@@ -231,6 +245,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             vat: "0.12%",
                             date: "11 Mar 2024",
                             method: "Paytm",
+                            colorScheme: colorScheme,
                           ),
                           _buildEntry(
                             icon: Icons.movie,
@@ -239,6 +254,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             vat: "0.2%",
                             date: "10 Mar 2024",
                             method: "Card",
+                            colorScheme: colorScheme,
                           ),
                         ],
                       ),
@@ -253,13 +269,16 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildIndicator(bool isActive) {
+  Widget _buildIndicator(bool isActive, ColorScheme colorScheme) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       width: isActive ? 24 : 8,
       height: 6,
       decoration: BoxDecoration(
-        color: isActive ? const Color(0xFF0046FF) : Colors.grey.shade300,
+        // Active: Blue, Inactive: Light Grey (or Dark Grey in Dark Mode)
+        color: isActive
+            ? colorScheme.primary
+            : colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(10),
       ),
     );
@@ -272,22 +291,26 @@ class _HomeScreenState extends State<HomeScreen> {
     required String vat,
     required String date,
     required String method,
+    required ColorScheme colorScheme,
   }) {
     bool isExpense = amount.contains('-');
     return Container(
       margin: const EdgeInsets.only(bottom: 15),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.grey.shade50,
+        // Adaptive Container Color
+        color: colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey.shade100),
+        // Adaptive Border
+        border: Border.all(color: colorScheme.outlineVariant),
       ),
       child: Row(
         children: <Widget>[
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: Colors.white,
+              // Icon Background: Slightly lighter than container
+              color: colorScheme.surface,
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
@@ -297,7 +320,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            child: Icon(icon, size: 24, color: const Color(0xFF313131)),
+            child: Icon(icon, size: 24, color: colorScheme.onSurface),
           ),
           const SizedBox(width: 15),
           Expanded(
@@ -306,16 +329,19 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 Text(
                   label,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF313131),
+                    color: colorScheme.onSurface,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   date,
-                  style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: colorScheme.onSurfaceVariant,
+                  ),
                 ),
               ],
             ),
@@ -327,14 +353,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 amount,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: isExpense ? Colors.redAccent : Colors.green,
+                  // Keep standard Green/Red for Finance
+                  color: isExpense ? colorScheme.error : Colors.green,
                   fontSize: 15,
                 ),
               ),
               const SizedBox(height: 4),
               Text(
                 method,
-                style: TextStyle(color: Colors.grey.shade500, fontSize: 11),
+                style: TextStyle(
+                  color: colorScheme.onSurfaceVariant,
+                  fontSize: 11,
+                ),
               ),
             ],
           ),

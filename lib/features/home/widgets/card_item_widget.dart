@@ -18,9 +18,23 @@ class CardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color bgColor = isSelected ? const Color(0xFF0046FF) : Colors.white;
-    final Color textColor = isSelected ? Colors.white : Colors.black87;
-    final Color iconColor = isSelected ? Colors.white : const Color(0xFF0046FF);
+    // Capture Theme
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    // 1. Dynamic Colors based on Selection AND Theme
+    final Color bgColor = isSelected
+        ? colorScheme.primary
+        : colorScheme.surfaceContainer; // White (Light) / Dark Grey (Dark)
+
+    final Color textColor = isSelected
+        ? colorScheme.onPrimary
+        : colorScheme
+              .onSurface; // White (Selected) / Black or White (Unselected)
+
+    final Color iconColor = isSelected
+        ? colorScheme.onPrimary
+        : colorScheme.primary; // Brand Blue
 
     return GestureDetector(
       onTap: onTap,
@@ -31,14 +45,19 @@ class CardItem extends StatelessWidget {
         decoration: BoxDecoration(
           color: bgColor,
           borderRadius: BorderRadius.circular(24),
+          // 2. Adaptive Border
           border: Border.all(
-            color: isSelected ? Colors.transparent : Colors.grey.shade200,
+            color: isSelected
+                ? Colors.transparent
+                : colorScheme.outlineVariant.withValues(alpha: 0.5),
           ),
           boxShadow: [
             BoxShadow(
               color: isSelected
-                  ? const Color(0xFF0046FF).withValues(alpha: 0.03)
-                  : Colors.grey.withValues(alpha: 0.05),
+                  ? colorScheme.primary.withValues(alpha: 0.3)
+                  : Colors.black.withValues(
+                      alpha: 0.05,
+                    ), // Subtle shadow for both modes
               blurRadius: 12,
               offset: const Offset(0, 6),
             ),
@@ -56,13 +75,11 @@ class CardItem extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: isSelected
                         ? Colors.white.withValues(alpha: 0.2)
-                        : const Color(0xFF0046FF).withValues(alpha: 0.2),
+                        : colorScheme.primary.withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(icon, color: iconColor, size: 20),
                 ),
-                if (isSelected)
-                  const Icon(Icons.check_circle, color: Colors.white, size: 18),
               ],
             ),
             Column(

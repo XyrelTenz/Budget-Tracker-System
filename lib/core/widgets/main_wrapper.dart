@@ -9,28 +9,32 @@ class NavigationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Color selectedColor = Color(0xFF0046FF);
-    const Color unselectedColor = Color(0xFF313131);
+    // Capture theme
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      // Adaptive Scaffold Background
+      backgroundColor: colorScheme.surface,
       body: navigationShell,
       bottomNavigationBar: NavigationBarTheme(
         data: NavigationBarThemeData(
-          indicatorColor: const Color(0x1A2563EB),
+          // Adaptive Indicator: Blue with 10% opacity
+          indicatorColor: colorScheme.primary.withValues(alpha: 0.1),
 
+          // Dynamic Label Text Colors
           labelTextStyle: WidgetStateProperty.resolveWith<TextStyle>((
             Set<WidgetState> states,
           ) {
             if (states.contains(WidgetState.selected)) {
-              return const TextStyle(
-                color: selectedColor,
+              return TextStyle(
+                color: colorScheme.primary, // Brand Blue
                 fontWeight: FontWeight.w600,
                 fontSize: 12,
               );
             }
-            return const TextStyle(
-              color: unselectedColor,
+            return TextStyle(
+              color: colorScheme.onSurfaceVariant, // Adaptive Grey
               fontWeight: FontWeight.w500,
               fontSize: 12,
             );
@@ -38,8 +42,12 @@ class NavigationWidget extends StatelessWidget {
         ),
         child: NavigationBar(
           animationDuration: const Duration(milliseconds: 300),
-          backgroundColor: Colors.white,
-          surfaceTintColor: Colors.white,
+          // Adaptive Bar Background
+          backgroundColor: colorScheme.surface,
+          surfaceTintColor:
+              colorScheme.surface, // Remove tint if you prefer flat look
+          elevation: 0, // Optional: Add elevation or shadow if needed
+
           selectedIndex: navigationShell.currentIndex,
           onDestinationSelected: (index) => navigationShell.goBranch(
             index,
@@ -48,10 +56,15 @@ class NavigationWidget extends StatelessWidget {
           destinations: destinations
               .map(
                 (destination) => NavigationDestination(
-                  icon: Icon(destination.icon, color: unselectedColor),
+                  // Unselected Icon (Grey)
+                  icon: Icon(
+                    destination.icon,
+                    color: colorScheme.onSurfaceVariant,
+                  ),
+                  // Selected Icon (Blue)
                   selectedIcon: Icon(
                     destination.selectedIcon,
-                    color: selectedColor,
+                    color: colorScheme.primary,
                   ),
                   label: destination.label,
                 ),

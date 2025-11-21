@@ -25,5 +25,5 @@ final ThemeData darkTheme = ThemeData(
     seedColor: _seedColor,
     brightness: Brightness.dark,
   ),
-  textTheme: _appTextTheme, // Applied here as well
+  textTheme: _appTextTheme,
 );
