@@ -7,16 +7,22 @@ class RemindersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Capture Theme
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      // Adaptive Background
+      backgroundColor: colorScheme.surface,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color(0xFF0046FF),
+        // Brand Blue
+        backgroundColor: colorScheme.primary,
         elevation: 3,
         shape: const CircleBorder(),
         onPressed: () {
           context.go('${Routes.reminder}/${Routes.set}');
         },
-        child: const Icon(Icons.add, size: 32, color: Colors.white),
+        child: Icon(Icons.add, size: 32, color: colorScheme.onPrimary),
       ),
       body: SafeArea(
         child: ListView(
@@ -27,35 +33,40 @@ class RemindersScreen extends StatelessWidget {
             bottom: 80,
           ),
           children: [
-            reminderItem(
+            _reminderItem(
               title: "Bill Payments",
               amount: "\$200",
               reminderDate: "26 May 2024",
               dueDate: "3 Jun 2024",
+              context: context,
             ),
-            reminderItem(
+            _reminderItem(
               title: "Car Loan",
               amount: "\$600",
               reminderDate: "26 May 2024",
               dueDate: "11 July 2024",
+              context: context,
             ),
-            reminderItem(
+            _reminderItem(
               title: "Iphone 15 Pro",
               amount: "\$1,000",
               reminderDate: "26 May 2024",
               dueDate: "3 Aug 2024",
+              context: context,
             ),
-            reminderItem(
+            _reminderItem(
               title: "New Bike",
               amount: "\$2,300",
               reminderDate: "26 May 2024",
               dueDate: "12 Sep 2024",
+              context: context,
             ),
-            reminderItem(
+            _reminderItem(
               title: "House Rent",
               amount: "\$1,500",
               reminderDate: "28 May 2024",
               dueDate: "15 Sep 2024",
+              context: context,
             ),
           ],
         ),
@@ -63,12 +74,15 @@ class RemindersScreen extends StatelessWidget {
     );
   }
 
-  Widget reminderItem({
+  Widget _reminderItem({
     required String title,
     required String amount,
     required String reminderDate,
     required String dueDate,
+    required BuildContext context,
   }) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Column(
       children: [
         Row(
@@ -81,20 +95,26 @@ class RemindersScreen extends StatelessWidget {
                 children: [
                   Text(
                     "Reminder Date: $reminderDate",
-                    style: const TextStyle(fontSize: 12, color: Colors.black54),
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: colorScheme.onSurfaceVariant,
+                    ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
-                      color: Colors.black87,
+                      color: colorScheme.onSurface, // Adaptive Black
                     ),
                   ),
                   Text(
                     amount,
-                    style: const TextStyle(fontSize: 14, color: Colors.black87),
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: colorScheme.onSurface,
+                    ),
                   ),
                 ],
               ),
@@ -104,19 +124,23 @@ class RemindersScreen extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                const Icon(Icons.more_horiz, color: Colors.black45),
+                Icon(Icons.more_horiz, color: colorScheme.onSurfaceVariant),
                 const SizedBox(height: 14),
                 Text(
                   "Due on\n$dueDate",
                   textAlign: TextAlign.right,
-                  style: const TextStyle(fontSize: 12, color: Colors.black54),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: colorScheme.onSurfaceVariant,
+                  ),
                 ),
               ],
             ),
           ],
         ),
         const SizedBox(height: 16),
-        Container(height: 1, color: Colors.black12),
+        Divider(color: colorScheme.outlineVariant.withValues(alpha: 0.5)),
+        const SizedBox(height: 16),
       ],
     );
   }

@@ -21,8 +21,12 @@ class _SetReminderWidgetState extends State<SetReminderWidget> {
 
   @override
   Widget build(BuildContext context) {
+    // Capture Theme
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: colorScheme.surface,
       body: SafeArea(
         child: Column(
           children: <Widget>[
@@ -34,20 +38,17 @@ class _SetReminderWidgetState extends State<SetReminderWidget> {
               child: Row(
                 children: [
                   IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back,
-                      color: Color(0xFF313131),
-                    ),
+                    icon: Icon(Icons.arrow_back, color: colorScheme.onSurface),
                     onPressed: () => Navigator.pop(context),
                   ),
-                  const Expanded(
+                  Expanded(
                     child: Text(
                       "Set Reminders",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xFF313131),
+                        color: colorScheme.onSurface,
                       ),
                     ),
                   ),
@@ -65,18 +66,28 @@ class _SetReminderWidgetState extends State<SetReminderWidget> {
                     label: "Select Bill",
                     value: selectedBill,
                     onTap: () => _showBillSelection(context),
+                    colorScheme: colorScheme,
                   ),
 
-                  _textField(label: "Amount", controller: amountController),
+                  _textField(
+                    label: "Amount",
+                    controller: amountController,
+                    colorScheme: colorScheme,
+                  ),
 
                   _dropdownField(
                     label: "Frequency",
                     value: frequency ?? "Select One",
                     onTap: () => _showFrequency(context),
                     isPlaceholder: frequency == null,
+                    colorScheme: colorScheme,
                   ),
 
-                  _dateField(context, label: "Payment Date"),
+                  _dateField(
+                    context,
+                    label: "Payment Date",
+                    colorScheme: colorScheme,
+                  ),
 
                   const SizedBox(height: 40),
 
@@ -87,22 +98,20 @@ class _SetReminderWidgetState extends State<SetReminderWidget> {
                       height: 55,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: const Color(0xFF0046FF),
+                        color: colorScheme.primary,
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(
-                              0xFF0046FF,
-                            ).withValues(alpha: 0.2),
+                            color: colorScheme.primary.withValues(alpha: 0.2),
                             blurRadius: 10,
                             offset: const Offset(0, 5),
                           ),
                         ],
                       ),
-                      child: const Center(
+                      child: Center(
                         child: Text(
                           "SET REMINDER",
                           style: TextStyle(
-                            color: Colors.white,
+                            color: colorScheme.onPrimary,
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                           ),
@@ -127,6 +136,7 @@ class _SetReminderWidgetState extends State<SetReminderWidget> {
     required String label,
     required String value,
     required VoidCallback onTap,
+    required ColorScheme colorScheme,
     bool isPlaceholder = false,
   }) {
     return Column(
@@ -134,10 +144,10 @@ class _SetReminderWidgetState extends State<SetReminderWidget> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            color: Colors.grey,
+            color: colorScheme.onSurfaceVariant,
           ),
         ),
         const SizedBox(height: 8),
@@ -148,8 +158,8 @@ class _SetReminderWidgetState extends State<SetReminderWidget> {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: Colors.black12),
-              color: Colors.grey.shade50,
+              border: Border.all(color: colorScheme.outline),
+              color: colorScheme.surfaceContainerLowest, // Light Input BG
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -159,10 +169,15 @@ class _SetReminderWidgetState extends State<SetReminderWidget> {
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: isPlaceholder ? Colors.grey : Colors.black87,
+                    color: isPlaceholder
+                        ? colorScheme.onSurfaceVariant
+                        : colorScheme.onSurface,
                   ),
                 ),
-                const Icon(Icons.keyboard_arrow_down, color: Colors.grey),
+                Icon(
+                  Icons.keyboard_arrow_down,
+                  color: colorScheme.onSurfaceVariant,
+                ),
               ],
             ),
           ),
@@ -174,17 +189,17 @@ class _SetReminderWidgetState extends State<SetReminderWidget> {
   Widget _textField({
     required String label,
     required TextEditingController controller,
+    required ColorScheme colorScheme,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // FIX: Displaying the Label
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            color: Colors.grey,
+            color: colorScheme.onSurfaceVariant,
           ),
         ),
         const SizedBox(height: 8),
@@ -193,16 +208,21 @@ class _SetReminderWidgetState extends State<SetReminderWidget> {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: Colors.black12),
-            color: Colors.grey.shade50,
+            border: Border.all(color: colorScheme.outline),
+            color: colorScheme.surfaceContainerLowest,
           ),
           child: TextField(
             controller: controller,
             keyboardType: TextInputType.number,
-            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-            decoration: const InputDecoration(
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 16,
+              color: colorScheme.onSurface,
+            ),
+            decoration: InputDecoration(
               border: InputBorder.none,
               hintText: "0.00",
+              hintStyle: TextStyle(color: colorScheme.onSurfaceVariant),
             ),
           ),
         ),
@@ -210,40 +230,45 @@ class _SetReminderWidgetState extends State<SetReminderWidget> {
     );
   }
 
-  Widget _dateField(BuildContext context, {required String label}) {
+  Widget _dateField(
+    BuildContext context, {
+    required String label,
+    required ColorScheme colorScheme,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            color: Colors.grey,
+            color: colorScheme.onSurfaceVariant,
           ),
         ),
         const SizedBox(height: 8),
         GestureDetector(
-          onTap: () => _showDatePicker(context),
+          onTap: () => _showDatePicker(context, colorScheme),
           child: Container(
             margin: const EdgeInsets.only(bottom: 18),
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: Colors.black12),
-              color: Colors.grey.shade50,
+              border: Border.all(color: colorScheme.outline),
+              color: colorScheme.surfaceContainerLowest,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}",
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
+                    color: colorScheme.onSurface,
                   ),
                 ),
-                const Icon(Icons.calendar_month, color: Color(0xFF0046FF)),
+                Icon(Icons.calendar_month, color: colorScheme.primary),
               ],
             ),
           ),
@@ -257,9 +282,10 @@ class _SetReminderWidgetState extends State<SetReminderWidget> {
   // ---------------------------
 
   void _showBillSelection(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.white,
+      backgroundColor: colorScheme.surface, // Adaptive Sheet BG
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
       ),
@@ -268,19 +294,18 @@ class _SetReminderWidgetState extends State<SetReminderWidget> {
           mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(height: 10),
-            Container(
-              height: 4,
-              width: 40,
-              color: Colors.grey.shade300,
-            ), // Handle bar
+            Container(height: 4, width: 40, color: colorScheme.outlineVariant),
             ...bills.map((bill) {
               return ListTile(
                 title: Text(
                   bill,
-                  style: const TextStyle(fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: colorScheme.onSurface,
+                  ),
                 ),
                 trailing: bill == selectedBill
-                    ? const Icon(Icons.check_circle, color: Color(0xFF0046FF))
+                    ? Icon(Icons.check_circle, color: colorScheme.primary)
                     : null,
                 onTap: () {
                   setState(() => selectedBill = bill);
@@ -295,9 +320,10 @@ class _SetReminderWidgetState extends State<SetReminderWidget> {
   }
 
   void _showFrequency(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.white,
+      backgroundColor: colorScheme.surface,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
       ),
@@ -306,15 +332,18 @@ class _SetReminderWidgetState extends State<SetReminderWidget> {
           mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(height: 10),
-            Container(height: 4, width: 40, color: Colors.grey.shade300),
+            Container(height: 4, width: 40, color: colorScheme.outlineVariant),
             ...freqList.map((f) {
               return ListTile(
                 title: Text(
                   f,
-                  style: const TextStyle(fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: colorScheme.onSurface,
+                  ),
                 ),
                 trailing: f == frequency
-                    ? const Icon(Icons.check_circle, color: Color(0xFF0046FF))
+                    ? Icon(Icons.check_circle, color: colorScheme.primary)
                     : null,
                 onTap: () {
                   setState(() => frequency = f);
@@ -328,12 +357,12 @@ class _SetReminderWidgetState extends State<SetReminderWidget> {
     );
   }
 
-  void _showDatePicker(BuildContext context) {
+  void _showDatePicker(BuildContext context, ColorScheme colorScheme) {
     showCupertinoModalPopup(
       context: context,
       builder: (_) => Container(
         height: 300,
-        color: Colors.white,
+        color: colorScheme.surface, // Match Dark Mode Background
         child: Column(
           children: [
             // UX: Added a Done button bar
@@ -350,6 +379,8 @@ class _SetReminderWidgetState extends State<SetReminderWidget> {
               child: CupertinoDatePicker(
                 initialDateTime: selectedDate,
                 mode: CupertinoDatePickerMode.date,
+                // Optional: Force white background for picker if preferred
+                backgroundColor: colorScheme.surface,
                 onDateTimeChanged: (date) {
                   setState(() => selectedDate = date);
                 },
