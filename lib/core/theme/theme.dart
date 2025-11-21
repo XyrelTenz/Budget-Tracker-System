@@ -4,10 +4,17 @@ import 'package:google_fonts/google_fonts.dart';
 const Color _seedColor = Color(0xFF0046FF);
 
 final TextTheme _appTextTheme = TextTheme(
-  displayLarge: const TextStyle(fontSize: 72, fontWeight: FontWeight.bold),
-  titleLarge: GoogleFonts.oswald(fontSize: 30, fontStyle: FontStyle.italic),
-  bodyMedium: GoogleFonts.roboto(),
-  displaySmall: GoogleFonts.roboto(),
+  displayLarge: GoogleFonts.montserrat(
+    fontSize: 72,
+    fontWeight: FontWeight.bold,
+    letterSpacing: -1.5,
+  ),
+
+  titleLarge: GoogleFonts.montserrat(fontSize: 30, fontWeight: FontWeight.w600),
+
+  bodyMedium: GoogleFonts.openSans(fontSize: 16, height: 1.5),
+
+  displaySmall: GoogleFonts.openSans(fontSize: 12, fontWeight: FontWeight.w500),
 );
 
 final ThemeData lightTheme = ThemeData(
