@@ -1,14 +1,13 @@
-// features/transaction/data/transaction_model.dart
 import 'package:flutter/material.dart';
 
 class TransactionModel {
   final IconData icon;
   final String label;
   final String description;
-  final double amount; // Changed to double for math
+  final double amount;
   final String time;
   final String day;
-  final String type; // "Income" or "Expense"
+  final String type;
 
   TransactionModel({
     required this.icon,

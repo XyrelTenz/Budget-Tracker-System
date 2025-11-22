@@ -1,4 +1,3 @@
-// features/transaction/presentation/widgets/transaction_summary_card.dart
 import 'package:flutter/material.dart';
 
 class TransactionSummaryCard extends StatelessWidget {
