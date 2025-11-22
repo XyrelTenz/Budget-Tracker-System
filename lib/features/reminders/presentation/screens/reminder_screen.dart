@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import "package:smart_budget_ph/core/routes/app_routes.dart";
-import "package:go_router/go_router.dart";
+import 'package:go_router/go_router.dart';
+import 'package:smart_budget_ph/core/routes/app_routes.dart';
+import 'package:smart_budget_ph/features/reminders/domains/model/reminder_model.dart';
+import 'package:smart_budget_ph/features/reminders/presentation/widgets/reminder_tile.dart';
 
 class RemindersScreen extends StatelessWidget {
   const RemindersScreen({super.key});
@@ -10,134 +12,60 @@ class RemindersScreen extends StatelessWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
+    final reminders = [
+      ReminderModel(
+        title: "Car Loan",
+        amount: 600,
+        dueDate: DateTime.now().add(const Duration(days: 2)),
+        icon: Icons.directions_car,
+        color: Colors.blue,
+      ),
+      ReminderModel(
+        title: "House Rent",
+        amount: 1500,
+        dueDate: DateTime.now().add(const Duration(days: 5)),
+        icon: Icons.home,
+        color: Colors.orange,
+      ),
+      ReminderModel(
+        title: "Netflix",
+        amount: 15,
+        dueDate: DateTime.now().subtract(const Duration(days: 1)),
+        icon: Icons.movie,
+        color: Colors.red,
+      ), // Overdue example
+    ];
+
     return Scaffold(
       backgroundColor: colorScheme.surface,
       floatingActionButton: FloatingActionButton(
         backgroundColor: colorScheme.primary,
-        elevation: 3,
-        shape: const CircleBorder(),
-        onPressed: () {
-          context.go('${Routes.reminder}/${Routes.set}');
-        },
-        child: Icon(Icons.add, size: 32, color: colorScheme.onPrimary),
+        foregroundColor: colorScheme.onPrimary,
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        onPressed: () => context.go('${Routes.reminder}/${Routes.set}'),
+        child: const Icon(Icons.add),
       ),
+      // 1. Added SafeArea
       body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.only(
-            left: 20,
-            right: 20,
-            top: 20,
-            bottom: 80,
-          ),
-          children: [
-            _reminderItem(
-              title: "Bill Payments",
-              amount: "\$200",
-              reminderDate: "26 May 2024",
-              dueDate: "3 Jun 2024",
-              context: context,
-            ),
-            _reminderItem(
-              title: "Car Loan",
-              amount: "\$600",
-              reminderDate: "26 May 2024",
-              dueDate: "11 July 2024",
-              context: context,
-            ),
-            _reminderItem(
-              title: "Iphone 15 Pro",
-              amount: "\$1,000",
-              reminderDate: "26 May 2024",
-              dueDate: "3 Aug 2024",
-              context: context,
-            ),
-            _reminderItem(
-              title: "New Bike",
-              amount: "\$2,300",
-              reminderDate: "26 May 2024",
-              dueDate: "12 Sep 2024",
-              context: context,
-            ),
-            _reminderItem(
-              title: "House Rent",
-              amount: "\$1,500",
-              reminderDate: "28 May 2024",
-              dueDate: "15 Sep 2024",
-              context: context,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _reminderItem({
-    required String title,
-    required String amount,
-    required String reminderDate,
-    required String dueDate,
-    required BuildContext context,
-  }) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return Column(
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Left Section
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Reminder Date: $reminderDate",
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: colorScheme.onSurfaceVariant,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: colorScheme.onSurface,
-                    ),
-                  ),
-                  Text(
-                    amount,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: colorScheme.onSurface,
-                    ),
-                  ),
-                ],
+        child: CustomScrollView(
+          slivers: [
+            // 2. Removed SliverAppBar.large (This removes the title and huge top spacing)
+            SliverPadding(
+              // 3. Added small top padding for breathing room
+              padding: const EdgeInsets.only(top: 10, bottom: 20),
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  return ReminderTile(reminder: reminders[index], onTap: () {});
+                }, childCount: reminders.length),
               ),
             ),
 
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Icon(Icons.more_horiz, color: colorScheme.onSurfaceVariant),
-                const SizedBox(height: 14),
-                Text(
-                  "Due on\n$dueDate",
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: colorScheme.onSurfaceVariant,
-                  ),
-                ),
-              ],
-            ),
+            // Extra padding for FAB to not cover the last item
+            const SliverToBoxAdapter(child: SizedBox(height: 100)),
           ],
         ),
-        const SizedBox(height: 16),
-        Divider(color: colorScheme.outlineVariant.withValues(alpha: 0.5)),
-        const SizedBox(height: 16),
-      ],
+      ),
     );
   }
 }
