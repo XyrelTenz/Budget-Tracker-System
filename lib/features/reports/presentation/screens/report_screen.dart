@@ -31,7 +31,7 @@ class _ReportScreenState extends State<ReportScreen> {
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           children: [
-            // 1. Time Filter
+            // Time Filter
             TimeFilterSelector(
               selectedFilter: _selectedFilter,
               onFilterChanged: (newFilter) {
@@ -40,7 +40,7 @@ class _ReportScreenState extends State<ReportScreen> {
             ),
             const SizedBox(height: 20),
 
-            // 2. Summary Card
+            // Summary Card
             SpendingSummaryCard(
               totalSpend: totalSpend,
               previousSpend: previousSpend,
@@ -48,11 +48,11 @@ class _ReportScreenState extends State<ReportScreen> {
             ),
             const SizedBox(height: 24),
 
-            // 3. Trends Chart
+            // Trends Chart
             SpendingTrendChart(timeFilter: _selectedFilter),
             const SizedBox(height: 24),
 
-            // 4. Category Breakdown
+            // Category Breakdown
             const CategoryBreakdownCard(),
 
             const SizedBox(height: 40),
