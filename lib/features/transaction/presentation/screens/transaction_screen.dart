@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import "package:smart_budget_ph/features/transaction/data/transaction_model.dart";
+import "package:smart_budget_ph/features/transaction/presentation/widgets/transaction_item_tile.dart";
+import "package:smart_budget_ph/features/transaction/presentation/widgets/transaction_summary_card.dart";
+// 1. FIXED: Added the missing import for the SnackBar
+import "package:smart_budget_ph/features/transaction/presentation/widgets/add_modal.dart";
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import "package:smart_budget_ph/features/transaction/presentation/widgets/snack_bar_widgets.dart";
 
 class TransactionScreen extends StatefulWidget {
   const TransactionScreen({super.key});
@@ -12,407 +18,186 @@ class _TransactionScreenState extends State<TransactionScreen> {
   String _searchQuery = "";
   String _selectedTab = "All";
 
-  final List<TransactionModel> _allTransactions = [
-    TransactionModel(
-      icon: Icons.fastfood,
-      label: "Jollibee",
-      description: "Lunch",
-      amount: -120,
-      time: "11:23 AM",
-      day: "Today",
-      type: "Expense",
-    ),
-    TransactionModel(
-      icon: Icons.directions_car,
-      label: "Grab Ride",
-      description: "Transport",
-      amount: -60,
-      time: "9:40 AM",
-      day: "Today",
-      type: "Expense",
-    ),
-    TransactionModel(
-      icon: Icons.local_cafe,
-      label: "Starbucks",
-      description: "Coffee",
-      amount: -180,
-      time: "8:15 AM",
-      day: "Today",
-      type: "Expense",
-    ),
-    TransactionModel(
-      icon: Icons.attach_money,
-      label: "Salary",
-      description: "Company Salary",
-      amount: 12000,
-      time: "4:11 PM",
-      day: "Yesterday",
-      type: "Income",
-    ),
-    TransactionModel(
-      icon: Icons.shopping_bag,
-      label: "Grocery",
-      description: "Weekly supplies",
-      amount: -3500,
-      time: "6:30 PM",
-      day: "Yesterday",
-      type: "Expense",
-    ),
-  ];
+  // Load data
+  final List<TransactionModel> _allTransactions = TransactionModel.dummyData;
 
-  // Filter Logic
+  // Logic to Filter Data
   List<TransactionModel> get _filteredTransactions {
     return _allTransactions.where((tx) {
       if (_selectedTab != "All" && tx.type != _selectedTab) return false;
-
       if (_searchQuery.isEmpty) return true;
-      final query = _searchQuery.toLowerCase();
-      return tx.label.toLowerCase().contains(query) ||
-          tx.description.toLowerCase().contains(query);
+      return tx.label.toLowerCase().contains(_searchQuery.toLowerCase());
     }).toList();
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
+    final colorScheme = Theme.of(context).colorScheme;
 
     final groupedTransactions = <String, List<TransactionModel>>{};
     for (var tx in _filteredTransactions) {
-      if (!groupedTransactions.containsKey(tx.day)) {
-        groupedTransactions[tx.day] = <TransactionModel>[];
-      }
-      groupedTransactions[tx.day]!.add(tx);
+      groupedTransactions.putIfAbsent(tx.day, () => []).add(tx);
     }
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
+
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () async {
+          // Use the package function instead of showModalBottomSheet
+          final result = await showMaterialModalBottomSheet(
+            context: context,
+            expand: false, // false = wrap content height; true = full screen
+            enableDrag: true,
+            backgroundColor:
+                Colors.transparent, // Important: Lets your rounded corners show
+            builder: (context) => const AddTransactionModal(),
+          );
+
+          // Logic to handle the result remains the same
+          if (result == true) {
+            if (context.mounted) {
+              CustomSnackBar.show(
+                context,
+                message: "New expense added successfully!",
+              );
+            }
+          }
+        },
+        icon: const Icon(Icons.add),
+        label: const Text("Add New"),
+        backgroundColor: colorScheme.primary,
+        foregroundColor: colorScheme.onPrimary,
+      ),
+
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      style: TextStyle(color: colorScheme.onSurface),
-                      onChanged: (value) {
-                        setState(() {
-                          _searchQuery = value;
-                        });
-                      },
-                      decoration: InputDecoration(
-                        hintText: "Search transactions...",
-                        hintStyle: TextStyle(
-                          color: colorScheme.onSurfaceVariant,
-                        ),
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: colorScheme.onSurfaceVariant,
-                        ),
-                        filled: true,
-                        // Adaptive Search Fill
-                        fillColor: colorScheme.surfaceContainerLowest,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 12,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide.none,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide.none,
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(
-                            color: colorScheme.primary,
-                            width: 1,
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    // Search Bar
+                    _buildSearchBar(colorScheme),
+                    const SizedBox(height: 20),
+
+                    // Summary Card
+                    const TransactionSummaryCard(
+                      totalBalance: 12450.00,
+                      income: 20000.00,
+                      expense: -7550.00,
+                    ),
+                    const SizedBox(height: 20),
+
+                    // Filter Tabs
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          "All",
+                          "Income",
+                          "Expense",
+                        ].map((tab) => _buildTab(tab, colorScheme)).toList(),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            // Transaction List
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              sliver: groupedTransactions.isEmpty
+                  ? SliverToBoxAdapter(
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 50),
+                          child: Text(
+                            "No transactions found",
+                            style: TextStyle(
+                              color: colorScheme.onSurfaceVariant,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: colorScheme.surfaceContainerLowest,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: IconButton(
-                      icon: const Icon(Icons.filter_list),
-                      color: colorScheme.onSurfaceVariant,
-                      onPressed: () {},
-                    ),
-                  ),
-                ],
-              ),
+                    )
+                  : SliverList(
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        final day = groupedTransactions.keys.elementAt(index);
+                        final transactions = groupedTransactions[day]!;
 
-              const SizedBox(height: 20),
-
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  // Brand Blue
-                  color: colorScheme.primary,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: colorScheme.primary.withValues(alpha: 0.3),
-                      blurRadius: 10,
-                      offset: const Offset(0, 5),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Total Balances",
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: colorScheme.onPrimary.withValues(alpha: 0.8),
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      "₱12,450",
-                      style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        color: colorScheme.onPrimary,
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        _buildSummaryItem(
-                          "Income",
-                          "₱20,000",
-                          Icons.arrow_downward,
-                          Colors.greenAccent,
-                          colorScheme,
-                        ),
-                        _buildSummaryItem(
-                          "Expense",
-                          "₱7,550",
-                          Icons.arrow_upward,
-                          Colors.redAccent,
-                          colorScheme,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 20),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _buildTab("All", colorScheme),
-                  _buildTab("Income", colorScheme),
-                  _buildTab("Expense", colorScheme),
-                ],
-              ),
-
-              const SizedBox(height: 20),
-
-              Expanded(
-                child: _filteredTransactions.isEmpty
-                    ? Center(
-                        child: Text(
-                          "No transactions found",
-                          style: TextStyle(color: colorScheme.onSurfaceVariant),
-                        ),
-                      )
-                    : ListView(
-                        padding: const EdgeInsets.only(bottom: 20),
-                        children: groupedTransactions.entries.map((entry) {
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                entry.key,
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 8.0,
+                              ),
+                              child: Text(
+                                day,
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.bold,
-                                  color:
-                                      colorScheme.onSurface, // Adaptive Black
+                                  color: colorScheme.onSurfaceVariant,
+                                  letterSpacing: 1,
                                 ),
                               ),
-                              const SizedBox(height: 10),
-                              ...entry.value.map(
-                                (tx) => _transactionItem(tx, colorScheme),
-                              ),
-                              const SizedBox(height: 20),
-                            ],
-                          );
-                        }).toList(),
-                      ),
-              ),
-            ],
-          ),
+                            ),
+                            ...transactions.map(
+                              (tx) => TransactionItemTile(transaction: tx),
+                            ),
+                            const SizedBox(height: 12),
+                          ],
+                        );
+                      }, childCount: groupedTransactions.length),
+                    ),
+            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 80)),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildSummaryItem(
-    String label,
-    String amount,
-    IconData icon,
-    Color color,
-    ColorScheme colorScheme,
-  ) {
-    return Row(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(4),
-          decoration: BoxDecoration(
-            color: colorScheme.onPrimary.withValues(alpha: 0.2),
-            shape: BoxShape.circle,
-          ),
-          child: Icon(icon, color: color, size: 16),
+  Widget _buildSearchBar(ColorScheme colorScheme) {
+    return TextField(
+      onChanged: (value) => setState(() => _searchQuery = value),
+      decoration: InputDecoration(
+        hintText: "Search transactions...",
+        prefixIcon: const Icon(Icons.search),
+        filled: true,
+        // 3. FIXED: changed .withValues() to .withOpacity() for compatibility
+        fillColor: colorScheme.surfaceContainerHighest.withOpacity(0.5),
+        contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: BorderSide.none,
         ),
-        const SizedBox(width: 8),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              label,
-              style: TextStyle(
-                color: colorScheme.onPrimary.withValues(alpha: 0.8),
-                fontSize: 12,
-              ),
-            ),
-            Text(
-              amount,
-              style: TextStyle(
-                color: colorScheme.onPrimary,
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-              ),
-            ),
-          ],
-        ),
-      ],
+      ),
     );
   }
 
   Widget _buildTab(String text, ColorScheme colorScheme) {
-    bool active = _selectedTab == text;
-    return GestureDetector(
-      onTap: () => setState(() => _selectedTab = text),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
-        decoration: BoxDecoration(
-          color: active
-              ? colorScheme.primary
-              : colorScheme.surfaceContainerHighest,
-          borderRadius: BorderRadius.circular(20),
+    final isActive = _selectedTab == text;
+    return Padding(
+      padding: const EdgeInsets.only(right: 8.0),
+      child: ChoiceChip(
+        label: Text(text),
+        selected: isActive,
+        onSelected: (bool selected) {
+          setState(() {
+            _selectedTab = text;
+          });
+        },
+        selectedColor: colorScheme.primary,
+        labelStyle: TextStyle(
+          color: isActive ? colorScheme.onPrimary : colorScheme.onSurface,
+          fontWeight: FontWeight.bold,
         ),
-        child: Text(
-          text,
-          style: TextStyle(
-            // Active: White, Inactive: Grey
-            color: active
-                ? colorScheme.onPrimary
-                : colorScheme.onSurfaceVariant,
-            fontWeight: FontWeight.bold,
-            fontSize: 14,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _transactionItem(TransactionModel tx, ColorScheme colorScheme) {
-    bool isExpense = tx.amount < 0;
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: colorScheme.surfaceContainer,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.03),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-        border: Border.all(
-          color: colorScheme.outlineVariant.withValues(alpha: 0.5),
-        ),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              // Icon Background
-              color: colorScheme.surface,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Icon(tx.icon, color: colorScheme.onSurface),
-          ),
-          const SizedBox(width: 12),
-
-          // TEXT
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  tx.label,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: colorScheme.onSurface,
-                  ),
-                ),
-                Text(
-                  tx.description,
-                  style: TextStyle(
-                    color: colorScheme.onSurfaceVariant,
-                    fontSize: 13,
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          // AMOUNT + TIME
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                isExpense ? "-\$${tx.amount.abs()}" : "+\$${tx.amount}",
-                style: TextStyle(
-                  color: isExpense ? colorScheme.error : Colors.green,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
-              Text(
-                tx.time,
-                style: TextStyle(
-                  color: colorScheme.onSurfaceVariant,
-                  fontSize: 12,
-                ),
-              ),
-            ],
-          ),
-        ],
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        showCheckmark: false,
       ),
     );
   }
