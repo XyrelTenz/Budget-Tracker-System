@@ -10,23 +10,21 @@ class AddTransactionModal extends StatefulWidget {
 class _AddTransactionModalState extends State<AddTransactionModal> {
   final _amountController = TextEditingController();
   final _descriptionController = TextEditingController();
-  String _selectedType = "Expense"; // Default
+  String _selectedType = "Expense";
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    // Check for keyboard visibility to adjust padding
     final keyboardSpace = MediaQuery.of(context).viewInsets.bottom;
 
     return Container(
-      height: double.infinity, // Fill height for scrollable content
+      height: double.infinity,
       decoration: BoxDecoration(
         color: colorScheme.surface,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
       ),
       child: Column(
         children: [
-          // 1. Drag Handle (Visual cue)
           Container(
             margin: const EdgeInsets.only(top: 10, bottom: 20),
             width: 40,
@@ -37,7 +35,7 @@ class _AddTransactionModalState extends State<AddTransactionModal> {
             ),
           ),
 
-          // 2. The Form Content
+          // Form Content
           Expanded(
             child: SingleChildScrollView(
               padding: EdgeInsets.fromLTRB(24, 0, 24, keyboardSpace + 24),
@@ -83,8 +81,9 @@ class _AddTransactionModalState extends State<AddTransactionModal> {
                     decoration: InputDecoration(
                       prefixText: "₱ ",
                       filled: true,
-                      fillColor: colorScheme.surfaceContainerHighest
-                          .withOpacity(0.3),
+                      fillColor: colorScheme.surfaceContainerHighest.withValues(
+                        alpha: 0.3,
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
                         borderSide: BorderSide.none,
@@ -104,8 +103,9 @@ class _AddTransactionModalState extends State<AddTransactionModal> {
                     decoration: InputDecoration(
                       hintText: "e.g. Jollibee Lunch",
                       filled: true,
-                      fillColor: colorScheme.surfaceContainerHighest
-                          .withOpacity(0.3),
+                      fillColor: colorScheme.surfaceContainerHighest.withValues(
+                        alpha: 0.3,
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
                         borderSide: BorderSide.none,
@@ -121,7 +121,7 @@ class _AddTransactionModalState extends State<AddTransactionModal> {
                     height: 55,
                     child: FilledButton(
                       onPressed: () {
-                        // Close modal and return true (indicating success)
+                        // Close modal and return true
                         Navigator.pop(context, true);
                       },
                       style: FilledButton.styleFrom(
@@ -159,8 +159,8 @@ class _AddTransactionModalState extends State<AddTransactionModal> {
         padding: const EdgeInsets.symmetric(vertical: 14),
         decoration: BoxDecoration(
           color: isSelected
-              ? activeColor.withOpacity(0.1)
-              : colorScheme.surfaceContainerHighest.withOpacity(0.3),
+              ? activeColor.withValues(alpha: 0.1)
+              : colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
           border: Border.all(
             color: isSelected ? activeColor : Colors.transparent,
             width: 2,
