@@ -1,6 +1,5 @@
-// features/transaction/presentation/widgets/transaction_item_tile.dart
 import 'package:flutter/material.dart';
-import '../../data/transaction_model.dart';
+import 'package:smart_budget_ph/features/transaction/data/transaction_model.dart';
 
 class TransactionItemTile extends StatelessWidget {
   final TransactionModel transaction;
