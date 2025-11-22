@@ -42,7 +42,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
     return Scaffold(
       backgroundColor: colorScheme.surface,
 
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: FloatingActionButton(
         onPressed: () async {
           final result = await showMaterialModalBottomSheet(
             context: context,
@@ -52,7 +52,6 @@ class _TransactionScreenState extends State<TransactionScreen> {
             builder: (context) => const AddTransactionModal(),
           );
 
-          // Logic to handle the result remains the same
           if (result == true) {
             if (context.mounted) {
               CustomSnackBar.show(
@@ -62,12 +61,10 @@ class _TransactionScreenState extends State<TransactionScreen> {
             }
           }
         },
-        icon: const Icon(Icons.add),
-        label: const Text("Add New"),
         backgroundColor: colorScheme.primary,
         foregroundColor: colorScheme.onPrimary,
+        child: const Icon(Icons.add),
       ),
-
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
