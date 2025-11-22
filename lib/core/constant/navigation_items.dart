@@ -1,16 +1,5 @@
-import 'package:flutter/material.dart';
-
-class Destination {
-  const Destination({
-    required this.label,
-    required this.icon,
-    required this.selectedIcon,
-  });
-
-  final String label;
-  final IconData icon;
-  final IconData selectedIcon;
-}
+import "package:flutter/material.dart";
+import "package:smart_budget_ph/core/constant/model/destination_model.dart";
 
 const destinations = <Destination>[
   Destination(
