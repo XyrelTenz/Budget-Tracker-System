@@ -46,13 +46,10 @@ class RemindersScreen extends StatelessWidget {
         onPressed: () => context.go('${Routes.reminder}/${Routes.set}'),
         child: const Icon(Icons.add),
       ),
-      // 1. Added SafeArea
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            // 2. Removed SliverAppBar.large (This removes the title and huge top spacing)
             SliverPadding(
-              // 3. Added small top padding for breathing room
               padding: const EdgeInsets.only(top: 10, bottom: 20),
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate((context, index) {
@@ -61,7 +58,6 @@ class RemindersScreen extends StatelessWidget {
               ),
             ),
 
-            // Extra padding for FAB to not cover the last item
             const SliverToBoxAdapter(child: SizedBox(height: 100)),
           ],
         ),
