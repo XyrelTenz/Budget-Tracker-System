@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import "package:smart_budget_ph/core/routes/app_routes.dart";
 
 class SecurityPrivacyScreen extends ConsumerWidget {
   const SecurityPrivacyScreen({super.key});
@@ -29,7 +30,11 @@ class SecurityPrivacyScreen extends ConsumerWidget {
             context,
             icon: Icons.lock,
             title: "Change Password",
-            onTap: () {},
+            onTap: () {
+              context.go(
+                "${Routes.account}/${Routes.securityprivacy}/${Routes.changepassword}",
+              );
+            },
           ),
           _buildSecurityItem(
             context,

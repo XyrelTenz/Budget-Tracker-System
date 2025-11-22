@@ -22,6 +22,9 @@ class Routes {
   static const String editprofile = 'edit';
   static const String exportdata = 'exportdata';
   static const String notificationsettings = 'notificationsettings';
+  //SecuriyPrivacy
   static const String securityprivacy = 'securityprivacy';
+  static const String changepassword = 'changepassword';
+
   static const String categories = 'categories';
 }

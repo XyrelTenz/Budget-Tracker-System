@@ -19,7 +19,9 @@ import "package:smart_budget_ph/features/accounts/presentation/screens/categorie
 import "package:smart_budget_ph/features/accounts/presentation/screens/edit_profile_screen.dart";
 import "package:smart_budget_ph/features/accounts/presentation/screens/export_data_screen.dart";
 import "package:smart_budget_ph/features/accounts/presentation/screens/notification_settings_screen.dart";
+//SecurityPrivacyScreen
 import "package:smart_budget_ph/features/accounts/presentation/screens/security_privacy_screen.dart";
+import "package:smart_budget_ph/features/accounts/presentation/screens/change_password_screen.dart";
 
 // Helpers
 import 'package:smart_budget_ph/core/routes/app_routes.dart';
@@ -117,6 +119,13 @@ final GoRouter router = GoRouter(
                   path: Routes.securityprivacy,
                   builder: (BuildContext context, GoRouterState state) =>
                       const SecurityPrivacyScreen(),
+                  routes: [
+                    GoRoute(
+                      path: Routes.changepassword,
+                      builder: (BuildContext context, GoRouterState state) =>
+                          const ChangePasswordScreen(),
+                    ),
+                  ],
                 ),
                 GoRoute(
                   path: Routes.categories,
