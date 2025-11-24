@@ -126,7 +126,6 @@ final GoRouter router = GoRouter(
                       builder: (BuildContext context, GoRouterState state) =>
                           const ChangePasswordScreen(),
                     ),
-
                     GoRoute(
                       path: Routes.managdevices,
                       builder: (BuildContext context, GoRouterState state) =>

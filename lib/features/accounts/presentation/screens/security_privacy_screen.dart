@@ -47,7 +47,11 @@ class SecurityPrivacyScreen extends ConsumerWidget {
             context,
             icon: Icons.devices,
             title: "Manage Devices",
-            onTap: () {},
+            onTap: () {
+              context.go(
+                "${Routes.account}/${Routes.securityprivacy}/${Routes.managdevices}",
+              );
+            },
           ),
           const SizedBox(height: 40),
           TextButton(
