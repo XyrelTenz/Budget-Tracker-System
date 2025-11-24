@@ -9,6 +9,8 @@ class Routes {
   static const String login = '/login';
   static const String register = '/register';
   static const String forgotpassword = '/forgotpassword';
+  static const String pincode = '/pincode';
+  static const String setpin = '/setpin';
 
   // Main Tab Routes
   static const String home = '/home';

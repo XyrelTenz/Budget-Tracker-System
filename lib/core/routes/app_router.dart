@@ -8,6 +8,8 @@ import "package:smart_budget_ph/features/onboarding/presentation/screens/splash_
 import "package:smart_budget_ph/features/auth/presentation/screens/login_screen.dart";
 import "package:smart_budget_ph/features/auth/presentation/screens/signup_screen.dart";
 import "package:smart_budget_ph/features/auth/presentation/screens/forgot_password_screen.dart";
+import "package:smart_budget_ph/features/auth/presentation/screens/pin_code_screen.dart";
+import "package:smart_budget_ph/features/auth/presentation/screens/set_pin_screen.dart";
 
 //Home Screens
 import "package:smart_budget_ph/features/home/presentation/screens/home_screen.dart";
@@ -83,6 +85,26 @@ final GoRouter router = GoRouter(
             context: context,
             state: state,
             child: const ForgotPasswordScreen(),
+          ),
+    ),
+
+    GoRoute(
+      path: Routes.pincode,
+      pageBuilder: (BuildContext context, GoRouterState state) =>
+          buildPageWithDefaultTransition<dynamic>(
+            context: context,
+            state: state,
+            child: const PinCodeScreen(),
+          ),
+    ),
+
+    GoRoute(
+      path: Routes.setpin,
+      pageBuilder: (BuildContext context, GoRouterState state) =>
+          buildPageWithDefaultTransition<dynamic>(
+            context: context,
+            state: state,
+            child: const SetPinScreen(),
           ),
     ),
 

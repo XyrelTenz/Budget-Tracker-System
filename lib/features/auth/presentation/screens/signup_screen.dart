@@ -48,7 +48,7 @@ class _SignupScreenState extends State<SignupScreen> {
     if (!mounted) return;
 
     // Navigate to Home or Verify Email screen
-    context.go(Routes.home);
+    context.go(Routes.setpin);
   }
 
   @override
@@ -257,7 +257,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                       color: colorScheme.onSurfaceVariant,
                                     ),
                                     prefixIcon: Icon(
-                                      Icons.lock_clock_sharp, // Distinct icon
+                                      Icons.lock_clock_sharp,
                                       color: colorScheme.onSurfaceVariant,
                                     ),
                                     suffixIcon: IconButton(
@@ -381,7 +381,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               ),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  context.go(Routes.login);
+                                  context.go(Routes.setpin);
                                 },
                             ),
                           ],

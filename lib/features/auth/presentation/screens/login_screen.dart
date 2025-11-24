@@ -32,8 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (!mounted) return;
 
-    // Navigate to Home
-    context.go(Routes.home);
+    context.go(Routes.pincode);
   }
 
   @override
