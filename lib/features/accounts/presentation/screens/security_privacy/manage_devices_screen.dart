@@ -11,7 +11,6 @@ class ManageDevicesScreen extends ConsumerStatefulWidget {
 }
 
 class _ManageDevicesScreenState extends ConsumerState<ManageDevicesScreen> {
-  // Mock Data for UI demonstration
   final List<Map<String, dynamic>> _otherDevices = [
     {
       "name": "MacBook Air M2",

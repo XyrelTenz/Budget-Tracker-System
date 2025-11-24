@@ -37,8 +37,7 @@ class _ChangePasswordState extends ConsumerState<ChangePasswordScreen> {
     final textTheme = theme.textTheme;
 
     return Scaffold(
-      backgroundColor:
-          colorScheme.surfaceContainerLow, // Matches your AccountScreen bg
+      backgroundColor: colorScheme.surfaceContainerLow,
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(
@@ -46,7 +45,7 @@ class _ChangePasswordState extends ConsumerState<ChangePasswordScreen> {
             size: 20,
             color: colorScheme.onSurface,
           ),
-          onPressed: () => context.pop(), // Using GoRouter pop
+          onPressed: () => context.pop(),
         ),
         title: Text(
           "Security",
@@ -62,12 +61,10 @@ class _ChangePasswordState extends ConsumerState<ChangePasswordScreen> {
           child: ListView(
             padding: const EdgeInsets.all(20),
             children: <Widget>[
-              // 1. Visual Header (Lock Icon)
               _buildHeader(colorScheme),
 
               const SizedBox(height: 30),
 
-              // 2. Section Title
               Padding(
                 padding: const EdgeInsets.only(left: 8, bottom: 10),
                 child: Text(
@@ -79,7 +76,6 @@ class _ChangePasswordState extends ConsumerState<ChangePasswordScreen> {
                 ),
               ),
 
-              // 3. Form Container (Adaptive Card Style)
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
@@ -202,8 +198,6 @@ class _ChangePasswordState extends ConsumerState<ChangePasswordScreen> {
       ),
     );
   }
-
-  // --- Helper Widgets ---
 
   Widget _buildHeader(ColorScheme colorScheme) {
     return Center(
