@@ -9,12 +9,12 @@ class AccountScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-    final textTheme = theme.textTheme;
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
 
-    final currentThemeMode = ref.watch(themeProvider);
-    final isDarkMode = currentThemeMode == ThemeMode.dark;
+    final ThemeMode currentThemeMode = ref.watch<ThemeMode>(themeProvider);
+    final bool isDarkMode = currentThemeMode == ThemeMode.dark;
 
     return Scaffold(
       backgroundColor: colorScheme.surfaceContainerLow,
