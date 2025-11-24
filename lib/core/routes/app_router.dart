@@ -21,7 +21,7 @@ import "package:smart_budget_ph/features/accounts/presentation/screens/export_da
 import "package:smart_budget_ph/features/accounts/presentation/screens/notification_settings_screen.dart";
 //SecurityPrivacyScreen
 import "package:smart_budget_ph/features/accounts/presentation/screens/security_privacy_screen.dart";
-import "package:smart_budget_ph/features/accounts/presentation/screens/change_password_screen.dart";
+import "package:smart_budget_ph/features/accounts/presentation/screens/security_privacy/change_password_screen.dart";
 
 // Helpers
 import 'package:smart_budget_ph/core/routes/app_routes.dart';
