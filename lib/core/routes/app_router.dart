@@ -4,8 +4,12 @@ import 'package:go_router/go_router.dart';
 // Screens
 import "package:smart_budget_ph/features/onboarding/presentation/screens/onboarding_screen.dart";
 import "package:smart_budget_ph/features/onboarding/presentation/screens/splash_screen.dart";
+//Authentiaction
 import "package:smart_budget_ph/features/auth/presentation/screens/login_screen.dart";
 import "package:smart_budget_ph/features/auth/presentation/screens/signup_screen.dart";
+import "package:smart_budget_ph/features/auth/presentation/screens/forgot_password_screen.dart";
+
+//Home Screens
 import "package:smart_budget_ph/features/home/presentation/screens/home_screen.dart";
 import "package:smart_budget_ph/features/transaction/presentation/screens/transaction_screen.dart";
 import "package:smart_budget_ph/features/reports/presentation/screens/report_screen.dart";
@@ -70,6 +74,16 @@ final GoRouter router = GoRouter(
         state: state,
         child: const SignupScreen(),
       ),
+    ),
+
+    GoRoute(
+      path: Routes.forgotpassword,
+      pageBuilder: (BuildContext context, GoRouterState state) =>
+          buildPageWithDefaultTransition<dynamic>(
+            context: context,
+            state: state,
+            child: const ForgotPasswordScreen(),
+          ),
     ),
 
     StatefulShellRoute.indexedStack(

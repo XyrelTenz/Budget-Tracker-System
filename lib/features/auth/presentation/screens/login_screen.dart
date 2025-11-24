@@ -13,15 +13,38 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  bool _isPasswordVisible = false;
+  bool _isLoading = false;
+
+  Future<void> _handleLogin() async {
+    FocusScope.of(context).unfocus();
+
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    // Simulate network delay
+    await Future.delayed(const Duration(seconds: 2));
+
+    if (!mounted) return;
+
+    // Navigate to Home
+    context.go(Routes.home);
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final borderRadius = BorderRadius.circular(15.0);
 
     return Scaffold(
-      // 1. Adaptive Background
       backgroundColor: colorScheme.surface,
-      resizeToAvoidBottomInset: true,
+      extendBodyBehindAppBar: true,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -29,8 +52,8 @@ class _LoginScreenState extends State<LoginScreen> {
               hasScrollBody: false,
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 20,
+                  horizontal: 24,
+                  vertical: 24,
                 ),
                 child: Column(
                   children: <Widget>[
@@ -38,26 +61,28 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          // Header Image
                           Container(
+                            constraints: const BoxConstraints(maxHeight: 200),
                             padding: const EdgeInsets.symmetric(vertical: 20),
                             alignment: Alignment.center,
-                            child: AspectRatio(
-                              aspectRatio: 16 / 9,
-                              child: Image.asset(
-                                "assets/login.png",
-                                fit: BoxFit.contain,
-                              ),
+                            child: Image.asset(
+                              "assets/login.png",
+                              fit: BoxFit.contain,
                             ),
                           ),
-                          const SizedBox(height: 20),
+
+                          const SizedBox(height: 30),
+
+                          // Login Form
                           Form(
                             key: _formKey,
                             child: Column(
-                              spacing: 15,
+                              spacing: 16,
                               children: <Widget>[
-                                // --- USERNAME FIELD ---
+                                // Username Field
                                 TextFormField(
-                                  // Adaptive Text Color
+                                  textInputAction: TextInputAction.next,
                                   style: TextStyle(
                                     color: colorScheme.onSurface,
                                   ),
@@ -65,63 +90,58 @@ class _LoginScreenState extends State<LoginScreen> {
                                     hintText: 'Username',
                                     hintStyle: TextStyle(
                                       fontSize: 15,
-                                      color: colorScheme
-                                          .onSurfaceVariant, // Adaptive Grey
+                                      color: colorScheme.onSurfaceVariant,
                                     ),
                                     prefixIcon: Icon(
                                       Icons.person_outline_rounded,
                                       color: colorScheme.onSurfaceVariant,
                                     ),
-                                    // 2. Adaptive Input Borders
                                     enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
+                                      borderRadius: borderRadius,
                                       borderSide: BorderSide(
-                                        width: 1,
-                                        color: colorScheme
-                                            .outline, // Standard grey outline
+                                        color: colorScheme.outline,
                                       ),
                                     ),
                                     focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
+                                      borderRadius: borderRadius,
                                       borderSide: BorderSide(
-                                        color: colorScheme
-                                            .primary, // Your Brand Blue
-                                        width: 1,
+                                        color: colorScheme.primary,
+                                        width: 2,
                                       ),
                                     ),
                                     errorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
+                                      borderRadius: borderRadius,
                                       borderSide: BorderSide(
                                         color: colorScheme.error,
-                                        width: 1,
                                       ),
                                     ),
                                     focusedErrorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
+                                      borderRadius: borderRadius,
                                       borderSide: BorderSide(
                                         color: colorScheme.error,
-                                        width: 1,
+                                        width: 2,
                                       ),
                                     ),
                                     filled: true,
-                                    // 3. Adaptive Fill Color (Light Grey in Light, Dark Grey in Dark)
                                     fillColor:
                                         colorScheme.surfaceContainerLowest,
                                   ),
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
-                                      return 'Please enter your email';
+                                      return 'Please enter your username';
                                     }
                                     return null;
                                   },
                                 ),
 
-                                // --- PASSWORD FIELD ---
+                                // Password Field
                                 TextFormField(
+                                  textInputAction: TextInputAction.done,
+                                  onFieldSubmitted: (_) => _handleLogin(),
                                   style: TextStyle(
                                     color: colorScheme.onSurface,
                                   ),
-                                  obscureText: true,
+                                  obscureText: !_isPasswordVisible,
                                   decoration: InputDecoration(
                                     hintText: 'Password',
                                     hintStyle: TextStyle(
@@ -132,32 +152,44 @@ class _LoginScreenState extends State<LoginScreen> {
                                       Icons.lock_outline_rounded,
                                       color: colorScheme.onSurfaceVariant,
                                     ),
+                                    suffixIcon: IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          _isPasswordVisible =
+                                              !_isPasswordVisible;
+                                        });
+                                      },
+                                      icon: Icon(
+                                        _isPasswordVisible
+                                            ? Icons.visibility_outlined
+                                            : Icons.visibility_off_outlined,
+                                        color: colorScheme.onSurfaceVariant,
+                                      ),
+                                    ),
                                     enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
+                                      borderRadius: borderRadius,
                                       borderSide: BorderSide(
-                                        width: 1,
                                         color: colorScheme.outline,
                                       ),
                                     ),
                                     focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
+                                      borderRadius: borderRadius,
                                       borderSide: BorderSide(
                                         color: colorScheme.primary,
-                                        width: 1,
+                                        width: 2,
                                       ),
                                     ),
                                     errorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
+                                      borderRadius: borderRadius,
                                       borderSide: BorderSide(
                                         color: colorScheme.error,
-                                        width: 1,
                                       ),
                                     ),
                                     focusedErrorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
+                                      borderRadius: borderRadius,
                                       borderSide: BorderSide(
                                         color: colorScheme.error,
-                                        width: 1,
+                                        width: 2,
                                       ),
                                     ),
                                     filled: true,
@@ -168,51 +200,73 @@ class _LoginScreenState extends State<LoginScreen> {
                                     if (value == null || value.isEmpty) {
                                       return 'Please enter your password';
                                     }
+                                    if (value.length < 6) {
+                                      return 'Password must be at least 6 characters';
+                                    }
                                     return null;
                                   },
                                 ),
 
-                                // --- LOGIN BUTTON ---
-                                SizedBox(
-                                  width: double.infinity,
-                                  height: 50,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      elevation: 10,
-                                      backgroundColor:
-                                          colorScheme.primary, // Brand Blue
-                                      shadowColor: colorScheme.primary
-                                          .withValues(alpha: 0.5),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(
-                                          15.0,
-                                        ),
+                                // Forgot Password Link
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: TextButton(
+                                    onPressed: () =>
+                                        context.push(Routes.forgotpassword),
+                                    style: TextButton.styleFrom(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 8,
+                                        vertical: 4,
                                       ),
+                                      minimumSize: Size.zero,
+                                      tapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
                                     ),
-                                    onPressed: () {
-                                      if (_formKey.currentState!.validate()) {
-                                        context.go(Routes.home);
-                                      }
-                                    },
                                     child: Text(
-                                      "LOGIN",
+                                      "Forgot Password?",
                                       style: TextStyle(
-                                        color:
-                                            colorScheme.onPrimary, // White Text
-                                        fontWeight: FontWeight.bold,
+                                        color: colorScheme.primary,
+                                        fontWeight: FontWeight.w600,
                                       ),
                                     ),
                                   ),
                                 ),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    "Forgot Password?",
-                                    style: TextStyle(
-                                      color: colorScheme
-                                          .onSurfaceVariant, // Adaptive Grey
-                                      fontWeight: FontWeight.bold,
+
+                                const SizedBox(height: 10),
+
+                                // Login Button
+                                SizedBox(
+                                  width: double.infinity,
+                                  height: 54,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      elevation: 4,
+                                      backgroundColor: colorScheme.primary,
+                                      foregroundColor: colorScheme.onPrimary,
+                                      shadowColor: colorScheme.primary
+                                          .withValues(alpha: 0.4),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: borderRadius,
+                                      ),
                                     ),
+                                    onPressed: _isLoading ? null : _handleLogin,
+                                    child: _isLoading
+                                        ? SizedBox(
+                                            height: 24,
+                                            width: 24,
+                                            child: CircularProgressIndicator(
+                                              color: colorScheme.onPrimary,
+                                              strokeWidth: 2.5,
+                                            ),
+                                          )
+                                        : const Text(
+                                            "LOGIN",
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              letterSpacing: 1.2,
+                                            ),
+                                          ),
                                   ),
                                 ),
                               ],
@@ -222,22 +276,22 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
 
-                    // --- FOOTER ---
+                    // Footer
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 30),
                       child: Text.rich(
                         TextSpan(
                           text: 'Don\'t have an account? ',
                           style: TextStyle(
-                            fontSize: 16,
-                            color: colorScheme.onSurface, // Adapts to Dark Mode
+                            fontSize: 15,
+                            color: colorScheme.onSurfaceVariant,
                           ),
                           children: <TextSpan>[
                             TextSpan(
                               text: 'Register',
                               style: TextStyle(
-                                fontSize: 16,
-                                color: colorScheme.primary, // Brand Blue
+                                fontSize: 15,
+                                color: colorScheme.primary,
                                 fontWeight: FontWeight.bold,
                               ),
                               recognizer: TapGestureRecognizer()
