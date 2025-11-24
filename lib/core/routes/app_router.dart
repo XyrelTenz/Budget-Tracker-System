@@ -22,6 +22,7 @@ import "package:smart_budget_ph/features/accounts/presentation/screens/notificat
 //SecurityPrivacyScreen
 import "package:smart_budget_ph/features/accounts/presentation/screens/security_privacy_screen.dart";
 import "package:smart_budget_ph/features/accounts/presentation/screens/security_privacy/change_password_screen.dart";
+import "package:smart_budget_ph/features/accounts/presentation/screens/security_privacy/manage_devices_screen.dart";
 
 // Helpers
 import 'package:smart_budget_ph/core/routes/app_routes.dart';
@@ -124,6 +125,12 @@ final GoRouter router = GoRouter(
                       path: Routes.changepassword,
                       builder: (BuildContext context, GoRouterState state) =>
                           const ChangePasswordScreen(),
+                    ),
+
+                    GoRoute(
+                      path: Routes.managdevices,
+                      builder: (BuildContext context, GoRouterState state) =>
+                          const ManageDevicesScreen(),
                     ),
                   ],
                 ),

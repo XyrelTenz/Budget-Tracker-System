@@ -25,6 +25,7 @@ class Routes {
   //SecuriyPrivacy
   static const String securityprivacy = 'securityprivacy';
   static const String changepassword = 'changepassword';
+  static const String managdevices = 'managdevices';
 
   static const String categories = 'categories';
 }
