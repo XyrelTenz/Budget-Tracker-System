@@ -9,25 +9,26 @@ import "package:smart_budget_ph/features/auth/presentation/screens/signup_screen
 import "package:smart_budget_ph/features/home/presentation/screens/home_screen.dart";
 import "package:smart_budget_ph/features/transaction/presentation/screens/transaction_screen.dart";
 import "package:smart_budget_ph/features/reports/presentation/screens/report_screen.dart";
-//Reminders
+// Reminders
 import "package:smart_budget_ph/features/reminders/presentation/screens/reminder_screen.dart";
 import "package:smart_budget_ph/features/reminders/presentation/screens/set_reminder_screen.dart";
 
-//Accounts
+// Accounts
 import "package:smart_budget_ph/features/accounts/presentation/screens/account_screen.dart";
 import "package:smart_budget_ph/features/accounts/presentation/screens/categories_screen.dart";
 import "package:smart_budget_ph/features/accounts/presentation/screens/edit_profile_screen.dart";
 import "package:smart_budget_ph/features/accounts/presentation/screens/export_data_screen.dart";
 import "package:smart_budget_ph/features/accounts/presentation/screens/notification_settings_screen.dart";
-//SecurityPrivacyScreen
+// SecurityPrivacyScreen
 import "package:smart_budget_ph/features/accounts/presentation/screens/security_privacy_screen.dart";
 import "package:smart_budget_ph/features/accounts/presentation/screens/security_privacy/change_password_screen.dart";
 import "package:smart_budget_ph/features/accounts/presentation/screens/security_privacy/manage_devices_screen.dart";
 
 // Helpers
 import 'package:smart_budget_ph/core/routes/app_routes.dart';
+import "../utils/animation/transiation_page_animation.dart";
 
-//Navigation Widget
+// Navigation Widget
 import 'package:smart_budget_ph/core/widgets/main_wrapper.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -40,18 +41,37 @@ final GoRouter router = GoRouter(
       path: Routes.splash,
       builder: (context, state) => const SplashScreen(),
     ),
+
     GoRoute(
       path: Routes.onboarding,
-      builder: (context, state) => const OnboardingScreen(),
+      pageBuilder: (context, state) => CustomTransitionPage(
+        key: state.pageKey,
+        child: const OnboardingScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(opacity: animation, child: child);
+        },
+      ),
     ),
+
+    // Login: Slide from Right
     GoRoute(
       path: Routes.login,
-      builder: (context, state) => const LoginScreen(),
+      pageBuilder: (context, state) => buildPageWithDefaultTransition(
+        context: context,
+        state: state,
+        child: const LoginScreen(),
+      ),
     ),
+
     GoRoute(
       path: Routes.register,
-      builder: (context, state) => const SignupScreen(),
+      pageBuilder: (context, state) => buildPageWithDefaultTransition(
+        context: context,
+        state: state,
+        child: const SignupScreen(),
+      ),
     ),
+
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
         return NavigationWidget(navigationShell: navigationShell);
@@ -65,6 +85,7 @@ final GoRouter router = GoRouter(
             ),
           ],
         ),
+
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -73,6 +94,7 @@ final GoRouter router = GoRouter(
             ),
           ],
         ),
+
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -81,6 +103,7 @@ final GoRouter router = GoRouter(
             ),
           ],
         ),
+
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -89,54 +112,94 @@ final GoRouter router = GoRouter(
               routes: [
                 GoRoute(
                   path: Routes.set,
-                  builder: (context, state) => const SetReminderScreen(),
+                  pageBuilder: (context, state) =>
+                      buildPageWithDefaultTransition(
+                        context: context,
+                        state: state,
+                        child: const SetReminderScreen(),
+                        slideFromBottom: true,
+                      ),
                 ),
               ],
             ),
           ],
         ),
+
         StatefulShellBranch(
           routes: [
             GoRoute(
               path: Routes.account,
               builder: (context, state) => const AccountScreen(),
               routes: [
+                // Edit Profile
                 GoRoute(
                   path: Routes.editprofile,
-                  builder: (BuildContext context, state) =>
-                      const EditProfileScreen(),
+                  pageBuilder: (context, state) =>
+                      buildPageWithDefaultTransition(
+                        context: context,
+                        state: state,
+                        child: const EditProfileScreen(),
+                      ),
                 ),
+                // Export Data
                 GoRoute(
                   path: Routes.exportdata,
-                  builder: (BuildContext context, GoRouterState state) =>
-                      const ExportDataScreen(),
+                  pageBuilder: (context, state) =>
+                      buildPageWithDefaultTransition(
+                        context: context,
+                        state: state,
+                        child: const ExportDataScreen(),
+                      ),
                 ),
+                // Notifications
                 GoRoute(
                   path: Routes.notificationsettings,
-                  builder: (BuildContext context, GoRouterState state) =>
-                      const NotificationsSettingsScreen(),
+                  pageBuilder: (context, state) =>
+                      buildPageWithDefaultTransition(
+                        context: context,
+                        state: state,
+                        child: const NotificationsSettingsScreen(),
+                      ),
+                ),
+                // Categories
+                GoRoute(
+                  path: Routes.categories,
+                  pageBuilder: (context, state) =>
+                      buildPageWithDefaultTransition(
+                        context: context,
+                        state: state,
+                        child: const CategoriesScreen(),
+                      ),
                 ),
                 GoRoute(
                   path: Routes.securityprivacy,
-                  builder: (BuildContext context, GoRouterState state) =>
-                      const SecurityPrivacyScreen(),
+                  pageBuilder: (context, state) =>
+                      buildPageWithDefaultTransition(
+                        context: context,
+                        state: state,
+                        child: const SecurityPrivacyScreen(),
+                      ),
                   routes: [
+                    // Change Password (Nested)
                     GoRoute(
                       path: Routes.changepassword,
-                      builder: (BuildContext context, GoRouterState state) =>
-                          const ChangePasswordScreen(),
+                      pageBuilder: (context, state) =>
+                          buildPageWithDefaultTransition(
+                            context: context,
+                            state: state,
+                            child: const ChangePasswordScreen(),
+                          ),
                     ),
                     GoRoute(
                       path: Routes.managdevices,
-                      builder: (BuildContext context, GoRouterState state) =>
-                          const ManageDevicesScreen(),
+                      pageBuilder: (context, state) =>
+                          buildPageWithDefaultTransition(
+                            context: context,
+                            state: state,
+                            child: const ManageDevicesScreen(),
+                          ),
                     ),
                   ],
-                ),
-                GoRoute(
-                  path: Routes.categories,
-                  builder: (BuildContext context, GoRouterState state) =>
-                      const CategoriesScreen(),
                 ),
               ],
             ),
