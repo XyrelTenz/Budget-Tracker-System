@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import "package:smart_budget_ph/features/home/widgets/card_item_widget.dart";
 import "package:smart_budget_ph/features/home/widgets/savings_card.dart";
+import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,6 +11,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  DateTime now = DateTime.now();
   List<Map<String, dynamic>> items = [
     {'icon': Icons.savings, 'label': 'Savings', 'isSelected': true},
     {
@@ -64,15 +66,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Overview",
+                        "Welcome Back!",
                         style: textTheme.headlineMedium?.copyWith(
                           fontSize: 26,
                           fontWeight: FontWeight.bold,
-                          color: colorScheme.onSurface, // Adaptive Black/White
+                          color: colorScheme.onSurface,
                         ),
                       ),
                       Text(
-                        "Welcome back!",
+                        "11/25/2025".toString(),
                         style: textTheme.bodyMedium?.copyWith(
                           fontSize: 14,
                           color: colorScheme.onSurfaceVariant, // Adaptive Grey
