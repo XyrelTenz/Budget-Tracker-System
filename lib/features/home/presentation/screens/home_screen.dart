@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import "package:smart_budget_ph/features/home/widgets/card_item_widget.dart";
 import "package:smart_budget_ph/features/home/widgets/savings_card.dart";
-import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,7 +10,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  DateTime now = DateTime.now();
+  final DateTime now = DateTime.now();
+
   List<Map<String, dynamic>> items = [
     {'icon': Icons.savings, 'label': 'Savings', 'isSelected': true},
     {
@@ -45,13 +45,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Capture Theme
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final textTheme = theme.textTheme;
 
     return Scaffold(
-      // Adaptive Grey-ish Background
       backgroundColor: colorScheme.surfaceContainerLow,
       body: SafeArea(
         child: Column(
