@@ -12,7 +12,6 @@ class EditProfileScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        // Explicit Back Button
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => context.pop(),
