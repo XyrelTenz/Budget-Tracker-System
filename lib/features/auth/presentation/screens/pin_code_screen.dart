@@ -170,12 +170,14 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
   Widget _buildNumberRow(BuildContext context, List<String> numbers) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: numbers.map((num) => _buildNumberButton(context, num)).toList(),
+      children: numbers
+          .map<Widget>((String num) => _buildNumberButton(context, num))
+          .toList(),
     );
   }
 
   Widget _buildNumberButton(BuildContext context, String number) {
-    final theme = Theme.of(context);
+    final ThemeData theme = Theme.of(context);
 
     return InkWell(
       onTap: () => _onKeyPressed(number),

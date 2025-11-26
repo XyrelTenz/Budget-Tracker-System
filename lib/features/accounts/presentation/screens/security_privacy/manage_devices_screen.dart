@@ -11,15 +11,15 @@ class ManageDevicesScreen extends ConsumerStatefulWidget {
 }
 
 class _ManageDevicesScreenState extends ConsumerState<ManageDevicesScreen> {
-  final List<Map<String, dynamic>> _otherDevices = [
-    {
+  final List<Map<String, dynamic>> _otherDevices = <Map<String, dynamic>>[
+    <String, dynamic>{
       "name": "MacBook Air M2",
       "os": "macOS Sonoma",
       "location": "Cebu City, PH",
       "lastActive": "Active 2 hours ago",
       "type": Icons.laptop_mac_rounded,
     },
-    {
+    <String, dynamic>{
       "name": "Chrome on Windows",
       "os": "Windows 11",
       "location": "Davao City, PH",
@@ -30,9 +30,9 @@ class _ManageDevicesScreenState extends ConsumerState<ManageDevicesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-    final textTheme = theme.textTheme;
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
 
     return Scaffold(
       backgroundColor: colorScheme.surfaceContainerLow,
@@ -57,12 +57,10 @@ class _ManageDevicesScreenState extends ConsumerState<ManageDevicesScreen> {
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: <Widget>[
-            // 1. Header Illustration
             _buildHeader(colorScheme),
 
             const SizedBox(height: 30),
 
-            // 2. Current Device Section
             Padding(
               padding: const EdgeInsets.only(left: 8, bottom: 10),
               child: Text(
@@ -75,8 +73,8 @@ class _ManageDevicesScreenState extends ConsumerState<ManageDevicesScreen> {
             ),
             _buildDeviceCard(
               context,
-              name: "iPhone 15 Pro",
-              details: "iOS 17 • Pagadian City, PH",
+              name: "Infinix Note 50 Pro",
+              details: "Android 15  • Pagadian City, PH",
               status: "Active Now",
               icon: Icons.phone_iphone_rounded,
               isCurrent: true,
@@ -85,7 +83,6 @@ class _ManageDevicesScreenState extends ConsumerState<ManageDevicesScreen> {
 
             const SizedBox(height: 25),
 
-            // 3. Other Devices Section
             Padding(
               padding: const EdgeInsets.only(left: 8, bottom: 10),
               child: Text(
@@ -97,9 +94,8 @@ class _ManageDevicesScreenState extends ConsumerState<ManageDevicesScreen> {
               ),
             ),
 
-            // List of other devices
-            ..._otherDevices.map(
-              (device) => Padding(
+            ..._otherDevices.map<Widget>(
+              (Map<String, dynamic> device) => Padding(
                 padding: const EdgeInsets.only(bottom: 12),
                 child: _buildDeviceCard(
                   context,
@@ -110,7 +106,6 @@ class _ManageDevicesScreenState extends ConsumerState<ManageDevicesScreen> {
                   isCurrent: false,
                   colorScheme: colorScheme,
                   onRevoke: () {
-                    // Todo: Handle logic
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text("Logged out from ${device['name']}"),
@@ -123,13 +118,10 @@ class _ManageDevicesScreenState extends ConsumerState<ManageDevicesScreen> {
 
             const SizedBox(height: 30),
 
-            // 4. Sign Out All Action
             SizedBox(
               width: double.infinity,
               child: TextButton.icon(
-                onPressed: () {
-                  // TODO: Implement Sign Out All Logic
-                },
+                onPressed: () {},
                 icon: Icon(Icons.shield_outlined, color: colorScheme.error),
                 label: Text(
                   "Sign out all other devices",
@@ -172,7 +164,7 @@ class _ManageDevicesScreenState extends ConsumerState<ManageDevicesScreen> {
   Widget _buildHeader(ColorScheme colorScheme) {
     return Center(
       child: Column(
-        children: [
+        children: <Widget>[
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -235,8 +227,7 @@ class _ManageDevicesScreenState extends ConsumerState<ManageDevicesScreen> {
             : null,
       ),
       child: Row(
-        children: [
-          // Device Icon
+        children: <Widget>[
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
@@ -279,7 +270,7 @@ class _ManageDevicesScreenState extends ConsumerState<ManageDevicesScreen> {
                 ),
                 const SizedBox(height: 4),
                 Row(
-                  children: [
+                  children: <Widget>[
                     if (isCurrent)
                       Container(
                         margin: const EdgeInsets.only(right: 6),
@@ -308,7 +299,6 @@ class _ManageDevicesScreenState extends ConsumerState<ManageDevicesScreen> {
             ),
           ),
 
-          // Action Button (Only for other devices)
           if (!isCurrent)
             IconButton(
               onPressed: onRevoke,

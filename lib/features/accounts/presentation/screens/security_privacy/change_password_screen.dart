@@ -13,9 +13,9 @@ class _ChangePasswordState extends ConsumerState<ChangePasswordScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   // Controllers
-  final _currentPassController = TextEditingController();
-  final _newPassController = TextEditingController();
-  final _confirmPassController = TextEditingController();
+  final TextEditingController _currentPassController = TextEditingController();
+  final TextEditingController _newPassController = TextEditingController();
+  final TextEditingController _confirmPassController = TextEditingController();
 
   // Visibility
   bool _obscureCurrent = true;
@@ -32,9 +32,9 @@ class _ChangePasswordState extends ConsumerState<ChangePasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-    final textTheme = theme.textTheme;
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
 
     return Scaffold(
       backgroundColor: colorScheme.surfaceContainerLow,
@@ -45,7 +45,7 @@ class _ChangePasswordState extends ConsumerState<ChangePasswordScreen> {
             size: 20,
             color: colorScheme.onSurface,
           ),
-          onPressed: () => context.pop(),
+          onPressed: () => context.pop<Object?>(),
         ),
         title: Text(
           "Security",
@@ -81,7 +81,7 @@ class _ChangePasswordState extends ConsumerState<ChangePasswordScreen> {
                 decoration: BoxDecoration(
                   color: colorScheme.surfaceContainer,
                   borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
+                  boxShadow: <BoxShadow>[
                     BoxShadow(
                       color: Colors.black.withValues(alpha: 0.05),
                       blurRadius: 10,
@@ -91,7 +91,7 @@ class _ChangePasswordState extends ConsumerState<ChangePasswordScreen> {
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: <Widget>[
                     _buildPasswordField(
                       controller: _currentPassController,
                       label: "Current Password",
@@ -100,7 +100,7 @@ class _ChangePasswordState extends ConsumerState<ChangePasswordScreen> {
                       onToggleVisibility: () {
                         setState(() => _obscureCurrent = !_obscureCurrent);
                       },
-                      validator: (value) {
+                      validator: (String? value) {
                         if (value == null || value.isEmpty) return 'Required';
                         return null;
                       },
@@ -118,7 +118,7 @@ class _ChangePasswordState extends ConsumerState<ChangePasswordScreen> {
                       onToggleVisibility: () {
                         setState(() => _obscureNew = !_obscureNew);
                       },
-                      validator: (value) {
+                      validator: (String? value) {
                         if (value == null || value.length < 6) {
                           return 'Must be at least 6 characters';
                         }
@@ -167,7 +167,6 @@ class _ChangePasswordState extends ConsumerState<ChangePasswordScreen> {
                 child: TextButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // TODO: Implement update logic
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text("Password Updated!")),
                       );
@@ -175,8 +174,7 @@ class _ChangePasswordState extends ConsumerState<ChangePasswordScreen> {
                   },
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 16),
-                    backgroundColor:
-                        colorScheme.primary, // Primary color for action
+                    backgroundColor: colorScheme.primary,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
                     ),
@@ -202,7 +200,7 @@ class _ChangePasswordState extends ConsumerState<ChangePasswordScreen> {
   Widget _buildHeader(ColorScheme colorScheme) {
     return Center(
       child: Column(
-        children: [
+        children: <Widget>[
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -245,7 +243,7 @@ class _ChangePasswordState extends ConsumerState<ChangePasswordScreen> {
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: <Widget>[
         Text(
           label,
           style: TextStyle(

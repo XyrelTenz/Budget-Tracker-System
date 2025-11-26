@@ -51,7 +51,7 @@ class _SetPinScreenState extends State<SetPinScreen> {
   }
 
   void _switchToConfirmMode() async {
-    await Future.delayed(const Duration(milliseconds: 300));
+    await Future<dynamic>.delayed(const Duration(milliseconds: 300));
     setState(() {
       _firstPin = _enteredPin;
       _enteredPin = "";
@@ -62,9 +62,6 @@ class _SetPinScreenState extends State<SetPinScreen> {
   void _validateAndSave() async {
     if (_enteredPin == _firstPin) {
       HapticFeedback.mediumImpact();
-
-      // TODO: Save _enteredPin to Secure Storage
-
       if (!mounted) return;
       context.go(Routes.home);
     } else {
@@ -89,15 +86,15 @@ class _SetPinScreenState extends State<SetPinScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: <Widget>[
             const Spacer(flex: 2),
             AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
@@ -165,12 +162,12 @@ class _SetPinScreenState extends State<SetPinScreen> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 40),
               child: Column(
-                children: [
-                  _buildNumberRow(context, ["1", "2", "3"]),
+                children: <Widget>[
+                  _buildNumberRow(context, <String>["1", "2", "3"]),
                   const SizedBox(height: 20),
-                  _buildNumberRow(context, ["4", "5", "6"]),
+                  _buildNumberRow(context, <String>["4", "5", "6"]),
                   const SizedBox(height: 20),
-                  _buildNumberRow(context, ["7", "8", "9"]),
+                  _buildNumberRow(context, <String>["7", "8", "9"]),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -198,7 +195,9 @@ class _SetPinScreenState extends State<SetPinScreen> {
   Widget _buildNumberRow(BuildContext context, List<String> numbers) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: numbers.map((num) => _buildNumberButton(context, num)).toList(),
+      children: numbers
+          .map<Widget>((String num) => _buildNumberButton(context, num))
+          .toList(),
     );
   }
 
@@ -214,7 +213,9 @@ class _SetPinScreenState extends State<SetPinScreen> {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.3),
+          color: theme.colorScheme.surfaceContainerHighest.withValues(
+            alpha: 0.3,
+          ),
         ),
         child: Text(
           number,
