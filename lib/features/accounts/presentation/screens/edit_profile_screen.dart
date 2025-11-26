@@ -79,7 +79,7 @@ class EditProfileScreen extends ConsumerWidget {
           SizedBox(
             width: double.infinity,
             child: FilledButton(
-              onPressed: () => context.pop(),
+              onPressed: () => context.pop<Object?>(),
               style: FilledButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(
