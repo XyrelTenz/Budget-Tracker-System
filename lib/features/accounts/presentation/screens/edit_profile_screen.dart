@@ -7,14 +7,14 @@ class EditProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
 
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.pop(),
+          onPressed: () => context.pop<Object?>(),
         ),
         title: Text(
           'Edit Profile',
@@ -24,10 +24,10 @@ class EditProfileScreen extends ConsumerWidget {
       ),
       body: ListView(
         padding: const EdgeInsets.all(20),
-        children: [
+        children: <Widget>[
           Center(
             child: Stack(
-              children: [
+              children: <Widget>[
                 CircleAvatar(
                   radius: 50,
                   backgroundColor: colorScheme.primaryContainer,
