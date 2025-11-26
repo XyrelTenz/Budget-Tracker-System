@@ -41,7 +41,7 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
   }
 
   Future<void> _verifyPin() async {
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future<dynamic>.delayed(const Duration(milliseconds: 500));
 
     if (!mounted) return;
 
@@ -67,15 +67,15 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: <Widget>[
             const Spacer(flex: 2),
             Icon(
               Icons.lock_outline_rounded,
@@ -126,12 +126,12 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 40),
               child: Column(
-                children: [
-                  _buildNumberRow(context, ["1", "2", "3"]),
+                children: <Widget>[
+                  _buildNumberRow(context, <String>["1", "2", "3"]),
                   const SizedBox(height: 20),
-                  _buildNumberRow(context, ["4", "5", "6"]),
+                  _buildNumberRow(context, <String>["4", "5", "6"]),
                   const SizedBox(height: 20),
-                  _buildNumberRow(context, ["7", "8", "9"]),
+                  _buildNumberRow(context, <String>["7", "8", "9"]),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -186,7 +186,9 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.3),
+          color: theme.colorScheme.surfaceContainerHighest.withValues(
+            alpha: 0.3,
+          ),
         ),
         child: Text(
           number,
