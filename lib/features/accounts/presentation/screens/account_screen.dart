@@ -21,7 +21,7 @@ class AccountScreen extends ConsumerWidget {
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(20),
-          children: [
+          children: <Widget>[
             _buildProfileHeader(colorScheme),
 
             const SizedBox(height: 30),
@@ -38,10 +38,9 @@ class AccountScreen extends ConsumerWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                // Adaptive Card Color
                 color: colorScheme.surfaceContainer,
                 borderRadius: BorderRadius.circular(16),
-                boxShadow: [
+                boxShadow: <BoxShadow>[
                   BoxShadow(
                     color: Colors.black.withValues(alpha: 0.05),
                     blurRadius: 10,
@@ -50,7 +49,7 @@ class AccountScreen extends ConsumerWidget {
                 ],
               ),
               child: Column(
-                children: [
+                children: <Widget>[
                   _buildMenuItem(
                     icon: Icons.person_outline,
                     color: Colors.blue,
@@ -121,7 +120,7 @@ class AccountScreen extends ConsumerWidget {
                 ],
               ),
               child: Column(
-                children: [
+                children: <Widget>[
                   _buildMenuItem(
                     icon: Icons.lock_outline,
                     color: Colors.pink,
@@ -154,7 +153,7 @@ class AccountScreen extends ConsumerWidget {
                       vertical: 8,
                     ),
                     child: Row(
-                      children: [
+                      children: <Widget>[
                         Container(
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
@@ -242,14 +241,14 @@ class AccountScreen extends ConsumerWidget {
 
   Widget _buildProfileHeader(ColorScheme colorScheme) {
     return Column(
-      children: [
+      children: <Widget>[
         Stack(
-          children: [
+          children: <Widget>[
             Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(color: colorScheme.surface, width: 4),
-                boxShadow: [
+                boxShadow: <BoxShadow>[
                   BoxShadow(
                     color: Colors.black.withValues(alpha: 0.1),
                     blurRadius: 10,
