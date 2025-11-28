@@ -10,18 +10,28 @@ CustomTransitionPage buildPageWithDefaultTransition<T>({
   return CustomTransitionPage<T>(
     key: state.pageKey,
     child: child,
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      // (1.0, 0.0) = Right to Left
-      // (0.0, 1.0) = Bottom to Top
-      final begin = slideFromBottom
-          ? const Offset(0.0, 1.0)
-          : const Offset(1.0, 0.0);
-      const end = Offset.zero;
-      const curve = Curves.easeInOut;
+    transitionsBuilder:
+        (
+          BuildContext context,
+          Animation<double> animation,
+          Animation<double> secondaryAnimation,
+          Widget child,
+        ) {
+          final Offset begin = slideFromBottom
+              ? const Offset(0.0, 1.0)
+              : const Offset(1.0, 0.0);
+          const Offset end = Offset.zero;
+          const Cubic curve = Curves.easeInOut;
 
-      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          Animatable<Offset> tween = Tween<Offset>(
+            begin: begin,
+            end: end,
+          ).chain(CurveTween(curve: curve));
 
-      return SlideTransition(position: animation.drive(tween), child: child);
-    },
+          return SlideTransition(
+            position: animation.drive<Offset>(tween),
+            child: child,
+          );
+        },
   );
 }
