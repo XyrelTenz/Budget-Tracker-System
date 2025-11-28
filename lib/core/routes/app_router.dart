@@ -45,37 +45,46 @@ final GoRouter router = GoRouter(
   routes: <RouteBase>[
     GoRoute(
       path: Routes.splash,
-      builder: (context, state) => const SplashScreen(),
+      builder: (BuildContext context, GoRouterState state) =>
+          const SplashScreen(),
     ),
 
     GoRoute(
       path: Routes.onboarding,
-      pageBuilder: (context, state) => CustomTransitionPage(
-        key: state.pageKey,
-        child: const OnboardingScreen(),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(opacity: animation, child: child);
-        },
-      ),
+      pageBuilder: (BuildContext context, GoRouterState state) =>
+          CustomTransitionPage<dynamic>(
+            key: state.pageKey,
+            child: const OnboardingScreen(),
+            transitionsBuilder:
+                (
+                  BuildContext context,
+                  Animation<double> animation,
+                  Animation<double> secondaryAnimation,
+                  Widget child,
+                ) {
+                  return FadeTransition(opacity: animation, child: child);
+                },
+          ),
     ),
 
-    // Login: Slide from Right
     GoRoute(
       path: Routes.login,
-      pageBuilder: (context, state) => buildPageWithDefaultTransition(
-        context: context,
-        state: state,
-        child: const LoginScreen(),
-      ),
+      pageBuilder: (BuildContext context, GoRouterState state) =>
+          buildPageWithDefaultTransition<dynamic>(
+            context: context,
+            state: state,
+            child: const LoginScreen(),
+          ),
     ),
 
     GoRoute(
       path: Routes.register,
-      pageBuilder: (context, state) => buildPageWithDefaultTransition(
-        context: context,
-        state: state,
-        child: const SignupScreen(),
-      ),
+      pageBuilder: (BuildContext context, GoRouterState state) =>
+          buildPageWithDefaultTransition<dynamic>(
+            context: context,
+            state: state,
+            child: const SignupScreen(),
+          ),
     ),
 
     GoRoute(
@@ -109,43 +118,52 @@ final GoRouter router = GoRouter(
     ),
 
     StatefulShellRoute.indexedStack(
-      builder: (context, state, navigationShell) {
-        return NavigationWidget(navigationShell: navigationShell);
-      },
-      branches: [
+      builder:
+          (
+            BuildContext context,
+            GoRouterState state,
+            StatefulNavigationShell navigationShell,
+          ) {
+            return NavigationWidget(navigationShell: navigationShell);
+          },
+      branches: <StatefulShellBranch>[
         StatefulShellBranch(
-          routes: [
+          routes: <RouteBase>[
             GoRoute(
               path: Routes.home,
-              builder: (context, state) => const HomeScreen(),
+              builder: (BuildContext context, GoRouterState state) =>
+                  const HomeScreen(),
             ),
           ],
         ),
 
         StatefulShellBranch(
-          routes: [
+          routes: <RouteBase>[
             GoRoute(
               path: Routes.transaction,
-              builder: (context, state) => const TransactionScreen(),
+              builder: (BuildContext context, GoRouterState state) =>
+                  const TransactionScreen(),
             ),
           ],
         ),
 
         StatefulShellBranch(
-          routes: [
+          routes: <RouteBase>[
             GoRoute(
               path: Routes.report,
-              builder: (context, state) => const ReportScreen(),
+              builder: (BuildContext context, GoRouterState state) =>
+                  const ReportScreen(),
             ),
           ],
         ),
 
         StatefulShellBranch(
-          routes: [
+          routes: <RouteBase>[
             GoRoute(
               path: Routes.reminder,
-              builder: (context, state) => const RemindersScreen(),
-              routes: [
+              builder: (BuildContext context, GoRouterState state) =>
+                  const RemindersScreen(),
+              routes: <RouteBase>[
                 GoRoute(
                   path: Routes.set,
                   pageBuilder: (context, state) =>
@@ -162,16 +180,16 @@ final GoRouter router = GoRouter(
         ),
 
         StatefulShellBranch(
-          routes: [
+          routes: <RouteBase>[
             GoRoute(
               path: Routes.account,
-              builder: (context, state) => const AccountScreen(),
-              routes: [
-                // Edit Profile
+              builder: (BuildContext context, GoRouterState state) =>
+                  const AccountScreen(),
+              routes: <RouteBase>[
                 GoRoute(
                   path: Routes.editprofile,
-                  pageBuilder: (context, state) =>
-                      buildPageWithDefaultTransition(
+                  pageBuilder: (BuildContext context, GoRouterState state) =>
+                      buildPageWithDefaultTransition<dynamic>(
                         context: context,
                         state: state,
                         child: const EditProfileScreen(),
@@ -180,8 +198,8 @@ final GoRouter router = GoRouter(
                 // Export Data
                 GoRoute(
                   path: Routes.exportdata,
-                  pageBuilder: (context, state) =>
-                      buildPageWithDefaultTransition(
+                  pageBuilder: (BuildContext context, GoRouterState state) =>
+                      buildPageWithDefaultTransition<dynamic>(
                         context: context,
                         state: state,
                         child: const ExportDataScreen(),
@@ -190,8 +208,8 @@ final GoRouter router = GoRouter(
                 // Notifications
                 GoRoute(
                   path: Routes.notificationsettings,
-                  pageBuilder: (context, state) =>
-                      buildPageWithDefaultTransition(
+                  pageBuilder: (BuildContext context, GoRouterState state) =>
+                      buildPageWithDefaultTransition<dynamic>(
                         context: context,
                         state: state,
                         child: const NotificationsSettingsScreen(),
@@ -200,8 +218,8 @@ final GoRouter router = GoRouter(
                 // Categories
                 GoRoute(
                   path: Routes.categories,
-                  pageBuilder: (context, state) =>
-                      buildPageWithDefaultTransition(
+                  pageBuilder: (BuildContext context, GoRouterState state) =>
+                      buildPageWithDefaultTransition<dynamic>(
                         context: context,
                         state: state,
                         child: const CategoriesScreen(),
