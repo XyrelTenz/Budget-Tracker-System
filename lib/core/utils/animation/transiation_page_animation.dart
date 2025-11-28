@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 
-CustomTransitionPage buildPageWithDefaultTransition<T>({
+CustomTransitionPage<dynamic> buildPageWithDefaultTransition<T>({
   required BuildContext context,
   required GoRouterState state,
   required Widget child,
