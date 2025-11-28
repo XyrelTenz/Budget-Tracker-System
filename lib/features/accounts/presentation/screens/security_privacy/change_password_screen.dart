@@ -48,7 +48,7 @@ class _ChangePasswordState extends ConsumerState<ChangePasswordScreen> {
           onPressed: () => context.pop<Object?>(),
         ),
         title: Text(
-          "Security",
+          "Change Password",
           style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
@@ -144,19 +144,6 @@ class _ChangePasswordState extends ConsumerState<ChangePasswordScreen> {
                       },
                     ),
                   ],
-                ),
-              ),
-
-              const SizedBox(height: 10),
-
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Text(
-                  "Use at least 6 characters with a mix of letters, numbers & symbols.",
-                  style: textTheme.bodySmall?.copyWith(
-                    color: colorScheme.onSurfaceVariant,
-                  ),
-                  textAlign: TextAlign.center,
                 ),
               ),
 
