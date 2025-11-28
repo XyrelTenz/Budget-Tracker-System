@@ -61,8 +61,6 @@ class _ChangePasswordState extends ConsumerState<ChangePasswordScreen> {
           child: ListView(
             padding: const EdgeInsets.all(20),
             children: <Widget>[
-              _buildHeader(colorScheme),
-
               const SizedBox(height: 30),
 
               Padding(
@@ -183,44 +181,7 @@ class _ChangePasswordState extends ConsumerState<ChangePasswordScreen> {
       ),
     );
   }
-
-  Widget _buildHeader(ColorScheme colorScheme) {
-    return Center(
-      child: Column(
-        children: <Widget>[
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              Icons.lock_reset_rounded,
-              size: 48,
-              color: colorScheme.primary,
-            ),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            "Create New Password",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: colorScheme.onSurface,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            "Your new password must be different\nfrom previously used passwords.",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 14, color: colorScheme.onSurfaceVariant),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildPasswordField({
+    Widget _buildPasswordField({
     required TextEditingController controller,
     required String label,
     required ColorScheme colorScheme,
