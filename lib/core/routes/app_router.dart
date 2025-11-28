@@ -209,22 +209,22 @@ final GoRouter router = GoRouter(
                 ),
                 GoRoute(
                   path: Routes.securityprivacy,
-                  pageBuilder: (context, state) =>
-                      buildPageWithDefaultTransition(
+                  pageBuilder: (BuildContext context, GoRouterState state) =>
+                      buildPageWithDefaultTransition<dynamic>(
                         context: context,
                         state: state,
                         child: const SecurityPrivacyScreen(),
                       ),
-                  routes: [
-                    // Change Password (Nested)
+                  routes: <RouteBase>[
                     GoRoute(
                       path: Routes.changepassword,
-                      pageBuilder: (context, state) =>
-                          buildPageWithDefaultTransition(
-                            context: context,
-                            state: state,
-                            child: const ChangePasswordScreen(),
-                          ),
+                      pageBuilder:
+                          (BuildContext context, GoRouterState state) =>
+                              buildPageWithDefaultTransition<dynamic>(
+                                context: context,
+                                state: state,
+                                child: const ChangePasswordScreen(),
+                              ),
                     ),
                     GoRoute(
                       path: Routes.managdevices,
