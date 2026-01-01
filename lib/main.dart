@@ -8,6 +8,7 @@ import "core/routes/app_router.dart";
 import "core/theme/theme_provider.dart";
 
 void main() {
+  //IInitialize Widget Before Render
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const ProviderScope(child: MyApp()));
