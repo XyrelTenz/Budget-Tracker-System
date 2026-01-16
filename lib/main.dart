@@ -13,6 +13,7 @@ void main() {
   //Initialize Widget Before Render
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  // Apply RiverPod State Management
   runApp(const ProviderScope(child: MyApp()));
 }
 
